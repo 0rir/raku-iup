@@ -20,26 +20,27 @@ Installation
 You will need the Linux libraries `libiup` and `libiupimglib` installed
 in order to use perl6-IUP (version 3). You can download the library binaries
 or sources for your platform from [here][5].
+Make sure that IUP header files can be seen by `gcc` i.e. `/usr/include`
 
 To install with the Zef tool.
 
 	zef update
 	zef install IUP
 
-To run a script that uses the IUP library.
-
-	PERL6LIB=$HOME/.perl6/2013.02.1/lib LD_LIBRARY_PATH=$HOME/.perl6/2013.02.1/lib ./hello.p6
-
 Synopsis
 --------
 WARNING: This module is Work in Progress and is in a early stage, which means:
 this interface is not final. This will perhaps change in the future.  
+
+This is currently running on Linux Only.  
+
 A sample of the code can be seen below.
 
 <p align="center">
 <img src="https://raw.github.com/mrhdias/perl6-IUP/master/examples/images/widgets.png" alt="Hello World IUP Application"/>
 </p>
 
+```Perl6
 	use IUP;
 
 	my @argv = ("Test");
@@ -99,7 +100,7 @@ A sample of the code can be seen below.
 	sub exit_callback() returns Int {
 		return IUP_CLOSE;
 	}
-
+```
 Author
 ------
 Henrique Dias <mrhdias@gmail.com>

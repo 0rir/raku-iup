@@ -6,8 +6,4 @@ use Test;
 
 plan 1;
 
-use IUP;
-
-ok 1, 'IUP is loaded successfully';
-
-done-testing;
+use-ok 'IUP', 'IUP is loaded successfully';

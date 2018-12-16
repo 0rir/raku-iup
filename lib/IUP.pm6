@@ -1,16 +1,6 @@
 use NativeCall;
-use LibraryMake;
 
-sub libname($lib) {
-	given get-vars('')<SO> {
-		when '.so' { return "$lib.so" }         # Linux
-		when '.bundle' { return "$lib.dylib" }  # Mac OS
-		default { return $lib }
-	}
-};
-
-sub LOCAL_LIB() { return libname("IUP"); }
-
+sub LOCAL_LIB() { return %?RESOURCES<lib/IUP.so>.Str}
 #
 # Callback Return Values
 #
@@ -55,7 +45,7 @@ class IUP::Pixmap {
 class IUP::Callback is repr('CPointer') {}
 
 class IUP::Handle is repr('CPointer') {
-	
+
 	sub p6IupNewChildrenList(int32)
 		returns OpaquePointer is native(LOCAL_LIB) { ... };
 
@@ -80,10 +70,10 @@ class IUP::Handle is repr('CPointer') {
 
 	sub IupAppend(IUP::Handle $ih, IUP::Handle $child)
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
-	
+
 	sub IupInsert(IUP::Handle $ih, IUP::Handle $ref_child, IUP::Handle $child)
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
-	
+
 	sub IupGetChild(IUP::Handle, int32)
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
 
@@ -109,7 +99,7 @@ class IUP::Handle is repr('CPointer') {
 
 	sub IupHide(IUP::Handle)
 		returns int32 is native(LOCAL_LIB) { ... };
-	
+
 	sub IupMap(IUP::Handle)
 		returns int32 is native(LOCAL_LIB) { ... };
 
@@ -129,7 +119,7 @@ class IUP::Handle is repr('CPointer') {
 
 	sub IupGetAttributes(IUP::Handle)
 		returns Str is native(LOCAL_LIB) { ... };
-		
+
 	sub IupGetInt(IUP::Handle, Str)
 		returns int32 is native(LOCAL_LIB) { ... };
 
@@ -152,7 +142,7 @@ class IUP::Handle is repr('CPointer') {
 
 	sub IupFill()
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
-		
+
 	sub p6IupVbox(IUP::Handle)
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
 
@@ -166,7 +156,7 @@ class IUP::Handle is repr('CPointer') {
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
 
 	###
-	
+
 	sub IupFrame(IUP::Handle $child)
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
 
@@ -182,7 +172,7 @@ class IUP::Handle is repr('CPointer') {
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
 
 	###
-	
+
 	sub p6IupItem(Str, Str)
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
 
@@ -197,7 +187,7 @@ class IUP::Handle is repr('CPointer') {
 
 	sub IupMenuv(OpaquePointer)
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
-	
+
 	###
 
 	sub p6IupButton(Str $title, Str $action)
@@ -211,7 +201,7 @@ class IUP::Handle is repr('CPointer') {
 
 	sub IupLabel(Str)
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
-	
+
 	sub p6IupText(Str $action)
 		returns IUP::Handle is native(LOCAL_LIB) { ... };
 
@@ -219,13 +209,13 @@ class IUP::Handle is repr('CPointer') {
 
 	sub IupMessage(Str $title, Str $message)
 		is native(LOCAL_LIB) { ... };
-	
+
 	### METHODS ###
 
 	method destroy() {
 		IupDestroy(self);
 	}
-	
+
 	method append(IUP::Handle $child) {
 		return IupAppend(self, $child);
 	}
@@ -241,7 +231,7 @@ class IUP::Handle is repr('CPointer') {
 	method get_next_child(IUP::Handle $child) {
 		return IupGetNextChild(self, $child);
 	}
-	
+
 	method get_parent() {
 		return IupGetParent(self);
 	}
@@ -279,7 +269,7 @@ class IUP::Handle is repr('CPointer') {
 		#IupSetAttribute(self, $name, $value);
 		IupStoreAttribute(self, $name, $value);
 	}
-	
+
 	# numeric keys
 	multi method set_attributes(*@attributes) {
 		my Str @tmp = ();
@@ -328,21 +318,21 @@ class IUP::Handle is repr('CPointer') {
 		}
 		return self;
 	}
-	
+
 	###
 
 	method set_handle(Str $name) {
 		return IupSetHandle($name, self);
 	}
-	
+
 	###
-	
+
 	method set_attribute_handle(Str $name, IUP::Handle $ih_named) {
 		IupSetAttributeHandle(self, $name, $ih_named);
 	}
 
 	###
-	
+
 	method fill() {
 		return IupFill();
 	}
@@ -394,7 +384,7 @@ class IUP::Handle is repr('CPointer') {
 	###
 
 	method frame($child) {
-		return IupFrame($child);	
+		return IupFrame($child);
 	}
 
 	###
@@ -428,7 +418,7 @@ class IUP::Handle is repr('CPointer') {
 
 	method menuv(*@child) {
 		my $n = @child.elems;
-		if $n > 1 {	
+		if $n > 1 {
 			my $list = p6IupNewChildrenList($n);
 			my $pos = 0;
 			for @child -> $c {
@@ -465,13 +455,13 @@ class IUP::Handle is repr('CPointer') {
 	method label(Str $str) {
 		return IupLabel($str);
 	}
-	
+
 	method text(Str $action) {
 		return p6IupText($action);
 	}
-	
+
 	###
-	
+
 	method message(Str $title, Str $message) {
 		IupMessage($title, $message);
 	}
@@ -543,11 +533,11 @@ class IUP is IUP::Handle {
 	#method loop_step(Bool $wait = False) {
 		#return $wait ?? IupLoopStepWait() !! IupLoopStep();
 	#}
-	
+
 	#method main_loop_level() {
 		#return IupMainLoopLevel();
 	#}
-	
+
 	#method flush() {
 		#IupFlush();
 	#}
@@ -555,9 +545,9 @@ class IUP is IUP::Handle {
 	#method exit_loop() {
 		#IupExitLoop();
 	#}
-	
+
 	###
-	
+
 	method set_language($language) {
 		IupSetLanguage($language);
 	}

@@ -23,8 +23,8 @@ class Build {
 		shell($c_line);
 		shell($l_line);
 		shell("rm src/$name$o");
-		shell("mkdir -p blib/lib");
-		shell("cp src/$name$so blib/lib");
+		shell("mkdir -p resources/lib");
+		shell("cp src/$name$so resources/lib");
+    shell("rm src/$name$so");
     }
 }
-
