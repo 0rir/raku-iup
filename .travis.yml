@@ -14,5 +14,7 @@ install:
   - tar xvzf libiup.tar.gz
   - echo | sudo bash install
   - echo | sudo bash install_dev
+  - cd ..
   - rakudobrew build zef
+  - zef --depsonly install .
   - zef --debug install .
