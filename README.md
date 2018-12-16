@@ -6,7 +6,7 @@ Perl 6 interface to the IUP toolkit for building GUI's.
 
 Description
 -----------
-Perl 6 interface to the [IUP][2] toolkit. [IUP][2] is a multi-platform toolkit for
+Perl 6 interface to the [IUP][2] toolkit. [IUP][2] is a multi-platform toolkit for 
 building graphical user interfaces. IUP's purpose is to allow a program
 source code to be compiled in different systems without any modification.
 Its main advantages are:
