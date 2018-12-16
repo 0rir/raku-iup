@@ -17,9 +17,9 @@ my $lib-opts = "-Wl,--no-as-needed -liup -liupimglib";
 class Build {
     method build(|) {
 		my $c_line = "$cc -c $ccshared {$ccout}src/$name$o "
-						~ "$ccflags src/$name.c";
+						~ "$ccflags src/$name.c -I/usr/include/iup";
 		my $l_line = "$ld $ldshared $ldflags "
-						~ "$libs $lib-opts {$ldout}src/$name$so src/$name$o";
+						~ "$libs $lib-opts {$ldout}src/$name$so src/$name$o -I/usr/include/iup";
 		shell($c_line);
 		shell($l_line);
 		shell("rm src/$name$o");
