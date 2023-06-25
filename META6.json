@@ -1,15 +1,17 @@
 {
-	"perl" : "6.*",
+	"raku" : "6.*",
 	"name" : "IUP",
 	"version" : "0.0.2",
-	"description" : "Perl 6 interface to the IUP toolkit for building GUI's",
+	"description" : "Raku interface to the IUP toolkit for building GUI's",
 	"license" : "Artistic-2.0",
 	"provides": {
-		"IUP": "lib/IUP.pm6"
+		"IUP": "lib/IUP.rakumod",
+		"IUP::Colors": "lib/IUP/Colors.rakumod"
 	},
 	"resources": [ "lib/IUP.so"],
 	"author" : "Henrique Dias",
+	"blame" : "Robert Ransbottom",
 	"depends" : [ "LibraryMake" ],
 	"source-type" : "git",
-	"source-url" : "git://github.com/hankache/perl6-IUP.git"
+	"source-url" : "git://github.com/0rir/raku-iup.git"
 }

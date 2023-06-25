@@ -1,10 +1,10 @@
-Perl 6 IUP ![IUP Logo](logotype/logo_32x32.png)
+Raku IUP ![IUP Logo](logotype/logo_32x32.png)
 =========
-Perl 6 interface to the IUP toolkit for building GUI's.
+Raku interface to the IUP toolkit for building GUI's.
 
 | Operating System  |   Build Status  |
 | ----------------- | --------------- |
-| Linux		    | [![Build Status](https://travis-ci.org/hankache/perl6-IUP.svg?branch=master)](https://travis-ci.org/hankache/perl6-IUP)  |
+| Linux		    | None |
 
 Description
 -----------
@@ -29,7 +29,7 @@ Get the IUP library and install it:
 	sudo bash install_dev
 	cd ..
 
-Install the Perl 6 module with Zef:
+Install the Raku module with Zef:
 
 	zef update
 	zef install IUP
@@ -48,7 +48,7 @@ Sample GUI:
 
 Sample code:
 
-```Perl6
+```Raku
 use IUP;
 
 my @argv = ("Test");
@@ -109,21 +109,31 @@ sub exit_callback() returns Int {
 	return IUP_CLOSE;
 }
 ```
-Author
+Authors and Contributors
 ------
 Henrique Dias <mrhdias@gmail.com>
+Naoum Hankache <naoum88@gmail.com>
+Tobias Leich <email@froggs.de>
+Zoffix Znet <cpan@zoffix.com>
+David Warring <david.warring@gmail.com>
+Robert Ransbottom <rirans@comcast.net>
+
+Blame
+------
+Robert Ransbottom, as I am changing the name of the distribution, the style of the code, and extending the coverage of the Tecgraf-Puc-rio C library.
+
 
 See Also
 --------
-* [Perl 6 IUP Module Documentation][1]
+* [Raku IUP Module Documentation][1]
 * [IUP Site][2]  
 * [IUP on SourceForge][3]
 
 License
 -------
 
-This library is free software; you can redistribute it and/or modify it under the same terms as Perl 6 itself.
+This library is free software; you can redistribute it and/or modify it under the same terms as Raku itself.
 
-[1]: lib/IUP.pod "Perl 6 IUP Module Documentation"
+[1]: lib/IUP.rakudoc "Raku IUP Module Documentation"
 [2]: http://www.tecgraf.puc-rio.br/iup/ "IUP - Portable User Interface"
 [3]: https://sourceforge.net/projects/iup/ "IUP Source Repository"
