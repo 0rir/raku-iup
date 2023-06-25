@@ -1,4 +1,9 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
+# :vim ft=raku sw=4 expandtab
+use v6.c;
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
+use IUP;
+
 
 sub MAIN ($filename = 'default.ppm') {
 	my $width = my $height = 125;

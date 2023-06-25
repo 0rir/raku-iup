@@ -1,10 +1,10 @@
 =head1 NAME
 
-Perl 6 interface to the IUP toolkit for building GUI's.
+Raku interface to the IUP toolkit for building GUI's.
 
 =head1 DESCRIPTION
 
-Perl 6 interface to the IUP toolkit. IUP is a multi-platform toolkit for
+Raku interface to the IUP toolkit. IUP is a multi-platform toolkit for
 building graphical user interfaces. IUP's purpose is to allow a program
 source code to be compiled in different systems without any modification.
 Its main advantages are:
@@ -14,7 +14,7 @@ Its main advantages are:
 * fast learning by the user, due to the simplicity of its API.
 
 You will need the Linux libraries `libiup` and `libiupimglib` installed
-in order to use perl6-IUP (version 3).
+in order to use raku-iup (version 3).
 You can download the library binaries or sources for your platform from here
 L<http://sourceforge.net/projects/iup/files/3.7/>.
 
@@ -36,7 +36,7 @@ L<http://sourceforge.net/projects/iup/files/3.7/>.
 
 =head1 API REFRENCE
 
-The perl6 API
+The Raku API
 
 =head1 AUTHOR
 
@@ -67,4 +67,4 @@ IUP Downloads L<http://sourceforge.net/projects/iup/files/3.7/>
 =head1 LICENSE
 
 This library is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+under the same terms as Raku itself.

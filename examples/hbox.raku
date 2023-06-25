@@ -1,14 +1,14 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
+# :vim ft=raku sw=4 expandtab
+use v6;
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
+use IUP;
 #
 # Creates a dialog with buttons placed side by side, with the purpose of
 # showing the organization possibilities of elements inside an hbox. The
 # "ALIGNMENT" attribute is explored in all its possibilities to obtain
 # the given effect.
 #
-
-use lib 'lib';
-
-use IUP;
 
 sub MAIN() {
 

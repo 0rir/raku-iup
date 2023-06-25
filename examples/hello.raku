@@ -1,7 +1,7 @@
-#!/usr/bin/env perl6
-
-use lib 'lib';
-
+#!/usr/bin/env raku
+# :vim ft=raku sw=4 expandtab
+use v6.c;
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 my @argv = ("Test");
