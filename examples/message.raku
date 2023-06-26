@@ -4,15 +4,14 @@ use v6.c;
 use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
-my $iup = IUP.new();
+my $iup = IUP.new;
 
-my @argv = ("Test");
-$iup.open(@argv);
+$iup.open;
 
-my $ih = IUP::Handle.new();
+my $ih = IUP::Handle.new;
 
 $ih.message("IupMessage Example", "Press the button");
 
-$iup.close();
+$iup.close;
 
-exit();
+exit;

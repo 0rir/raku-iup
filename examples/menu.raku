@@ -2,61 +2,59 @@
 # :vim ft=raku sw=4 expandtab
 use v6.c;
 use lib $?FILE.IO.cleanup.parent(2).add("lib");
+
 use IUP;
 
-my $iup = IUP.new();
+my $iup = IUP.new;
 
-#$iup.set_language("PORTUGUESE");
+$iup.set-language("PORTUGUESE");
 
-my @argv = ("Test Menu");
-$iup.open(@argv);
+my @argv;
+$iup.open;
 
-my $ih = IUP::Handle.new();
+my $ih = IUP::Handle.new;
 
-my $item_open = $ih.item("Open", "");
-$item_open.set_attribute("KEY", "O");
+my $item-open = $ih.item("Open", "");
+$item-open.set-attr("KEY", "O");
 
-my $item_save = $ih.item("Save", "");
-$item_save.set_attribute("KEY", "S");
+my $item-save = $ih.item("Save", "");
+$item-save.set-attribute("KEY", "S");
 
-my $item_undo = $ih.item("Undo", "");
-$item_undo.set_attribute("KEY", "U");
-$item_undo.set_attribute("ACTIVE", "NO");
+my $item-undo = $ih.item("Undo", "");
+$item-undo.set-attribute("KEY", "U");
+$item-undo.set-attribute("ACTIVE", "NO");
 
-my $item_exit = $ih.item("Exit", "");
-$item_exit.set_attribute("KEY", "x");
-$item_exit.set_callback("ACTION", &exit_cb);
+my $item-exit = $ih.item("Exit", "");
+$item-exit.set-attribute("KEY", "x");
+$item-exit.set-callback("ACTION", &exit-cb);
 
-my $file_menu = $ih.menu(
-	$item_open, 
-	$item_save, 
-	$ih.separator(),
-	$item_undo,
-	$item_exit);
+my $file-menu = $ih.menu(
+    $item-open,
+    $item-save,
+    $ih.separator,
+    $item-undo,
+    $item-exit);
 
-my $sub1_menu = $ih.submenu("File", $file_menu);
+my $sub1-menu = $ih.submenu("File", $file-menu);
 
-my $menu = $ih.menu($sub1_menu);
+my $menu = $ih.menu($sub1-menu);
 
-$menu.set_handle("mymenu");
+$menu.set-handle("mymenu");
 
 my $canvas = $ih.canvas("");
 my $dlg = $ih.dialog($canvas);
 
-$dlg.set_attribute("MENU", "mymenu");
+$dlg.set-attribute("MENU", "mymenu");
 
-$dlg.set_attribute("TITLE", "IupMenu");
-$dlg.set_attribute("SIZE", "200x100");
+$dlg.set-attribute("TITLE", "IupMenu");
+$dlg.set-attribute("SIZE", "200x100");
 
-$dlg.show();
+$dlg.show;
 
-$iup.main_loop();
+$iup.main-loop;
 
-$iup.close();
+$iup.close;
 
-exit();
+exit;
 
-
-sub exit_cb() returns Int {
-	return IUP_CLOSE;
-}
+sub exit-cb(-->Int) { IUP_CLOSE }

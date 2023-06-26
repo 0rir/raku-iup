@@ -264,17 +264,14 @@ class IUP::Handle is repr('CPointer') {
     ###
 
     method set_callback(Str $name, $func -->IUP::Callback) {
+        DEPRECATED('set-callback','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        self.set-callback( $name, $func)
+    }
+    method set-callback(Str $name, $func -->IUP::Callback) {
         my @params = $func.signature.params;
         given @params.elems {
-            when 0 {
-# TODO check refactor for correctness
-#return p6IupSetCallback_void(self, $name.fmt("%s").Str, $func);
-                      return p6IupSetCallback_void(self, $name.fmt, $func)
-            }
-            when 1 {
-#return p6IupSetCallback_handle(self, $name.fmt("%s").Str, $func);
-                      return p6IupSetCallback_handle(self, $name.fmt, $func)
-            }
+            when 0 { return p6IupSetCallback_void(  self, $name.fmt, $func) }
+            when 1 { return p6IupSetCallback_handle(self, $name.fmt, $func) }
             default { say "Error... no callback"  }
         }
     }
@@ -288,8 +285,11 @@ class IUP::Handle is repr('CPointer') {
 
     ###
 
-    method set_handle(Str $name -->Ihdle) { IupSetHandle($name, self) }
-
+    method set-handle(Str $name -->Ihdle) { IupSetHandle($name, self) }
+    method set_handle(Str $name -->Ihdle) {
+        DEPRECATED('main-loop','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupSetHandle($name, self)
+    }
     ###
 
     method set_attribute_handle(Str $name, Ihdle $ih_named -->Mu) {
@@ -472,7 +472,11 @@ class IUP is IUP::Handle {
 
     ###
 
-    method set_language(Str $language) { IupSetLanguage($language) }
+    method set-language(Str $language) { IupSetLanguage($language) }
+    method set_language(Str $language) {
+        DEPRECATED('set-language','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        self.set-language($language)
+    }
 
     method get_language( -->Str) { IupGetLanguage }
 }

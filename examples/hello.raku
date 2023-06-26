@@ -1,60 +1,49 @@
 #!/usr/bin/env raku
 # :vim ft=raku sw=4 expandtab
-use v6.c;
+use v6;
 use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
-my @argv = ("Test");
+my @argv;
 
-#
 # initialize iup
-#
+my $iup = IUP.new;
 
-my $iup = IUP.new();
+$iup.image_lib_open;
+$iup.open;
 
-$iup.image_lib_open();
-$iup.open(@argv);
-
-#
 # create widgets and set their attributes
-#
 my $btn = $iup.button("&Ok", "");
 
-$btn.set_callback("ACTION", &exit_callback);
+$btn.set-callback("ACTION", &exit_callback);
 
-$btn.set_attribute("IMAGE", "IUP_ActionOk");
-$btn.set_attribute("EXPAND", "YES");
-$btn.set_attribute("TIP", "Exit button");
+$btn.set-attr("IMAGE", "IUP_ActionOk");
+$btn.set-attr("EXPAND", "YES");
+$btn.set-attr("TIP", "Exit button");
 
 my $lbl = $iup.label("Hello, world!");
 
 my $vb = $iup.vbox($lbl, $btn);
-$vb.set_attribute("MARGIN", "10x10");
-$vb.set_attribute("GAP", "10");
-$vb.set_attribute("ALIGNMENT", "ACENTER");
+$vb.set-attr("MARGIN", "10x10");
+$vb.set-attr("GAP", "10");
+$vb.set-attr("ALIGNMENT", "ACENTER");
 
 my $dlg = $iup.dialog($vb);
-$dlg.set_attribute("TITLE", "Hello");
+$dlg.set-attr("TITLE", "Hello");
 
-#
 # Map widgets and show dialog
-#
 $dlg.show();
 
-#
 # Wait for user interaction
-#
-$iup.main_loop();
+$iup.main-loop;
 
-#
 # Clean up
-#
-$dlg.destroy();
+$dlg.destroy;
 
-$iup.close();
+$iup.close;
 
-exit();
+exit;
 
 sub exit_callback() returns Int {
-	return IUP_CLOSE;
+    return IUP_CLOSE;
 }

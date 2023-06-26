@@ -4,16 +4,13 @@ use v6.c;
 use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
-my $iup = IUP.new();
+my $iup = IUP.new;
 
-my @argv = ("Test");
-$iup.open(@argv);
+my @argv;
+$iup.open;
 
-$iup.dialog(
-	$iup.label("Hello, world!")
-).show();
+$iup.dialog( $iup.label("Hello, world!")).show();
 
-$iup.main_loop();
-$iup.close();
-
-exit();
+$iup.main-loop;
+$iup.close;
+exit;
