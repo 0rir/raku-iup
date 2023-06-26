@@ -107,8 +107,10 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupGetAttributes(Ihdle -->Str) is native(IUP_l) {*};
 
-    sub IupGetInt(Ihdle, Str -->int32) is native(IUP_l) {*};
+    sub IupGetGlobal( Str -->Str) is native(IUP_l) is export {*}
 
+    sub IupGetInt(Ihdle, Str -->int32) is native(IUP_l) {*};
+ 
     ###
 
     sub IupSetCallback(Ihdle, Str, IUP::Callback -->IUP::Callback)
@@ -238,6 +240,9 @@ class IUP::Handle is repr('CPointer') {
 
     method get_attributes( -->Str) { IupGetAttributes(self) }
 
+    method get_global( $attr -->Str) { IupGetGlobal( $attr) } #DEPRECATE
+    method get-global( $attr -->Str) { IupGetGlobal( $attr) }
+
     method get_int(Str $name -->Int) { IupGetInt(self, $name) }
 
     ###
@@ -343,7 +348,7 @@ class IUP::Handle is repr('CPointer') {
     method item(Str $title, Str $action -->Ihdle) { p6IupItem($title, $action) } 
     method submenu(Str $title, $child -->Ihdle) { IupSubmenu($title, $child) }
 
-    method separator(--Ihdle) { IupSeparator }
+    method separator(-->Ihdle) { IupSeparator }
 
     method menuv(*@child -->Ihdle) {
         my $n = @child.elems;
@@ -407,6 +412,11 @@ class IUP is IUP::Handle {
     #sub IupExitLoop() is native(IUP_l) {*};
 
     ###
+    sub IupVersion(-->str) is export is native(IUP_l) {*}
+
+    sub IupVersionNumber(-->int32) is export is native(IUP_l) {*}
+
+    sub IupVersionDate(-->Str) is native(IUP_l) is export {*}
 
     sub IupSetLanguage(Str) is native(IUP_l) {*};
 
@@ -414,7 +424,7 @@ class IUP is IUP::Handle {
 
     ### METHODS ###
 
-    method open(@argv -->int32) {
+    method open(@argv = () -->int32) {
         my $argc = @argv.elems;
         my $arglist := CArray[Str].new();
 
