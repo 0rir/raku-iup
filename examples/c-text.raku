@@ -14,7 +14,8 @@ sub MAIN() {
     my $text = $ih.text;
     $text.set_attribute("SIZE", "200x");
 
-    my $pwd = $ih.text;                         # bad name is ro
+    my $pwd = $ih.text;
+    $pwd.set_attribute("VALUE", "current directory: $*CWD");
     $pwd.set_attribute("READONLY", "YES");
     $pwd.set_attribute("SIZE", "200x");
 
