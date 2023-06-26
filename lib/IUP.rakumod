@@ -56,6 +56,7 @@ class IUP::Handle is repr('CPointer') {
 
     sub p6IupAddChildToList(Ptr, Ihdle, int32, int32) is native(IUP_l) {*};
 
+    # Free memory.
     sub p6IupFree(Ptr) is native(IUP_l) {*};
 
     ### Callbacks
@@ -67,20 +68,26 @@ class IUP::Handle is repr('CPointer') {
             -->IUP::Callback) is native(IUP_l) {*};
 
     ###
-
+    # Destroy an widget.
     sub IupDestroy(Ihdle) is native(IUP_l) {*};
 
+    # Append a child to a widget's child list.
     sub IupAppend(Ihdle $ih, Ihdle $child -->Ihdle) is native(IUP_l) {*};
 
+    # Insert $child into a $ih's child list before $ref_child.
     sub IupInsert(Ihdle $ih, Ihdle $ref_child, Ihdle $child -->Ihdle)
             is native(IUP_l) {*};
 
+    # Get a child of widget by index into child-list.
     sub IupGetChild(Ihdle, int32 -->Ihdle) is native(IUP_l) {*};
 
+    # Get a child of widget after the $child (aka the brother).
     sub IupGetNextChild(Ihdle $ih, Ihdle $child -->Ihdle) is native(IUP_l) {*};
 
+    # Return the parent of a control.
     sub IupGetParent(Ihdle -->Ihdle) is native(IUP_l) {*};
 
+    # Return the dialog that contains the interface element.
     sub IupGetDialog(Ihdle -->int32) is native(IUP_l) {*};
 
     ###
@@ -91,17 +98,19 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupShowXY(Ihdle, int32, int32 -->int32) is native(IUP_l) {*};
 
+    # Hides an element; like IupSetAttribute("VISIBLE", "NO")
     sub IupHide(Ihdle -->int32) is native(IUP_l) {*};
-
+    # Adds an elem and its children into the abstract layout.
     sub IupMap(Ihdle -->int32) is native(IUP_l) {*};
 
     ###
-
+    # Store only a constant string (or application ptr) by reference.
     sub IupSetAttribute(Ihdle, Str, Str) is native(IUP_l) {*};
 
-    sub IupStoreAttribute(Ihdle, Str, Str) is native(IUP_l) {*};    #DEPRECATE
-
+    # Store a copy of the given string. 
     sub IupSetStrAttribute( Ihdle, Str, Str ) is native(IUP_l) {*};
+    # Old name for IupSetStrAttribute
+    sub IupStoreAttribute(Ihdle, Str, Str) is native(IUP_l) {*};    #DEPRECATE
 
     sub IupSetAttributes(Ihdle, Str -->Ihdle) is native(IUP_l) {*};
 
@@ -115,6 +124,7 @@ class IUP::Handle is repr('CPointer') {
  
     ###
 
+    # Attach a callback to an event, returns any displaced cb.
     sub IupSetCallback(Ihdle, Str, IUP::Callback -->IUP::Callback)
             is native(IUP_l) {*};
 
@@ -213,17 +223,24 @@ class IUP::Handle is repr('CPointer') {
 
     ###
 
+    # XXX The naming of these set-attr* method reverse the sense of
+    # the underlying C functions IupSetAttribute vs SetStrAttribute,
+    # which respectively set by reference and set by value.  Copying
+    # is the usual for Raku.
+    #
+    # Consider using only the 'set-attr*' and a flag ':ref' for the
+    # distinction. And/or variant names or name. XXX
+
     # http://www.tecgraf.puc-rio.br/iup/en/func/iupsetattribute.html
     method set_attribute(Str $name, Str $value -->Mu) {
         DEPRECATED('set-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
-        #IupSetAttribute(self, $name, $value);
-        IupStoreAttribute(self, $name, $value);     # this is replaced
+        IupSetStrAttribute(self, $name, $value);
     }
     method set-attribute(Str $name, Str $value -->Mu) {
-        IupStoreAttribute(self, $name, $value);     # this is replaced
+        IupSetStrAttribute(self, $name, $value);
     }
     method set-attr(     Str $name, Str $value -->Mu) {
-        IupStoreAttribute(self, $name, $value);     # this is replaced
+        IupSetStrAttribute(self, $name, $value);
     }
 
     # numeric keys
@@ -252,7 +269,13 @@ class IUP::Handle is repr('CPointer') {
         return IupSetAttributes(self, join(", ", @tmp).Str);
     }
 
-    method get_attribute(Str $name -->Str) { IupGetAttribute(self, $name) }
+    # Get an attrib by name.
+    method get-attr(Str $name -->Str) { IupGetAttribute(self, $name) }
+    method get-attribute(Str $name -->Str) { IupGetAttribute(self, $name) }
+    method get_attribute(Str $name -->Str) {
+        DEPRECATED('get-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetAttribute(self, $name)
+    }
 
     method get_attributes( -->Str) { IupGetAttributes(self) }
 
@@ -398,7 +421,7 @@ class IUP::Handle is repr('CPointer') {
 
     method label(Str $str -->Ihdle) { IupLabel($str) }
 
-    method text(Str $action -->Ihdle) { p6IupText($action) }
+    method text(Str $action = '' -->Ihdle) { p6IupText($action) }
 
     ###
 
@@ -409,12 +432,16 @@ class IUP::Handle is repr('CPointer') {
 
 class IUP is IUP::Handle {
 
+    # Must be called before any other IUP function.
     sub p6IupOpen(int32, CArray[Str] -->int32) is native(IUP_l) {*};
 
+    # Ends IUP usage releasing memory. It destroys all named dialogs & elems. 
     sub IupClose() is native(IUP_l) {*};
 
     sub IupImageLibOpen() is native(IUP_l) {*};
 
+    # Starts loop on interaction that stops when a callback returns IUP_CLOSE,
+    # IupExitLoop is called, or all dialogs are hidden.
     sub IupMainLoop( -->int32) is native(IUP_l) {*};
 
     #sub IupLoopStep( -->int32) is native(IUP_l) {*};
@@ -428,14 +455,19 @@ class IUP is IUP::Handle {
     #sub IupExitLoop() is native(IUP_l) {*};
 
     ###
+    # Return version string
     sub IupVersion(-->str) is export is native(IUP_l) {*}
 
+    # Return version number.
     sub IupVersionNumber(-->int32) is export is native(IUP_l) {*}
 
+    # Return version's date.
     sub IupVersionDate(-->Str) is native(IUP_l) is export {*}
 
+    # Sets the user language: English, Portuguese or Spanish
     sub IupSetLanguage(Str) is native(IUP_l) {*};
 
+    # Gets the user language.
     sub IupGetLanguage( -->Str) is native(IUP_l) {*};
 
     ### METHODS ###
