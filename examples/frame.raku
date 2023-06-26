@@ -1,45 +1,47 @@
 #!/usr/bin/env raku
-# :vim ft=raku sw=4 expandtab
-use v6;
+use v6.c;
 use lib $?FILE.IO.cleanup.parent(2).add("lib");
+
 use IUP;
 
 sub MAIN() {
 
-	my $iup = IUP.new();
+    my $iup = IUP.new;
 
-	my @argv = ("Test");
-	#
-	# Initializes IUP
-	#
-	$iup.open(@argv);
+    my @argv = ("Test");
 
-	my $ih = IUP::Handle.new();
+    # Initializes IUP
+    $iup.open(@argv);           # No argument necessary.
 
-	#
-	# Creates frame with a label
-	#
-	my $frame = $ih.frame(
-		$ih.hbox(
-			$ih.fill(),
-			$ih.label("IupFrame Attributes:\nFGCOLOR = \"255 0 0\"\nSIZE = \"EIGHTHxEIGHTH\"\nTITLE = \"This is the frame\"\nMARGIN = \"10x10\""),
-			$ih.fill()
-		)
-	).set_attributes(
-		FGCOLOR => "255 0 0",
-		SIZE    => "EIGHTHxEIGHTH",
-		TITLE   => "This is the frame",
-		MARGIN  => "10x10");  # Sets frame's attributes
+    my $ih = IUP::Handle.new();
 
-	#
-	# Creates dialog
-	#
-	my $dlg = $ih.dialog($frame);
-	$dlg.set_attribute("TITLE", "IupFrame");
-	$dlg.show(); # Shows dialog in the center of the screen
+    # Creates frame with a hbox with a label
+    my $frame = $ih.frame(
+            $ih.hbox(
+                    $ih.fill(),
+                    $ih.label(
+"IupFrame Attributes:\nFGCOLOR = \"255 0 0\"\nSIZE = \"EIGHTHxEIGHTH\"\nTITLE = \"This is the frame\"\nMARGIN = \"10x10\""),
+                        $ih.fill()
+                    )
+            ).set-attrs(
+                FGCOLOR => "255 0 0",
+                SIZE => "EIGHTHxEIGHTH",
+                TITLE => "This is the frame",
+                MARGIN => "10x10");
+                # Sets frame's attributes
 
-	$iup.main_loop(); # Initializes IUP main loop
-	$iup.close(); # Finishes IUP
+    # Creates dialog
+    my $dlg = $ih.dialog($frame);
+    $dlg.set-attr("TITLE", "IupFrame");
 
-	exit();
+    # Shows dialog in the center of the screen
+    $dlg.show;
+
+    # Initializes IUP main loop
+    $iup.main-loop;
+
+    # Finishes IUP
+    $iup.close;
+
+    exit;
 }

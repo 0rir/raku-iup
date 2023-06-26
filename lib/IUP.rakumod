@@ -99,7 +99,9 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupSetAttribute(Ihdle, Str, Str) is native(IUP_l) {*};
 
-    sub IupStoreAttribute(Ihdle, Str, Str) is native(IUP_l) {*};
+    sub IupStoreAttribute(Ihdle, Str, Str) is native(IUP_l) {*};    #DEPRECATE
+
+    sub IupSetStrAttribute( Ihdle, Str, Str ) is native(IUP_l) {*};
 
     sub IupSetAttributes(Ihdle, Str -->Ihdle) is native(IUP_l) {*};
 
@@ -213,12 +215,26 @@ class IUP::Handle is repr('CPointer') {
 
     # http://www.tecgraf.puc-rio.br/iup/en/func/iupsetattribute.html
     method set_attribute(Str $name, Str $value -->Mu) {
+        DEPRECATED('set-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
         #IupSetAttribute(self, $name, $value);
-        IupStoreAttribute(self, $name, $value);
+        IupStoreAttribute(self, $name, $value);     # this is replaced
+    }
+    method set-attribute(Str $name, Str $value -->Mu) {
+        IupStoreAttribute(self, $name, $value);     # this is replaced
+    }
+    method set-attr(     Str $name, Str $value -->Mu) {
+        IupStoreAttribute(self, $name, $value);     # this is replaced
     }
 
     # numeric keys
     multi method set_attributes(*@attributes -->Ihdle) {
+        DEPRECATED('set-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        self.set-attrs(@attributes)
+    }
+    multi method set-attributes(*@attributes -->Ihdle) {
+        self.set-attrs(@attributes)
+    }
+    multi method set-attrs(*@attributes -->Ihdle) {
         my Str @tmp = ();
         for @attributes.values -> $pair {
             my ($name, $value) = $pair.kv;
@@ -436,11 +452,15 @@ class IUP is IUP::Handle {
         return p6IupOpen($argc, $arglist);
     }
 
-    method close(-->Mu) { IupClose(); }
+    method close(-->Mu) { IupClose }
 
-    method image_lib_open(-->Mu) { IupImageLibOpen(); }
+    method image_lib_open(-->Mu) { IupImageLibOpen }
 
-    method main_loop(-->int32) { return IupMainLoop(); }
+    method main-loop(-->int32) { IupMainLoop }
+    method main_loop(-->int32) {
+        DEPRECATED('main-loop','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupMainLoop
+    }
 
 #   method loop_step(Bool $wait = False -->Mu) {
 #       return $wait ?? IupLoopStepWait() !! IupLoopStep();
