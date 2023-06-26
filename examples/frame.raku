@@ -2,8 +2,8 @@
 # :vim ft=raku sw=4 expandtab
 use v6.c;
 use lib $?FILE.IO.cleanup.parent(2).add("lib");
-
 use IUP;
+use IUP::Colors;
 
 sub MAIN() {
 
@@ -25,7 +25,7 @@ sub MAIN() {
                         $ih.fill()
                     )
             ).set-attrs(
-                FGCOLOR => "255 0 0",
+                FGCOLOR => Red,
                 SIZE => "EIGHTHxEIGHTH",
                 TITLE => "This is the frame",
                 MARGIN => "10x10");
