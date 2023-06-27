@@ -118,6 +118,7 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupGetAttributes(Ihdle -->Str) is native(IUP_l) {*};
 
+    sub IupSetGlobal( Str -->Str) is native(IUP_l) is export {*}
     sub IupGetGlobal( Str -->Str) is native(IUP_l) is export {*}
 
     sub IupGetInt(Ihdle, Str -->int32) is native(IUP_l) {*};
@@ -270,17 +271,31 @@ class IUP::Handle is repr('CPointer') {
     }
 
     # Get an attrib by name.
-    method get-attr(Str $name -->Str) { IupGetAttribute(self, $name) }
+    method get-attr(Str $name -->Str) {      IupGetAttribute(self, $name) }
     method get-attribute(Str $name -->Str) { IupGetAttribute(self, $name) }
     method get_attribute(Str $name -->Str) {
         DEPRECATED('get-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupGetAttribute(self, $name)
     }
 
-    method get_attributes( -->Str) { IupGetAttributes(self) }
+    method get-attrs( -->Str) {      IupGetAttributes(self) }
+    method get-attributes( -->Str) { IupGetAttributes(self) }
+    method get_attributes( -->Str) {
+        DEPRECATED('get-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetAttributes(self)
+    }
 
-    method get_global( $attr -->Str) { IupGetGlobal( $attr) } #DEPRECATE
     method get-global( $attr -->Str) { IupGetGlobal( $attr) }
+    method get_global( $attr -->Str) {
+        DEPRECATED('get-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetGlobal( $attr)
+    }
+
+    method set-global( Str $k, Str $v -->Mu) { IupSetGlobal($k,$v) } 
+    method set_global( Str $k, Str $v -->Mu) {
+        DEPRECATED('get-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupSetGlobal($k,$v)
+    } 
 
     method get_int(Str $name -->Int) { IupGetInt(self, $name) }
 
@@ -315,7 +330,11 @@ class IUP::Handle is repr('CPointer') {
     }
     ###
 
+    method set-attribute-handle(Str $name, Ihdle $ih_named -->Mu) {
+        IupSetAttributeHandle(self, $name, $ih_named);
+    }
     method set_attribute_handle(Str $name, Ihdle $ih_named -->Mu) {
+        DEPRECATED('set-attribute-handle','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetAttributeHandle(self, $name, $ih_named);
     }
 
@@ -486,7 +505,11 @@ class IUP is IUP::Handle {
 
     method close(-->Mu) { IupClose }
 
-    method image_lib_open(-->Mu) { IupImageLibOpen }
+    method image-lib-open(-->Mu) { IupImageLibOpen }
+    method image_lib_open(-->Mu) {
+        DEPRECATED('image-lib-open','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupImageLibOpen
+    }
 
     method main-loop(-->int32) { IupMainLoop }
     method main_loop(-->int32) {
