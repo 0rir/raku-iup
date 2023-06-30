@@ -118,8 +118,11 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupGetAttributes(Ihdle -->Str) is native(IUP_l) {*};
 
-    sub IupSetGlobal( Str -->Str) is native(IUP_l) is export {*}
-    sub IupGetGlobal( Str -->Str) is native(IUP_l) is export {*}
+    sub IupSetGlobal( Str, Str)     is native(IUP_l) is export {*}
+
+    sub IupSetStrGlobal( Str, Str)  is native(IUP_l) is export {*}
+
+    sub IupGetGlobal( Str -->Str)   is native(IUP_l) is export {*}
 
     sub IupGetInt(Ihdle, Str -->int32) is native(IUP_l) {*};
  
@@ -287,15 +290,21 @@ class IUP::Handle is repr('CPointer') {
 
     method get-global( $attr -->Str) { IupGetGlobal( $attr) }
     method get_global( $attr -->Str) {
-        DEPRECATED('get-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupGetGlobal( $attr)
     }
 
     method set-global( Str $k, Str $v -->Mu) { IupSetGlobal($k,$v) } 
     method set_global( Str $k, Str $v -->Mu) {
-        DEPRECATED('get-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
-        IupSetGlobal($k,$v)
+        DEPRECATED('set-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupSetStrGlobal($k,$v)
     } 
+    method set-str-global( Str $k, Str $v -->Mu) { IupSetStrGlobal($k,$v) } 
+    method set_str-global( Str $k, Str $v -->Mu) {
+        DEPRECATED('set-str-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupSetStrGlobal($k,$v)
+    } 
+
 
     method get_int(Str $name -->Int) { IupGetInt(self, $name) }
 
@@ -491,7 +500,7 @@ class IUP is IUP::Handle {
 
     ### METHODS ###
 
-    method open(@argv = () -->int32) {
+    method open(@argv = [,] -->int32) {
         my $argc = @argv.elems;
         my $arglist := CArray[Str].new();
 
