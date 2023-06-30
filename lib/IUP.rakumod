@@ -141,6 +141,16 @@ class IUP::Handle is repr('CPointer') {
     sub IupSetAttributeHandle(Ihdle $ih, Str $name, Ihdle $ih_named)
             is native(IUP_l) {*};
 
+    sub IupFileDlg(    -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupMessageDlg( -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupColorDlg(   -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupFontDlg(    -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupProgressDlg(-->Ihdle) is native(IUP_l) is export {*}
+
     ###
 
     sub IupFill( -->Ihdle) is native(IUP_l) {*};
@@ -192,6 +202,63 @@ class IUP::Handle is repr('CPointer') {
     ###
 
     sub IupMessage(Str $title, Str $message) is native(IUP_l) {*};
+
+    multi sub IupListDialog(        # NATIVE
+            int32 $type             # 1 = chose one,  2 = multiple choices
+            , Str $title            # widget title
+            , int32 $size           # size of $list
+            , CArray[Str] $list     # list to display as choice
+            , int32 $op             # choice if $type = 1
+            , int32 $max_col        # visible columns
+            , int32 $max_lin        # visible lines
+            , CArray[int32] $marks  # if $type=2, ($mark[n] == 1) means
+                                    # $list[n] selected
+            -->int32 )
+            is native(IUP_l) is export {*}   
+
+    sub int32-ro( $i -->int32) { my int32 $ = $i }
+
+    # For single selection only.
+    # Returns -1 if action cancelled or index of selection from $list).
+    multi sub IupListDialog( Str $title, Array[Str] $list,
+            Int $op is rw, Int $max_col, Int $max_lin -->Int) is export {
+        my $size = $list.elems;
+        my CArray[Str] $listN = CArray[Str].new;
+        my CArray[int32] $marks = CArray[int32].new;
+        for ^$size {
+            $listN[$_] = $list[$_];
+            $marks[$_] = 0;
+        }
+        my int32 $sizeN = $size;
+
+        return IupListDialog( int32-ro(1), $title, $sizeN, $listN,
+            int32-ro($op), int32-ro($max_col), int32-ro($max_lin), $marks);
+    }
+
+    # IupListDialog for multiple selections from list
+    multi sub IupListDialog( Str $title, Array[Str] $list, Int $max_col,
+            Int $max_lin, --> Array) is export {
+
+        my int32 $type = 2;                # multiple choices
+        my int32 $size = $list.elems;      # number of choices available
+        my int32 $op;
+        my CArray[Str] $listN = CArray[Str].new;       # list of choices
+        my CArray[int32] $marks = CArray[int32].new;  # selections made
+        for ^$size {
+            $listN[$_] = $list[$_];
+            $marks[$_] = 0;
+        }
+
+        my int32 $status = IupListDialog( int32-ro($type), $title, $size,
+                $listN, int32-ro($op), int32-ro($max_col),
+                int32-ro($max_lin), $marks);
+        return [] if $status == -1;
+        my @return;
+        for 0 .. $size -1 {
+            if $marks[$_] { @return.push( $listN[$_]); }
+        }
+        @return;
+    }
 
     ### METHODS ###
 
@@ -300,7 +367,7 @@ class IUP::Handle is repr('CPointer') {
         IupSetStrGlobal($k,$v)
     } 
     method set-str-global( Str $k, Str $v -->Mu) { IupSetStrGlobal($k,$v) } 
-    method set_str-global( Str $k, Str $v -->Mu) {
+    method set_str_global( Str $k, Str $v -->Mu) {
         DEPRECATED('set-str-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetStrGlobal($k,$v)
     } 
