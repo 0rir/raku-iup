@@ -314,24 +314,6 @@ class IUP::Handle is repr('CPointer') {
         IupSetStrAttribute(self, $name, $value);
     }
 
-    # numeric keys
-    multi method set_attributes(*@attributes -->Ihdle) {
-        DEPRECATED('set-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
-        self.set-attrs(@attributes)
-    }
-    multi method set-attributes(*@attributes -->Ihdle) {
-        self.set-attrs(@attributes)
-    }
-    multi method set-attrs(*@attributes -->Ihdle) {
-        my Str @tmp = ();
-        for @attributes.values -> $pair {
-            my ($name, $value) = $pair.kv;
-            push(@tmp, join("=", $name, "\"$value\""));
-        }
-        my $string = join(", ", @tmp).Str;
-        return IupSetAttributes(self, $string);
-    }
-
     multi method set_attributes(*%attributes -->Ihdle) {
         my Str @tmp = ();
         for %attributes.kv -> Str $name, $value {
