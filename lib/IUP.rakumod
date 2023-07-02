@@ -107,7 +107,7 @@ class IUP::Handle is repr('CPointer') {
     # Store only a constant string (or application ptr) by reference.
     sub IupSetAttribute(Ihdle, Str, Str) is native(IUP_l) {*};
 
-    # Store a copy of the given string. 
+    # Store a copy of the given string.
     sub IupSetStrAttribute( Ihdle, Str, Str ) is native(IUP_l) {*};
     # Old name for IupSetStrAttribute
     sub IupStoreAttribute(Ihdle, Str, Str) is native(IUP_l) {*};    #DEPRECATE
@@ -125,7 +125,7 @@ class IUP::Handle is repr('CPointer') {
     sub IupGetGlobal( Str -->Str)   is native(IUP_l) is export {*}
 
     sub IupGetInt(Ihdle, Str -->int32) is native(IUP_l) {*};
- 
+
     ###
 
     # Attach a callback to an event, returns any displaced cb.
@@ -214,7 +214,7 @@ class IUP::Handle is repr('CPointer') {
             , CArray[int32] $marks  # if $type=2, ($mark[n] == 1) means
                                     # $list[n] selected
             -->int32 )
-            is native(IUP_l) is export {*}   
+            is native(IUP_l) is export {*}
 
     sub int32-ro( $i -->int32) { my int32 $ = $i }
 
@@ -266,7 +266,7 @@ class IUP::Handle is repr('CPointer') {
 
     method append(Ihdle $child -->Ihdle) { IupAppend(self, $child) }
 
-    method insert(Ihdle $ref_child, Ihdle $child -->Ihdle) { 
+    method insert(Ihdle $ref_child, Ihdle $child -->Ihdle) {
         IupInsert(self, $ref_child, $child)
     }
 
@@ -293,6 +293,45 @@ class IUP::Handle is repr('CPointer') {
     method map(-->int32) { IupMap(self) }
 
     ###
+
+    # XXX
+    # This is a new set of attribute setting multi methods.  TMP name setattr
+    multi method setattr( Str:D $k, Str:D $v, Bool :$ref -->Mu) {
+        $ref ??  IupStoreAttribute(self, $k, $v)
+             !!  IupSetAttribute(self, $k, $v)
+    }
+    multi method setattr( *@attr, Bool :$ref -->Ihdle) {
+        my Str @tmp;
+        for @attr -> $k, $v  {
+            @tmp.push:  qq{$h="$t"};
+        }
+        $ref ?? IupStoreAttribute self, @tmp.join( ', ')
+             !! IupSetAttribute   self, @tmp.join( ', ');
+    }
+    multi method setattr( %attr, Bool :$ref! ) {
+        my Str @tmp;
+        for %attr.kv -> $k, $v  {
+            @tmp.push: qq{$k="$v"};
+        }
+        $ref ?? IupStoreAttribute self, @tmp.join( ', ')
+             !! IupSetAttribute   self, @tmp.join( ', ');
+    }
+
+
+    multi method set_attributes(*%attrs) {
+        DEPRECATED('set-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        set-attrs( %attrs);
+    }
+    multi method set-attributes(*%attrs) {
+        DEPRECATED('set-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+    }
+    multi method set-attrs(*%attrs) {
+        my Str @tmp = ();
+        for %attrs.kv -> Str $name, $value {
+            push(@tmp, join("=", $name, "\"$value\""));
+        }
+        return IupSetAttributes(self, join(", ", @tmp).Str);
+    }
 
     # XXX The naming of these set-attr* method reverse the sense of
     # the underlying C functions IupSetAttribute vs SetStrAttribute,
@@ -343,16 +382,16 @@ class IUP::Handle is repr('CPointer') {
         IupGetGlobal( $attr)
     }
 
-    method set-global( Str $k, Str $v -->Mu) { IupSetGlobal($k,$v) } 
+    method set-global( Str $k, Str $v -->Mu) { IupSetGlobal($k,$v) }
     method set_global( Str $k, Str $v -->Mu) {
         DEPRECATED('set-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetStrGlobal($k,$v)
-    } 
-    method set-str-global( Str $k, Str $v -->Mu) { IupSetStrGlobal($k,$v) } 
+    }
+    method set-str-global( Str $k, Str $v -->Mu) { IupSetStrGlobal($k,$v) }
     method set_str_global( Str $k, Str $v -->Mu) {
         DEPRECATED('set-str-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetStrGlobal($k,$v)
-    } 
+    }
 
 
     method get_int(Str $name -->Int) { IupGetInt(self, $name) }
@@ -461,7 +500,7 @@ class IUP::Handle is repr('CPointer') {
 
     ###
 
-    method item(Str $title, Str $action -->Ihdle) { p6IupItem($title, $action) } 
+    method item(Str $title, Str $action -->Ihdle) { p6IupItem($title, $action)}
     method submenu(Str $title, $child -->Ihdle) { IupSubmenu($title, $child) }
 
     method separator(-->Ihdle) { IupSeparator }
@@ -512,7 +551,7 @@ class IUP is IUP::Handle {
     # Must be called before any other IUP function.
     sub p6IupOpen(int32, CArray[Str] -->int32) is native(IUP_l) {*};
 
-    # Ends IUP usage releasing memory. It destroys all named dialogs & elems. 
+    # Ends IUP usage releasing memory. It destroys all named dialogs & elems.
     sub IupClose() is native(IUP_l) {*};
 
     sub IupImageLibOpen() is native(IUP_l) {*};
