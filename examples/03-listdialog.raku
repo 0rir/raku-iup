@@ -13,7 +13,7 @@ sub MAIN() {
 
     my $iup = IUP.new;
     $iup.open;
-    $iup.set_str_global( 'DEFAULTFONTSIZE', '24' );
+    $iup.set-str-global( 'DEFAULTFONTSIZE', '24' );
 
     # --- single selection by index via return value
     my Str $title = 'Title';
