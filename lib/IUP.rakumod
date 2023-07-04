@@ -292,54 +292,62 @@ class IUP::Handle is repr('CPointer') {
 
     method map(-->int32) { IupMap(self) }
 
-    ###
-
-    # XXX
-    # This is a new set of attribute setting multi methods.  TMP name setattr
-    multi method setattr( Str:D $k, Str:D $v, Bool :$ref -->Mu) {
-        $ref ??  IupStoreAttribute(self, $k, $v)
-             !!  IupSetAttribute(self, $k, $v)
+    ###  TODO
+    # This is a, currently experimental, set of new Rakuish attribute
+    # setting multi methods.  They should be renamed set-attr.  One or
+    # more attribute can be set; when setting one attribute the :copy
+    # flag will copy the value instead of setting it by reference.
+    #
+    multi sattr( Str:D $k, Str:D $v, Bool :$copy -->Ihdle) {
+say "Str,Str,flag";
+        $copy ?? IupStoreAttribute( self, $k, $v)
+              !!   IupSetAttribute( self, $k, $v);
+        self;
     }
-    multi method setattr( *@attr, Bool :$ref -->Ihdle) {
-        my Str @tmp;
-        for @attr -> $k, $v  {
-            @tmp.push:  qq{$h="$t"};
-        }
-        $ref ?? IupStoreAttribute self, @tmp.join( ', ')
-             !! IupSetAttribute   self, @tmp.join( ', ');
+    multi sattr(Str:D $k, Str:D $v, *@kv -->Ihdle) {
+say "Str,Str,…";
+        die "Expected even number of args." unless @kv.elems %% 2;
+        my $str = "$k=\"$v\"";
+        for @kv -> $kk, $vv { $str ~= ",$kk=\"$vv\""; }
+        IupSetAttributes(self, $str);
+        self;
     }
-    multi method setattr( %attr, Bool :$ref! ) {
-        my Str @tmp;
-        for %attr.kv -> $k, $v  {
-            @tmp.push: qq{$k="$v"};
+    multi sattr( Pair $kv, Bool :$copy -->Ihdle) {
+say 'Pair :$flag)';
+        $copy ?? IupStoreAttribute( self, $p.key, $p.value)
+              !!   IupSetAttribute( self, $p.key, $p.value);
+        self;
+    }
+    multi sattr( Pair $kv, Pair $kw, *@etc -->Ihdle) {  # XXX need 2 pair??
+say 'Pair Pair Pair …)';
+        my $str = "$kv.key()=\"$kv.value()\",$kw.key()=\"$kw.value()\"";
+        for @etc -> $p {
+            die "Expected a Pair object" unless $p ~~ Pair;
+            $str ~= ",$p.key()=\"$p.value()\""
         }
-        $ref ?? IupStoreAttribute self, @tmp.join( ', ')
-             !! IupSetAttribute   self, @tmp.join( ', ');
+        IupSetAttributes self, $str;
+        self;
     }
 
 
     multi method set_attributes(*%attrs) {
         DEPRECATED('set-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
-        set-attrs( %attrs);
+        .set-attrs( %attrs);
     }
     multi method set-attributes(*%attrs) {
         DEPRECATED('set-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        .set-attrs( %attrs);
     }
-    multi method set-attrs(*%attrs) {
-        my Str @tmp = ();
-        for %attrs.kv -> Str $name, $value {
-            push(@tmp, join("=", $name, "\"$value\""));
+
+    multi method set-attrs(Pair $p, *@attrs) {
+say "set-attrs pair";
+        my Str @tmp;
+        @attrs.unshift: $p;
+        for @attrs -> $e {
+            push(@tmp, join("=", $e.key, "\"$e.value()\""));
         }
         return IupSetAttributes(self, join(", ", @tmp).Str);
     }
-
-    # XXX The naming of these set-attr* method reverse the sense of
-    # the underlying C functions IupSetAttribute vs SetStrAttribute,
-    # which respectively set by reference and set by value.  Copying
-    # is the usual for Raku.
-    #
-    # Consider using only the 'set-attr*' and a flag ':ref' for the
-    # distinction. And/or variant names or name. XXX
 
     # http://www.tecgraf.puc-rio.br/iup/en/func/iupsetattribute.html
     method set_attribute(Str $name, Str $value -->Mu) {
