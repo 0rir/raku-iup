@@ -298,13 +298,13 @@ class IUP::Handle is repr('CPointer') {
     # more attribute can be set; when setting one attribute the :copy
     # flag will copy the value instead of setting it by reference.
     #
-    multi sattr( Str:D $k, Str:D $v, Bool :$copy -->Ihdle) {
+    multi method sattr( Str:D $k, Str:D $v, Bool :$copy -->Ihdle) {
 say "Str,Str,flag";
         $copy ?? IupStoreAttribute( self, $k, $v)
               !!   IupSetAttribute( self, $k, $v);
         self;
     }
-    multi sattr(Str:D $k, Str:D $v, *@kv -->Ihdle) {
+    multi method sattr(Str:D $k, Str:D $v, *@kv -->Ihdle) {
 say "Str,Str,…";
         die "Expected even number of args." unless @kv.elems %% 2;
         my $str = "$k=\"$v\"";
@@ -312,13 +312,13 @@ say "Str,Str,…";
         IupSetAttributes(self, $str);
         self;
     }
-    multi sattr( Pair $kv, Bool :$copy -->Ihdle) {
+    multi method sattr( Pair $kv, Bool :$copy -->Ihdle) {
 say 'Pair :$flag)';
-        $copy ?? IupStoreAttribute( self, $p.key, $p.value)
-              !!   IupSetAttribute( self, $p.key, $p.value);
+        $copy ?? IupStoreAttribute( self, $kv.key, $kv.value)
+              !!   IupSetAttribute( self, $kv.key, $kv.value);
         self;
     }
-    multi sattr( Pair $kv, Pair $kw, *@etc -->Ihdle) {  # XXX need 2 pair??
+    multi method sattr( Pair $kv, Pair $kw, *@etc -->Ihdle) {  # XXX need 2 pair??
 say 'Pair Pair Pair …)';
         my $str = "$kv.key()=\"$kv.value()\",$kw.key()=\"$kw.value()\"";
         for @etc -> $p {
