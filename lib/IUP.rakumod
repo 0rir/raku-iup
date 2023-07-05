@@ -159,9 +159,49 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupVboxv(Ptr -->Ihdle) is native(IUP_l) {*};
 
+    sub IupZbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+#    sub IupZboxv(Ptr[Ihdle] $children -->Ihdle) is native(IUP_l) is export {*}
+     sub IupZboxv(Ptr $children -->Ihdle) is native(IUP_l) is export {*}
+
     sub p6IupHbox(Ihdle -->Ihdle) is native(IUP_l) {*};
 
     sub IupHboxv(Ptr -->Ihdle) is native(IUP_l) {*};
+
+    sub IupNormalizer(Ihdle $ih_first -->Ihdle) is native(IUP_l) is export {*}
+
+#   sub IupNormalizerv(Ptr[Ihdle] $ih_list -->Ihdle)
+   sub IupNormalizerv(Ptr $ih_list -->Ihdle)
+           is native(IUP_l) is export {*}
+
+    sub IupCbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+#   sub IupCboxv(Ptr[Ihdle] $children -->Ihdle) is native(IUP_l) is export {*}
+    sub IupCboxv(Ptr $children -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupSbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupSplit(Ihdle $child1, Ihdle $child2 -->Ihdle)
+            is native(IUP_l) is export {*}
+
+    sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupGridBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+#   sub IupGridBoxv(Ptr[Ihdle] $children -->Ihdle) is native(IUP_l) is export {*}
+    sub IupGridBoxv(Ptr $children -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupMultiBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+#   sub IupMultiBoxv(Ptr[Ihdle] $children -->Ihdle)
+    sub IupMultiBoxv(Ptr $children -->Ihdle)
+            is native(IUP_l) is export {*}
+
+    sub IupExpander(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupDetachBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupBackgroundBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
     ###
 
@@ -200,7 +240,30 @@ class IUP::Handle is repr('CPointer') {
     sub p6IupText(Str $action -->Ihdle) is native(IUP_l) {*};
 
     ###
+    sub IupSbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
+    sub IupSplit(Ihdle $child1, Ihdle $child2 -->Ihdle)
+            is native(IUP_l) is export {*}
+
+    sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupGridBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupGridBoxv(Pointer[Ihdle_] $children -->Ihdle)
+            is native(IUP_l) is export {*}
+
+    sub IupMultiBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupMultiBoxv(Pointer[Ihdle] $children -->Ihdle)
+            is native(IUP_l) is export {*}
+
+    sub IupExpander(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupDetachBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupBackgroundBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    ###
     # returns pressed button number or 0 for noop
     sub IupAlarm( Str:D $title, Str:D $msg,
             Str:D $b1txt, Str $b2txt, Str $b3txt -->int32) is export
@@ -558,6 +621,11 @@ say "set-attrs pair";
     method message(Str $title, Str $message -->Mu) {
         IupMessage($title, $message)
     }
+
+    sub IupParamBox(Ihdle $param -->Ihdle) is native(IUP_l) is export {*}
+    sub IupParamBoxv(Pointer[Ihdle_] $param_array -->Ihdle)
+        is native(IUP_l) is export {*}
+
 }
 
 class IUP is IUP::Handle {

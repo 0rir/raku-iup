@@ -100,25 +100,25 @@ IupRefreshChildren  ............. |   |   |   |   |   |   |
               Controls/Containers
 IupFill      .................... | n | m | e |   |   |   |
 IupSpace     .................... |   |   |   |   |   |   |
-IupCbox      .................... |   |   |   |   |   |   |
-IupGridBox   .................... |   |   |   |   |   |   |
-IupMultiBox  .................... |   |   |   |   |   |   |
+IupCbox      .................... | n*|   |   |   |   |   |
+IupGridBox   .................... | n*|   |   |   |   |   |
+IupMultiBox  .................... | n*|   |   |   |   |   |
 IupHbox      .................... | n*| m | e |   |   |   |
 IupVbox      .................... | n*| m | e |   |   |   |
-IupZbox      .................... |   |   |   |   |   |   |
+IupZbox      .................... | n*|   |   |   |   |   |
 IupRadio     .................... |   |   |   |   |   |   |
-IupNormalizer  .................. |   |   |   |   |   |   |
+IupNormalizer  .................. |XXX|   |   |   |   |   |
 IupFrame     .................... | n | m | e |   |   |   |
 IupFlatFrame  ................... |   |   |   |   |   |   |
 IupTabs     ..................... |   |   |   |   |   |   |
 IupFlatTabs  .................... |   |   |   |   |   |   |
-IupBackgroundBox  ............... |   |   |   |   |   |   |
-IupScrollBox      ............... |   |   |   |   |   |   |
+IupBackgroundBox  ............... | n*|   |   |   |   |   |
+IupScrollBox      ............... | n*|   |   |   |   |   |
 IupFlatScrollBox  ............... |   |   |   |   |   |   |
-IupDetachBox     ................ |   |   |   |   |   |   |
-IupExpander      ................ |   |   |   |   |   |   |
-IupSbox          ................ |   |   |   |   |   |   |
-IupSplit         ................ |   |   |   |   |   |   |
+IupDetachBox     ................ | n*|   |   |   |   |   |
+IupExpander      ................ |XXX|   |   |   |   |   |
+IupSbox          ................ | n*|   |   |   |   |   |
+IupSplit         ................ |XXX|   |   |   |   |   |
               Controls/Standard
 IupAnimatedLabel  ............... |   |   |   |   |   |   |
 IupButton         ............... | n | m | e |   |   |   |
