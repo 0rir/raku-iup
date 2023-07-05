@@ -201,7 +201,13 @@ class IUP::Handle is repr('CPointer') {
 
     ###
 
-    sub IupMessage(Str $title, Str $message) is native(IUP_l) {*};
+    # returns pressed button number or 0 for noop
+    sub IupAlarm( Str:D $title, Str:D $msg,
+            Str:D $b1txt, Str $b2txt, Str $b3txt -->int32) is export
+        is native(IUP_l) {*};
+
+    sub IupMessage(Str $title, Str $message) is export
+        is native(IUP_l) {*};
 
     multi sub IupListDialog(        # NATIVE
             int32 $type             # 1 = chose one,  2 = multiple choices
