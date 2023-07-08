@@ -240,28 +240,26 @@ class IUP::Handle is repr('CPointer') {
     sub p6IupText(Str $action -->Ihdle) is native(IUP_l) {*};
 
     ###
-    sub IupSbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupSplit(Ihdle $child1, Ihdle $child2 -->Ihdle)
-            is native(IUP_l) is export {*}
-
-    sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupGridBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupGridBoxv(Pointer[Ihdle_] $children -->Ihdle)
-            is native(IUP_l) is export {*}
-
-    sub IupMultiBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupMultiBoxv(Pointer[Ihdle] $children -->Ihdle)
-            is native(IUP_l) is export {*}
-
-    sub IupExpander(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupDetachBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupBackgroundBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+    #sub IupSplit(Ihdle $child1, Ihdle $child2 -->Ihdle)
+    #        is native(IUP_l) is export {*}
+    #
+    #sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+    #
+    #sub IupGridBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+    #
+    #sub IupGridBoxv(Ptr $children -->Ihdle)
+    #        is native(IUP_l) is export {*}
+    #
+    #sub IupMultiBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+    #
+    #sub IupMultiBoxv(Ptr $children -->Ihdle)
+    #        is native(IUP_l) is export {*}
+    #
+    #sub IupExpander(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+    #
+    #sub IupDetachBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+    #
+    #sub IupBackgroundBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
     ###
     # returns pressed button number or 0 for noop
@@ -623,8 +621,7 @@ say "set-attrs pair";
     }
 
     sub IupParamBox(Ihdle $param -->Ihdle) is native(IUP_l) is export {*}
-    sub IupParamBoxv(Pointer[Ihdle_] $param_array -->Ihdle)
-        is native(IUP_l) is export {*}
+    sub IupParamBoxv(Ptr $param_array -->Ihdle) is native(IUP_l) is export {*}
 
 }
 
