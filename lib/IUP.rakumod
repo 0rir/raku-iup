@@ -161,22 +161,18 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupZbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
-#    sub IupZboxv(Ptr[Ihdle] $children -->Ihdle) is native(IUP_l) is export {*}
      sub IupZboxv(Ptr $children -->Ihdle) is native(IUP_l) is export {*}
 
     sub p6IupHbox(Ihdle -->Ihdle) is native(IUP_l) {*};
 
     sub IupHboxv(Ptr -->Ihdle) is native(IUP_l) {*};
 
-    sub IupNormalizer(Ihdle $ih_first -->Ihdle) is native(IUP_l) is export {*}
+    sub p6IupGridBox(Ihdle -->Ihdle) is native(IUP_l) {*};
 
-#   sub IupNormalizerv(Ptr[Ihdle] $ih_list -->Ihdle)
-   sub IupNormalizerv(Ptr $ih_list -->Ihdle)
-           is native(IUP_l) is export {*}
+    sub IupGridBoxv(Ptr -->Ihdle) is native(IUP_l) is export {*};
 
     sub IupCbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
-#   sub IupCboxv(Ptr[Ihdle] $children -->Ihdle) is native(IUP_l) is export {*}
     sub IupCboxv(Ptr $children -->Ihdle) is native(IUP_l) is export {*}
 
     sub IupSbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
@@ -185,11 +181,6 @@ class IUP::Handle is repr('CPointer') {
             is native(IUP_l) is export {*}
 
     sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupGridBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-#   sub IupGridBoxv(Ptr[Ihdle] $children -->Ihdle) is native(IUP_l) is export {*}
-    sub IupGridBoxv(Ptr $children -->Ihdle) is native(IUP_l) is export {*}
 
     sub IupMultiBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
@@ -244,11 +235,6 @@ class IUP::Handle is repr('CPointer') {
     #        is native(IUP_l) is export {*}
     #
     #sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-    #
-    #sub IupGridBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-    #
-    #sub IupGridBoxv(Ptr $children -->Ihdle)
-    #        is native(IUP_l) is export {*}
     #
     #sub IupMultiBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
     #
@@ -532,7 +518,7 @@ say "set-attrs pair";
         }
     }
 
-    method vbox(*@child -->Ihdle) { self.vboxv(@child); }
+    method vbox(*@child -->Ihdle) { self.hboxv(@child); }
 
     method hboxv(*@child -->Ihdle) {
         my $n = @child.elems;
@@ -553,6 +539,31 @@ say "set-attrs pair";
     }
 
     method hbox(*@child -->Ihdle) { self.hboxv(@child); }
+
+    # normalizer, cbox, sbox, split,scrollbox
+
+    method gridboxv(*@child -->Ihdle) {
+        my $n = @child.elems;
+        if $n > 1 {
+            my $list = p6IupNewChildrenList($n);
+            my $pos = 0;
+            for @child -> $c {
+                p6IupAddChildToList($list, $c, $pos, $n);
+                $pos++;
+            }
+            my $result = IupGridBoxv($list);
+            p6IupFree($list);
+            return $result;
+        }
+        if $n == 1 {
+            return p6IupGridBox(@child[0]);
+        }
+    }
+
+    method gridbox(*@child -->Ihdle) { self.gridboxv(@child); }
+    
+    #multibox,v, expander detachbox, backgroundbox
+
 
     ###
 
@@ -602,7 +613,7 @@ say "set-attrs pair";
 
     ###
 
-    method button(Str $title, Str $action -->Ihdle) {
+    method button(Str $title, Str $action = "" -->Ihdle) {
         p6IupButton($title, $action);
     }
 
@@ -610,7 +621,7 @@ say "set-attrs pair";
 
     method dialog($child -->Ihdle) { IupDialog($child) }
 
-    method label(Str $str -->Ihdle) { IupLabel($str) }
+    method label(Str $str = '' -->Ihdle) { IupLabel($str) }
 
     method text(Str $action = '' -->Ihdle) { p6IupText($action) }
 

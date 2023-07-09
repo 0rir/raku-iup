@@ -85,6 +85,12 @@ DLLEXPORT Ihandle* p6IupHbox(Ihandle* child) {
 	return IupHbox(child, NULL);
 }
 
+/* normalizer, cbox, sbox, split,scrollbox */
+
+DLLEXPORT Ihandle* p6IupGridBox(Ihandle* child) {
+	return IupGridBox(child, NULL);
+}
+
 DLLEXPORT Ihandle* p6IupText(char* action) {
 	return IupText(strlen(action) ? action : NULL);
 }
