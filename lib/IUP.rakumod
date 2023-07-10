@@ -167,9 +167,17 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupHboxv(Ptr -->Ihdle) is native(IUP_l) {*};
 
+    # normalizer, cbox, sbox, split,scrollbox
+
     sub p6IupGridBox(Ihdle -->Ihdle) is native(IUP_l) {*};
 
     sub IupGridBoxv(Ptr -->Ihdle) is native(IUP_l) is export {*};
+
+    sub p6IupMultiBox(Ihdle -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupMultiBoxv(Ihdle -->Ihdle) is native(IUP_l) is export {*}
+
+    # expander detachbox, backgroundbox
 
     sub IupCbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
@@ -181,12 +189,6 @@ class IUP::Handle is repr('CPointer') {
             is native(IUP_l) is export {*}
 
     sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupMultiBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-#   sub IupMultiBoxv(Ptr[Ihdle] $children -->Ihdle)
-    sub IupMultiBoxv(Ptr $children -->Ihdle)
-            is native(IUP_l) is export {*}
 
     sub IupExpander(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
@@ -230,16 +232,13 @@ class IUP::Handle is repr('CPointer') {
 
     sub p6IupText(Str $action -->Ihdle) is native(IUP_l) {*};
 
+    sub p6IupMultiLine(Str $action -->Ihdle) is native(IUP_l) {*};
+
     ###
     #sub IupSplit(Ihdle $child1, Ihdle $child2 -->Ihdle)
     #        is native(IUP_l) is export {*}
     #
     #sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-    #
-    #sub IupMultiBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-    #
-    #sub IupMultiBoxv(Ptr $children -->Ihdle)
-    #        is native(IUP_l) is export {*}
     #
     #sub IupExpander(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
     #
@@ -562,8 +561,27 @@ say "set-attrs pair";
 
     method gridbox(*@child -->Ihdle) { self.gridboxv(@child); }
     
-    #multibox,v, expander detachbox, backgroundbox
+    method multiboxv(*@child -->Ihdle) {
+        my $n = @child.elems;
+        if $n > 1 {
+            my $list = p6IupNewChildrenList($n);
+            my $pos = 0;
+            for @child -> $c {
+                p6IupAddChildToList($list, $c, $pos, $n);
+                $pos++;
+            }
+            my $result = IupMultiBoxv($list);
+            p6IupFree($list);
+            return $result;
+        }
+        if $n == 1 {
+            return p6IupMultiBox(@child[0]);
+        }
+    }
 
+    method multibox(*@child -->Ihdle) { self.multiboxv(@child); }
+    
+    # expander detachbox, backgroundbox
 
     ###
 
@@ -624,6 +642,8 @@ say "set-attrs pair";
     method label(Str $str = '' -->Ihdle) { IupLabel($str) }
 
     method text(Str $action = '' -->Ihdle) { p6IupText($action) }
+
+    method multiline(Str $action = '' -->Ihdle) { p6IupMultiLine($action) }
 
     ###
 

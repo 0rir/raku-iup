@@ -12,195 +12,195 @@ Legend:
     n* - Native call exists with oddity; usually rewrapped within custom C.
     m  - Has a method calling it.
     /  - Not meaningful or not needed. (E.g. call directly vs method. )
-    e  - Exercised
+    e  - Exercised by an example
 
-Function name        Category    u| n*| m | e |   |   |   |
+Function name    Category    u| n*| m | e |   |   |   |
                  System/Reference
-IupOpen             ............. | n*| m | e |   |   |   |
-IupClose            ............. | n | m | e |   |   |   |
-IupVersion          ............. | n | / |   |   |   |   |
-IupVersionNumber    .............u| n | / |   |   |   |   |
-IupVersionDate      .............u| n | / |   |   |   |   |
-IupSetLanguage      .............u| n | m | e |   |   |   |
-IupGetLanguage      .............u| n | m |   |   |   |   |
+IupOpen             ......... | n*| m | e |   |   |   |
+IupClose            ......... | n | m | e |   |   |   |
+IupVersion          ......... | n | / |   |   |   |   |
+IupVersionNumber    .........u| n | / |   |   |   |   |
+IupVersionDate      .........u| n | / |   |   |   |   |
+IupSetLanguage      .........u| n | m | e |   |   |   |
+IupGetLanguage      .........u| n | m |   |   |   |   |
                  Attributes/Functions
-IupSetAttribute     ............. | n | m | e |   |   |   |
-IupSetStrAttribute  .............u| n | m | e |   |   |   |
-IupStoreAttribute   .............u| n | m | e |   |   |   | IupSetStrAttribute
-IupSetAttributes    ............. | n | m | e |   |   |   |
-IupResetAttribute   ............. |   |   |   |   |   |   |
-IupSetAtt           ............. |   |   |   |   |   |   |
-IupSetAttributeHandle  .......... | n | m |   |   |   |   |
-IupGetAttribute     ............. | n | m |   |   |   |   |
-IupGetAllAttributes  ............ |   |   |   |   |   |   |
-IupGetAttributes    ............. | n | m |   |   |   |   |
-IupCopyAttributes   ............. |   |   |   |   |   |   |
-IupGetAttributeHandle  .......... |   |   |   |   |   |   |
-IupSetGlobal        ............. | n |   |   |   |   |   |
-IupSetStrGlobal     .............u| n | m | e |   |   |   |
-IupGetGlobal        ............. | n | m | e |   |   |   |
-IupGetInt           .............u| n | m |   |   |   |   |
-IupStringCompare    ............. |   |   |   |   |   |   |
+IupSetAttribute     ......... | n | m | e |   |   |   |
+IupSetStrAttribute  .........u| n | m | e |   |   |   |
+IupStoreAttribute   .........u| n | m | e |   |   |   | IupSetStrAttribute
+IupSetAttributes    ......... | n | m | e |   |   |   |
+IupResetAttribute   ......... |   |   |   |   |   |   |
+IupSetAtt           ......... |   |   |   |   |   |   |
+IupSetAttributeHandle  ...... | n | m |   |   |   |   |
+IupGetAttribute     ......... | n | m |   |   |   |   |
+IupGetAllAttributes  ........ |   |   |   |   |   |   |
+IupGetAttributes    ......... | n | m |   |   |   |   |
+IupCopyAttributes   ......... |   |   |   |   |   |   |
+IupGetAttributeHandle  ...... |   |   |   |   |   |   |
+IupSetGlobal        ......... | n |   |   |   |   |   |
+IupSetStrGlobal     .........u| n | m | e |   |   |   |
+IupGetGlobal        ......... | n | m | e |   |   |   |
+IupGetInt           .........u| n | m |   |   |   |   |
+IupStringCompare    ......... |   |   |   |   |   |   |
               Events & Callbacks/Functions
-IupMainLoop         ............. | n | m | e |   |   |   |
-IupMainLoopLevel    ............. |   |   |   |   |   |   |
-IupLoopStep         ............. |   |   |   |   |   |   |
-IupExitLoop         ............. |   |   |   |   |   |   |
-IupPostMessage      ............. |   |   |   |   |   |   |
-IupFlush            ............. |   |   |   |   |   |   |
-IupGetCallback      ............. |   |   |   |   |   |   |
-IupSetCallback      ............. | n*|   |   |   |   |   |
-IupSetCallbacks     ............. |   |   |   |   |   |   |
-IupGetFunction      ............. |   |   |   |   |   |   |
-IupSetFunction      ............. |   |   |   |   |   |   |
-IupRecordInput      ............. |   |   |   |   |   |   |
-IupPlayInput        ............. |   |   |   |   |   |   |
+IupMainLoop         ......... | n | m | e |   |   |   |
+IupMainLoopLevel    ......... |   |   |   |   |   |   |
+IupLoopStep         ......... |   |   |   |   |   |   |
+IupExitLoop         ......... |   |   |   |   |   |   |
+IupPostMessage      ......... |   |   |   |   |   |   |
+IupFlush            ......... |   |   |   |   |   |   |
+IupGetCallback      ......... |   |   |   |   |   |   |
+IupSetCallback      ......... | n*|   |   |   |   |   |
+IupSetCallbacks     ......... |   |   |   |   |   |   |
+IupGetFunction      ......... |   |   |   |   |   |   |
+IupSetFunction      ......... |   |   |   |   |   |   |
+IupRecordInput      ......... |   |   |   |   |   |   |
+IupPlayInput        ......... |   |   |   |   |   |   |
               Dialogs/Reference
-IupDialog      .................. | n | m | e |   |   |   |
-IupPopup       .................. | n | m |   |   |   |   |
-IupShow        .................. | n |   |   |   |   |   |
-IupShowXY      .................. | n |   |   |   |   |   |
-IupHide        .................. | n | m |   |   |   |   |
+IupDialog      .............. | n | m | e |   |   |   |
+IupPopup       .............. | n | m |   |   |   |   |
+IupShow        .............. | n |   |   |   |   |   |
+IupShowXY      .............. | n |   |   |   |   |   |
+IupHide        .............. | n | m |   |   |   |   |
               Dialogs/Predefined
-IupFileDlg     .................. | n |   |   |   |   |   |
-IupMessageDlg  .................. | n |   |   |   |   |   |
-IupColorDlg    .................. | n |   |   |   |   |   |
-IupFontDlg     .................. | n |   |   |   |   |   |
-IupProgressDlg .................. | n |   |   |   |   |   |
-IupScintillaDlg  ................ |   |   |   |   |   |   |
-IupAlarm      ................... |   |   |   |   |   |   |
-IupGetFile    ................... |   |   |   |   |   |   |
-IupGetColor   ................... |   |   |   |   |   |   |
-IupGetParam   ................... |   |   |   |   |   |   |
-IupGetText    ................... |   |   |   |   |   |   |
-IupListDialog ................... | n | m | e |   |   |   |
-IupMessage    ................... | n |   |   |   |   |   |
-IupMessageError  ................ |   |   |   |   |   |   |
-IupScanf      ................... |   |   |   |   |   |   |
-IupLayoutDialog  ................ |   |   |   |   |   |   |
-IupElementPropertiesDialog ...... |   |   |   |   |   |   |
-IupGlobalsDialog  ............... |   |   |   |   |   |   |
-IupClassInfoDialog  ............. |   |   |   |   |   |   |
+IupFileDlg     .............. | n |   |   |   |   |   |
+IupMessageDlg  .............. | n |   |   |   |   |   |
+IupColorDlg    .............. | n |   |   |   |   |   |
+IupFontDlg     .............. | n |   |   |   |   |   |
+IupProgressDlg .............. | n |   |   |   |   |   |
+IupScintillaDlg  ............ |   |   |   |   |   |   |
+IupAlarm      ............... |   |   |   |   |   |   |
+IupGetFile    ............... |   |   |   |   |   |   |
+IupGetColor   ............... |   |   |   |   |   |   |
+IupGetParam   ............... |   |   |   |   |   |   |
+IupGetText    ............... |   |   |   |   |   |   |
+IupListDialog ............... | n | m | e |   |   |   |
+IupMessage    ............... | n |   |   |   |   |   |
+IupMessageError  ............ |   |   |   |   |   |   |
+IupScanf      ............... |   |   |   |   |   |   |
+IupLayoutDialog  ............ |   |   |   |   |   |   |
+IupElementPropertiesDialog .. |   |   |   |   |   |   |
+IupGlobalsDialog  ........... |   |   |   |   |   |   |
+IupClassInfoDialog  ......... |   |   |   |   |   |   |
               Layout Compose/Hierarchy
-IupAppend     ................... | n | m |   |   |   |   |
-IupDetach     ................... |   |   |   |   |   |   |
-IupInsert     ................... | n | m |   |   |   |   |
-IupReparent   ................... |   |   |   |   |   |   |
-IupGetParent  ................... | n | m |   |   |   |   |
-IupGetChild   ................... | n | m |   |   |   |   |
-IupGetChildPos  ................. |   |   |   |   |   |   |
-IupGetChildCount ................ |   |   |   |   |   |   |
-IupGetNextChild  ................ | n | m |   |   |   |   |
-IupGetBrother    ................ |   |   |   |   |   |   |
-IupGetDialog     ................ | n | m |   |   |   |   |
-IupGetDialogChild  .............. |   |   |   |   |   |   |
+IupAppend     ............... | n | m |   |   |   |   |
+IupDetach     ............... |   |   |   |   |   |   |
+IupInsert     ............... | n | m |   |   |   |   |
+IupReparent   ............... |   |   |   |   |   |   |
+IupGetParent  ............... | n | m |   |   |   |   |
+IupGetChild   ............... | n | m |   |   |   |   |
+IupGetChildPos  ............. |   |   |   |   |   |   |
+IupGetChildCount ............ |   |   |   |   |   |   |
+IupGetNextChild  ............ | n | m |   |   |   |   |
+IupGetBrother    ............ |   |   |   |   |   |   |
+IupGetDialog     ............ | n | m |   |   |   |   |
+IupGetDialogChild  .......... |   |   |   |   |   |   |
               Layout Compose/Management
-IupRefresh         .............. |   |   |   |   |   |   |
-IupRefreshChildren  ............. |   |   |   |   |   |   |
+IupRefresh         .......... |   |   |   |   |   |   |
+IupRefreshChildren  ......... |   |   |   |   |   |   |
               Controls/Containers
-IupFill      .................... | n | m | e |   |   |   |
-IupSpace     .................... |   |   |   |   |   |   |
-IupCbox      .................... | n*|   |   |   |   |   |
-IupGridBox   .................... | n*| m | e |   |   |   |
-IupMultiBox  .................... |   |   |   |   |   |   |
-IupHbox      .................... | n*| m | e |   |   |   |
-IupVbox      .................... | n*| m | e |   |   |   |
-IupZbox      .................... | n*|   |   |   |   |   |
-IupRadio     .................... |   |   |   |   |   |   |
-IupNormalizer  .................. |   |   |   |   |   |   |
-IupFrame     .................... | n | m | e |   |   |   |
-IupFlatFrame  ................... |   |   |   |   |   |   |
-IupTabs     ..................... |   |   |   |   |   |   |
-IupFlatTabs  .................... |   |   |   |   |   |   |
-IupBackgroundBox  ............... |   |   |   |   |   |   |
-IupScrollBox      ............... |   |   |   |   |   |   |
-IupFlatScrollBox  ............... |   |   |   |   |   |   |
-IupDetachBox     ................ |   |   |   |   |   |   |
-IupExpander      ................ |   |   |   |   |   |   |
-IupSbox          ................ |   |   |   |   |   |   |
-IupSplit         ................ |   |   |   |   |   |   |
-IupSpinbox       ................ |   |   |   |   |   |   |
-IupParamBox      ................ |   |   |   |   |   |   |
+IupFill      ................ | n | m | e |   |   |   |
+IupSpace     ................ |   |   |   |   |   |   |
+IupCbox      ................ | n*|   |   |   |   |   |
+IupGridBox   ................ | n*| m | e |   |   |   |
+IupMultiBox  ................ | n*| m | e |   |   |   |
+IupHbox      ................ | n*| m | e |   |   |   |
+IupVbox      ................ | n*| m | e |   |   |   |
+IupZbox      ................ | n*|   |   |   |   |   |
+IupRadio     ................ |   |   |   |   |   |   |
+IupNormalizer  .............. |   |   |   |   |   |   |
+IupFrame     ................ | n | m | e |   |   |   |
+IupFlatFrame  ............... |   |   |   |   |   |   |
+IupTabs     ................. |   |   |   |   |   |   |
+IupFlatTabs  ................ |   |   |   |   |   |   |
+IupBackgroundBox  ........... |   |   |   |   |   |   |
+IupScrollBox      ........... |   |   |   |   |   |   |
+IupFlatScrollBox  ........... |   |   |   |   |   |   |
+IupDetachBox     ............ |   |   |   |   |   |   |
+IupExpander      ............ |   |   |   |   |   |   |
+IupSbox          ............ |   |   |   |   |   |   |
+IupSplit         ............ |   |   |   |   |   |   |
+IupSpinbox       ............ |   |   |   |   |   |   |
+IupParamBox      ............ |   |   |   |   |   |   |
               Controls/Standard
-IupAnimatedLabel  ............... |   |   |   |   |   |   |
-IupButton         ............... | n | m | e |   |   |   |
-IupFlatButton     ............... |   |   |   |   |   |   |
-IupDropButton     ............... |   |   |   |   |   |   |
-IupCalendar       ............... |   |   |   |   |   |   |
-IupCanvas         ............... | n | m |   |   |   |   |
-IupColorbar       ............... |   |   |   |   |   |   |
-IupColorBrowser   ............... |   |   |   |   |   |   |
-IupDatePick       ............... |   |   |   |   |   |   |
-IupDial           ............... |   |   |   |   |   |   |
-IupGauge          ............... |   |   |   |   |   |   |
-IupLabel          ............... | n | m | e |   |   |   |
-IupFlatLabel      ............... |   |   |   |   |   |   |
-IupFlatSeparator  ............... | n | m | e |   |   |   |
-IupLink           ............... |   |   |   |   |   |   |
-IupList           ............... |   |   |   |   |   |   |
-IupFlatList       ............... |   |   |   |   |   |   |
-IupProgressBar    ............... |   |   |   |   |   |   |
-IupSpin           ............... |   |   |   |   |   |   |
-IupText           ............... | n*| m | e |   |   |   |
-IupMultiLine see Text ........... |   |   |   |   |   |   |
-IupToggle         ............... |   |   |   |   |   |   |
-IupFlatToggle     ............... |   |   |   |   |   |   |
-IupTree           ............... |   |   |   |   |   |   |
-IupFlatTree       ............... |   |   |   |   |   |   |
-IupVal            ............... |   |   |   |   |   |   |
-IupFlatVal        ............... |   |   |   |   |   |   |
+IupAnimatedLabel  ........... |   |   |   |   |   |   |
+IupButton         ........... | n | m | e |   |   |   |
+IupFlatButton     ........... |   |   |   |   |   |   |
+IupDropButton     ........... |   |   |   |   |   |   |
+IupCalendar       ........... |   |   |   |   |   |   |
+IupCanvas         ........... | n | m |   |   |   |   |
+IupColorbar       ........... |   |   |   |   |   |   |
+IupColorBrowser   ........... |   |   |   |   |   |   |
+IupDatePick       ........... |   |   |   |   |   |   |
+IupDial           ........... |   |   |   |   |   |   |
+IupGauge          ........... |   |   |   |   |   |   |
+IupLabel          ........... | n | m | e |   |   |   |
+IupFlatLabel      ........... |   |   |   |   |   |   |
+IupFlatSeparator  ........... | n | m | e |   |   |   |
+IupLink           ........... |   |   |   |   |   |   |
+IupList           ........... |   |   |   |   |   |   |
+IupFlatList       ........... |   |   |   |   |   |   |
+IupProgressBar    ........... |   |   |   |   |   |   |
+IupSpin           ........... |   |   |   |   |   |   |
+IupText           ........... | n*| m | e |   |   |   |
+IupMultiLine      ........... | n*|   |   |   |   |   |a Text w/ MULTILINE=YES
+IupToggle         ........... |   |   |   |   |   |   |
+IupFlatToggle     ........... |   |   |   |   |   |   |
+IupTree           ........... |   |   |   |   |   |   |
+IupFlatTree       ........... |   |   |   |   |   |   |
+IupVal            ........... |   |   |   |   |   |   |
+IupFlatVal        ........... |   |   |   |   |   |   |
    Additional controls requiring CD lib are ignored.
               Controls/Management
-IupMap            ............. | n | m |   |   |   |   |
-IupUnmap          ............. |   |   |   |   |   |   |
+IupMap            ......... | n | m |   |   |   |   |
+IupUnmap          ......... |   |   |   |   |   |   |
               Controls/Mgmt/Registered Classes
-IupCreate         ............. |   |   |   |   |   |   |
-IupDestroy        ............. | n | m |   |   |   |   |
-IupGetAllClasses  ............. |   |   |   |   |   |   |
-IupGetClassName   ............. |   |   |   |   |   |   |
-IupGetClassType   ............. |   |   |   |   |   |   |
-IupClassMatch     ............. |   |   |   |   |   |   |
-IupGetClassAttributes  ........ |   |   |   |   |   |   |
-IupGetClassCallbacks   ........ |   |   |   |   |   |   |
-IupSaveClassAttributes ........ |   |   |   |   |   |   |
-IupCopyClassAttributes ........ |   |   |   |   |   |   |
-IupSetClassDefaultAttribute ... |   |   |   |   |   |   |
+IupCreate         ......... |   |   |   |   |   |   |
+IupDestroy        ......... | n | m |   |   |   |   |
+IupGetAllClasses  ......... |   |   |   |   |   |   |
+IupGetClassName   ......... |   |   |   |   |   |   |
+IupGetClassType   ......... |   |   |   |   |   |   |
+IupClassMatch     ......... |   |   |   |   |   |   |
+IupGetClassAttributes  .... |   |   |   |   |   |   |
+IupGetClassCallbacks   .... |   |   |   |   |   |   |
+IupSaveClassAttributes .... |   |   |   |   |   |   |
+IupCopyClassAttributes .... |   |   |   |   |   |   |
+IupSetClassDefaultAttribute |   |   |   |   |   |   |
               Controls/Mgmt/Registered Classes/Utilities
-IupUpdate         ............. |   |   |   |   |   |   |
-IupRedraw         ............. |   |   |   |   |   |   |
-IupConvertXYToPos  ............ |   |   |   |   |   |   |
+IupUpdate         ......... |   |   |   |   |   |   |
+IupRedraw         ......... |   |   |   |   |   |   |
+IupConvertXYToPos  ........... |   |   |   |   |   |   |
               Resources/Images
-IupImage          ............. | n | m |   |   |   |   |
-IupImageRGB       .............u| n |   |   |   |   |   |
-IupImageRGBA      .............u| n |   |   |   |   |   |
-IupImageLib       .............u| n | m | e |   |   |   |  is IupImageLibOpen
-Iup-IM             ............ |   |   |   |   |   |   |
-IupSaveImageAsText ............ |   |   |   |   |   |   |
-IupImageGetHandle  ............ |   |   |   |   |   |   |
+IupImage          ......... | n | m |   |   |   |   |
+IupImageRGB       .........u| n |   |   |   |   |   |
+IupImageRGBA      .........u| n |   |   |   |   |   |
+IupImageLib       .........u| n | m | e |   |   |   |  is IupImageLibOpen
+Iup-IM             ........ |   |   |   |   |   |   |
+IupSaveImageAsText ........ |   |   |   |   |   |   |
+IupImageGetHandle  ........ |   |   |   |   |   |   |
               Resources/Keyboard/Reference
-IupNextField       ............ |   |   |   |   |   |   |
-IupPreviousField   ............ |   |   |   |   |   |   |
-IupGetFocus        ............ |   |   |   |   |   |   |
-IupSetFocus        ............ |   |   |   |   |   |   |
+IupNextField       ........ |   |   |   |   |   |   |
+IupPreviousField   ........ |   |   |   |   |   |   |
+IupGetFocus        ........ |   |   |   |   |   |   |
+IupSetFocus        ........ |   |   |   |   |   |   |
               Resources/Menus
-IupItem        ................ | n*| m | e |   |   |   |
-IupMenu        ................ | n | m | e |   |   |   |
-IupSeparator   ................ | n | m | e |   |   |   |
-IupSubmenu     ................ | n | m | e |   |   |   |
+IupItem        ............ | n*| m | e |   |   |   |
+IupMenu        ............ | n | m | e |   |   |   |
+IupSeparator   ............ | n | m | e |   |   |   |
+IupSubmenu     ............ | n | m | e |   |   |   |
               Resources/Handle Names
-IupSetHandle   ................ | n | m |   |   |   |   |
-IupGetHandle   ................ |   |   |   |   |   |   |
-IupGetName     ................ |   |   |   |   |   |   |
-IupGetAllNames  ............... |   |   |   |   |   |   |
-IupGetAllDialogs .............. |   |   |   |   |   |   |
+IupSetHandle   ............ | n | m |   |   |   |   |
+IupGetHandle   ............ |   |   |   |   |   |   |
+IupGetName     ............ |   |   |   |   |   |   |
+IupGetAllNames  ........... |   |   |   |   |   |   |
+IupGetAllDialogs .......... |   |   |   |   |   |   |
               Resources/String Names
-IupClipboard   ................ |   |   |   |   |   |   |
-IupTimer       ................ |   |   |   |   |   |   |
-IupTuio        ................ |   |   |   |   |   |   |
-IupThread      ................ |   |   |   |   |   |   |
-IupUser        ................ |   |   |   |   |   |   |
-IupConfig      ................ |   |   |   |   |   |   |
-IupExecute     ................ |   |   |   |   |   |   |
-IupExecuteWait ................ |   |   |   |   |   |   |
-IupHelp        ................ |   |   |   |   |   |   |
-IupLog         ................ |   |   |   |   |   |   |
+IupClipboard   ............ |   |   |   |   |   |   |
+IupTimer       ............ |   |   |   |   |   |   |
+IupTuio        ............ |   |   |   |   |   |   |
+IupThread      ............ |   |   |   |   |   |   |
+IupUser        ............ |   |   |   |   |   |   |
+IupConfig      ............ |   |   |   |   |   |   |
+IupExecute     ............ |   |   |   |   |   |   |
+IupExecuteWait ............ |   |   |   |   |   |   |
+IupHelp        ............ |   |   |   |   |   |   |
+IupLog         ............ |   |   |   |   |   |   |
