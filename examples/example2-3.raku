@@ -12,7 +12,7 @@ sub MAIN ( ) {
     $button.set_callback("ACTION", &exit_callback);
     my $vbox  = $iup.vbox( $button );
     my $dlg = $iup.dialog( $vbox);
-    $dlg.set_attribute( "TITLE", "Hello World 3");
+    $dlg.sattr( "TITLE", "Hello World 3", :copy );
 
     $dlg.show( IUP_CENTER, IUP_CENTER);
     $iup.main_loop();

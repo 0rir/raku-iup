@@ -25,10 +25,10 @@ sub MAIN() {
                         $ih.fill()
                     )
             ).set-attrs(
-                FGCOLOR => Red,
-                SIZE => "EIGHTHxEIGHTH",
-                TITLE => "This is the frame",
-                MARGIN => "10x10");
+                "FGCOLOR" => Red,
+                "SIZE" => "EIGHTHxEIGHTH",
+                "TITLE" => "This is the frame",
+                "MARGIN" => "10x10");
                 # Sets frame's attributes
 
     # Creates dialog

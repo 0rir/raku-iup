@@ -45,28 +45,28 @@ sub menu-test {
         $ih.item("Circle", ""),
         $ih.submenu("Triangle",
             $ih.menu(
-                $ih.item("Equilateral", "").set-attributes(VALUE => "ON"),
+                $ih.item("Equilateral", "").sattr("VALUE" => "ON"),
                 $ih.item("Isoceles", ""),
                 $ih.item("Scalenus", "")
-            ).set-attributes(RADIO => "YES")
+            ).sattr('RADIO' => "YES")
         )
     );
 
     # File Menu
     my $menu-file = $ih.menu(
         $ih.item("Item with Image \tCtrl+M", ""),
-        $ih.item("Toggle using &VALUE", "").set-attributes(VALUE => "ON", KEY => "KcV"),
-        $ih.item("Auto &Toggle Text", "").set-attributes(AUTOTOGGLE => "YES", VALUE => "OFF"),
+        $ih.item("Toggle using &VALUE", "").sattr("VALUE" => "ON", "KEY" => "KcV"),
+        $ih.item("Auto &Toggle Text", "").sattr("AUTOTOGGLE" => "YES", "VALUE" => "OFF"),
         $ih.item("Auto &Toggle Image", ""),
         $ih.item("Big Image", ""),
         $ih.separator,
         $ih.item("Exit (Destroy)", ""),
-        $ih.item("E&xit (Close)", "")
+        $ih.item("Exit (Close)", "")
     );
 
     # Edit Menu
     my $menu-edit = $ih.menu(
-        $ih.item("Active Next", "").set-attributes(IMAGE => "IUP_ArrowRight"),
+        $ih.item("Active Next", "").set-attribute('IMAGE', "IUP_ArrowRight"),
         $ih.item("Rename Next", ""),
         $ih.item("Set Next Image", ""),
         $ih.item("Item && Acc\tCtrl+A", ""),
@@ -80,7 +80,7 @@ sub menu-test {
         $ih.item("Insert", ""),
         $ih.item("Remove", ""),
         $ih.separator,
-        $ih.item("Info", "").set-attributes(IMAGE => "IUP_MessageInfo")
+        $ih.item("Info", "").sattr('IMAGE' => "IUP_MessageInfo")
     );
 
     # Creates main menu with file menu
@@ -94,9 +94,9 @@ sub menu-test {
     my $canvas = $ih.canvas("");
     my $dlg = $ih.dialog($canvas);
     $dlg.set_attribute_handle("MENU", $menu);
-    $dlg.set_attributes(
-        TITLE => "IupMenu Test",
-        SIZE  => "QUARTERxQUARTER");
+    $dlg.sattr(
+        "TITLE" => "IupMenu Test",
+        "SIZE"  => "QUARTERxQUARTER");
 
     # Shows dlg in the center of the screen */
     $dlg.show(IUP_CENTER, IUP_CENTER);

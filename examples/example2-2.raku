@@ -11,7 +11,7 @@ sub MAIN ( ) {
     my $dlg = $iup.dialog(
         $iup.vbox($label)
     );
-    $dlg.set_attribute( "TITLE", "Hello World 2");
+    $dlg.sattr( "TITLE", "Hello World 2", :copy );
 
     $dlg.show( IUP_CENTER, IUP_CENTER);
     $iup.main_loop();
