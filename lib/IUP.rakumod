@@ -228,7 +228,15 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupDialog(Ihdle -->Ihdle) is native(IUP_l) {*};
 
+    # IupThread 
+
+    # Make a elem to map a foreign thing to an elem, or to a stash attributes.
+    sub IupUser(-->Ihdle) ) is native(IUP_l) {*}
+
     sub IupLabel(Str -->Ihdle) is native(IUP_l) {*};
+
+    # Make a dropdown or visible displayed list, may have editbox. AKA combobox.
+    sub IupList( Str -->Ihdle) is native(IUP_l) {*};
 
     sub p6IupText(Str $action -->Ihdle) is native(IUP_l) {*};
 
@@ -454,7 +462,11 @@ say "set-attrs pair";
     }
 
 
-    method get_int(Str $name -->Int) { IupGetInt(self, $name) }
+    method get-int(Str $name -->Int) { IupGetInt(self, $name) }
+    method get_int(Str $name -->Int) {
+        DEPRECATED('get-int','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetInt(self, $name)
+    }
 
     ###
 
@@ -639,7 +651,13 @@ say "set-attrs pair";
 
     method dialog($child -->Ihdle) { IupDialog($child) }
 
+    method user(-->Ihdle) { IupUser() }
+
+    # thread 
+
     method label(Str $str = '' -->Ihdle) { IupLabel($str) }
+
+    method list(Str $action -->Ihdle) { IupList( $action) }
 
     method text(Str $action = '' -->Ihdle) { p6IupText($action) }
 
