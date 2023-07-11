@@ -231,7 +231,7 @@ class IUP::Handle is repr('CPointer') {
     # IupThread 
 
     # Make a elem to map a foreign thing to an elem, or to a stash attributes.
-    sub IupUser(-->Ihdle) ) is native(IUP_l) {*}
+    sub IupUser(-->Ihdle) is native(IUP_l) {*}
 
     sub IupLabel(Str -->Ihdle) is native(IUP_l) {*};
 
@@ -529,7 +529,7 @@ say "set-attrs pair";
         }
     }
 
-    method vbox(*@child -->Ihdle) { self.hboxv(@child); }
+    method vbox(*@child -->Ihdle) { self.vboxv(@child); }
 
     method hboxv(*@child -->Ihdle) {
         my $n = @child.elems;
