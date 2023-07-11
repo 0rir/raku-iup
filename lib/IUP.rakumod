@@ -236,7 +236,7 @@ class IUP::Handle is repr('CPointer') {
     sub IupLabel(Str -->Ihdle) is native(IUP_l) {*};
 
     # Make a dropdown or visible displayed list, may have editbox. AKA combobox.
-    sub IupList( Str -->Ihdle) is native(IUP_l) {*};
+    sub IupList( Str -->Ihdle) is native(IUP_l) is export {*};
 
     sub p6IupText(Str $action -->Ihdle) is native(IUP_l) {*};
 
@@ -657,7 +657,7 @@ say "set-attrs pair";
 
     method label(Str $str = '' -->Ihdle) { IupLabel($str) }
 
-    method list(Str $action -->Ihdle) { IupList( $action) }
+    method list(Str $action = '' -->Ihdle) { IupList( $action) }
 
     method text(Str $action = '' -->Ihdle) { p6IupText($action) }
 
