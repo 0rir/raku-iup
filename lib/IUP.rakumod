@@ -132,9 +132,11 @@ class IUP::Handle is repr('CPointer') {
     sub IupSetCallback(Ihdle, Str, IUP::Callback -->IUP::Callback)
             is native(IUP_l) {*};
 
-    ###
+    # Returns the handle of an element that was tagged/named by IupSetHandle
+    sub IupGetHandle(Str $name -->Ihdle) is native(IUP_l) {*}
 
-    sub IupSetHandle(Str, Ihdle -->Ihdle) is native(IUP_l) {*};
+    # Associates a name with an interface element
+    sub IupSetHandle(Str, Ihdle -->Ihdle) is native(IUP_l) {*}
 
     ###
 
@@ -491,10 +493,15 @@ say "set-attrs pair";
     }
 
     ###
+    method get-handle(Str $name -->Ihdle) { IupGetHandle($name) }
+    method get_handle(Str $name -->Ihdle) {
+        DEPRECATED('get-handle','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetHandle($name )
+    }
 
     method set-handle(Str $name -->Ihdle) { IupSetHandle($name, self) }
     method set_handle(Str $name -->Ihdle) {
-        DEPRECATED('main-loop','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-handle','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetHandle($name, self)
     }
     ###
