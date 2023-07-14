@@ -15,6 +15,7 @@ $iup.open;
 say "Misc:";
 say '   IupVersion(): ', IupVersion;
 say '   IupVersionNumber(): ', IupVersionNumber();
+say '   IupVersionDate(): ', IupVersionDate;
 say '   DEFAULTFONTSIZE: ', $iup.get-global( 'DEFAULTFONTSIZE' );
 
 say "\nSys Info:";

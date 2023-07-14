@@ -1,4 +1,7 @@
-Raku-iup TODOs 
+Raku-iup TODOs
+
+1) Raku IupListDialog multis should return type object on cancel.  And
+    the 1-item version should return a Str instead of -1 int32.
 
 This TODO contains all IUP functions that are listed in the sidebar on
 https://www.tecgraf.puc-rio.br/iup/ .  There are many other IUP functions
@@ -12,14 +15,15 @@ Legend:
     n* - Native call exists with oddity; usually rewrapped within custom C.
     m  - Has a method calling it.
     /  - Not meaningful or not needed. (E.g. call directly vs method. )
-    e  - Exercised by an example
+    e  - Exercised by an example.
+    x  - broken, should also be implied by example file not being executable.
 
 Function name    Category    u| n*| m | e |   |   |   |
                  System/Reference
 IupOpen             ......... | n*| m | e |   |   |   |
 IupClose            ......... | n | m | e |   |   |   |
-IupVersion          ......... | n | / |   |   |   |   |
-IupVersionNumber    .........u| n | / |   |   |   |   |
+IupVersion          ......... | n | / | e |   |   |   |
+IupVersionNumber    .........u| n | / | e |   |   |   |
 IupVersionDate      .........u| n | / |   |   |   |   |
 IupSetLanguage      .........u| n | m | e |   |   |   |
 IupGetLanguage      .........u| n | m |   |   |   |   |
