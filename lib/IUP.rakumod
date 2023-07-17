@@ -30,6 +30,7 @@ constant IUP_BOTTOM       = IUP_RIGHT;
 constant IUP_RGB  = 1;
 constant IUP_RGBA = 2;
 
+
 class IUP::Pixmap {
     method load(@data) {
         my $image = CArray[int8].new();
@@ -361,6 +362,10 @@ class IUP::Handle is repr('CPointer') {
     # more attribute can be set; when setting one attribute the :copy
     # flag will copy the value instead of setting it by reference.
     #
+    multi method sattr( Str:D $preformed-kv-set,Bool :$pre! = True -->Ihdle) {
+say "Preformatted Str";
+        IupSetAttributes(self, $str);
+    }
     multi method sattr( Str:D $k, Str:D $v, Bool :$copy -->Ihdle) {
 say "Str,Str,flag";
         $copy ?? IupStoreAttribute( self, $k, $v)
@@ -772,3 +777,4 @@ class IUP is IUP::Handle {
 
     method get_language( -->Str) { IupGetLanguage }
 }
+
