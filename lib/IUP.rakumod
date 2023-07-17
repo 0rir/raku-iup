@@ -185,6 +185,7 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupCboxv(Ptr $children -->Ihdle) is native(IUP_l) is export {*}
 
+    # Make a container that lets its child be resized in one direction. 
     sub IupSbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
     sub IupSplit(Ihdle $child1, Ihdle $child2 -->Ihdle)
@@ -556,9 +557,13 @@ say "set-attrs pair";
         }
     }
 
-    method hbox(*@child -->Ihdle) { self.hboxv(@child); }
+    method hbox(*@child -->Ihdle) { self.hboxv(@child) }
 
-    # normalizer, cbox, sbox, split,scrollbox
+    # normalizer, cbox,
+
+    method sbox( $child -->Ihdle) { IupSbox($child) }
+
+    # split,scrollbox
 
     method gridboxv(*@child -->Ihdle) {
         my $n = @child.elems;
