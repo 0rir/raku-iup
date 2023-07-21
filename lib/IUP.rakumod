@@ -60,17 +60,10 @@ class IUP::Handle is repr('CPointer') {
     # Free memory.
     sub p6IupFree(Ptr) is native(IUP_l) {*};
 
-    ### Callbacks
-
-    sub p6IupSetCallback_void(Ihdle, Str, &cb (--> int32) -->IUP::Callback)
-            is native(IUP_l) {*};
-
-    sub p6IupSetCallback_handle(Ihdle, Str, &cb (Ihdle -->int32)
-            -->IUP::Callback) is native(IUP_l) {*};
-
-    ###
     # Destroy an widget.
     sub IupDestroy(Ihdle) is native(IUP_l) {*};
+
+    # IupDetach
 
     # Append a child to a widget's child list.
     sub IupAppend(Ihdle $ih, Ihdle $child -->Ihdle) is native(IUP_l) {*};
@@ -82,8 +75,12 @@ class IUP::Handle is repr('CPointer') {
     # Get a child of widget by index into child-list.
     sub IupGetChild(Ihdle, int32 -->Ihdle) is native(IUP_l) {*};
 
+    # IupGetChildPos IupGetChildCount
+
     # Get a child of widget after the $child (aka the brother).
     sub IupGetNextChild(Ihdle $ih, Ihdle $child -->Ihdle) is native(IUP_l) {*};
+
+    # IupGetBrother
 
     # Return the parent of a control.
     sub IupGetParent(Ihdle -->Ihdle) is native(IUP_l) {*};
@@ -91,7 +88,7 @@ class IUP::Handle is repr('CPointer') {
     # Return the dialog that contains the interface element.
     sub IupGetDialog(Ihdle -->int32) is native(IUP_l) {*};
 
-    ###
+    #IupGetDialogChild IupReparent
 
     sub IupPopup(Ihdle, int32, int32 -->int32) is native(IUP_l) {*};
 
@@ -101,23 +98,46 @@ class IUP::Handle is repr('CPointer') {
 
     # Hides an element; like IupSetAttribute("VISIBLE", "NO")
     sub IupHide(Ihdle -->int32) is native(IUP_l) {*};
+
     # Adds an elem and its children into the abstract layout.
     sub IupMap(Ihdle -->int32) is native(IUP_l) {*};
 
-    ###
+    # IupUnmap IupResetAttribute IupGetAllAttributes
+    # IupCopyAttributes IupSetAtt
+
+    sub IupSetAttributes(Ihdle, Str -->Ihdle) is native(IUP_l) {*};
+
+    sub IupGetAttributes(Ihdle -->Str) is native(IUP_l) {*};
+
     # Store only a constant string (or application ptr) by reference.
     sub IupSetAttribute(Ihdle, Str, Str) is native(IUP_l) {*};
 
     # Store a copy of the given string.
     sub IupSetStrAttribute( Ihdle, Str, Str ) is native(IUP_l) {*};
-    # Old name for IupSetStrAttribute
-    sub IupStoreAttribute(Ihdle, Str, Str) is native(IUP_l) {*};    #DEPRECATE
 
-    sub IupSetAttributes(Ihdle, Str -->Ihdle) is native(IUP_l) {*};
+    # IupSetStrf IupSetInt IupSetFloat IupSetDouble IupSetRGB IupSetRGBA
 
     sub IupGetAttribute(Ihdle, Str -->Str) is native(IUP_l) {*};
 
-    sub IupGetAttributes(Ihdle -->Str) is native(IUP_l) {*};
+    sub IupGetInt(Ihdle, Str -->int32) is native(IUP_l) {*};
+
+    sub IupGetInt2(Ihdle $ih, Str $name -->int32) is native(IUP_l) {*}
+
+    sub IupGetIntInt( Ihdle $ih, Str $nam, Ptr[int32] $i1, Ptr[int32] $i2
+            -->int32) is native(IUP_l) {*}
+
+    sub IupGetFloat(Ihdle $ih, Str $nam -->num32) is native(IUP_l) {*}
+
+    sub IupGetDouble(Ihdle $ih, Str $nam -->num64) is native(IUP_l) {*}
+
+    # IupGetRGB IupGetRGBA
+    # IupSetAttributeId IupSetStrAttributeId IupSetStrfId IupSetIntId
+    # IupSetFloatId IupSetDoubleId IupSetRGBId IupGetAttributeId
+    # IupGetIntId IupGetFloatId IupGetDoubleId IupGetRGBId
+    # IupSetAttributeId2 IupSetStrAttributeId2 IupSetStrfId2
+    # IupSetIntId2 IupSetFloatId2 IupSetDoubleId2 IupSetRGBId2
+    # IupGetAttributeId2 IupGetIntId2 IupGetFloatId2 IupGetDoubleId2
+    # IupGetRGBId2
 
     sub IupSetGlobal( Str, Str)     is native(IUP_l) is export {*}
 
@@ -125,13 +145,23 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupGetGlobal( Str -->Str)   is native(IUP_l) is export {*}
 
-    sub IupGetInt(Ihdle, Str -->int32) is native(IUP_l) {*};
+    # IupSetFocus IupGetFocus IupPreviousField IupNextField
+    # IupGetCallback
 
-    ###
+    ### Callbacks
+
+    sub p6IupSetCallback_void(Ihdle, Str, &cb (--> int32) -->IUP::Callback)
+            is native(IUP_l) {*};
+
+    sub p6IupSetCallback_handle(Ihdle, Str, &cb (Ihdle -->int32)
+            -->IUP::Callback) is native(IUP_l) {*};
 
     # Attach a callback to an event, returns any displaced cb.
     sub IupSetCallback(Ihdle, Str, IUP::Callback -->IUP::Callback)
             is native(IUP_l) {*};
+
+
+    # IupSetCallbacks IupGetFunction IupSetFunction
 
     # Returns the handle of an element that was tagged/named by IupSetHandle
     sub IupGetHandle(Str $name -->Ihdle) is native(IUP_l) {*}
@@ -139,24 +169,22 @@ class IUP::Handle is repr('CPointer') {
     # Associates a name with an interface element
     sub IupSetHandle(Str, Ihdle -->Ihdle) is native(IUP_l) {*}
 
-    ###
+    # IupGetAllNames IupGetAllDialogs IupGetName
 
     sub IupSetAttributeHandle(Ihdle $ih, Str $name, Ihdle $ih_named)
             is native(IUP_l) {*};
 
-    sub IupFileDlg(    -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupMessageDlg( -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupColorDlg(   -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupFontDlg(    -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupProgressDlg(-->Ihdle) is native(IUP_l) is export {*}
-
-    ###
+    # IupGetAttributeHandle IupSetAttributeHandleId IupGetAttributeHandleId
+    # IupSetAttributeHandleId2 IupGetAttributeHandleId2
+    # IupGetClassName
+    # IupGetClassType IupGetAllClasses IupGetClassAttributes
+    # IupGetClassCallbacks IupSaveClassAttributes IupCopyClassAttributes
+    # IupSetClassDefaultAttribute IupClassMatch
+    # IupCreate IupCreatev IupCreatep
 
     sub IupFill( -->Ihdle) is native(IUP_l) {*};
+
+    # IupSpace IupRadio
 
     sub p6IupVbox(Ihdle -->Ihdle) is native(IUP_l) {*};
 
@@ -170,7 +198,21 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupHboxv(Ptr -->Ihdle) is native(IUP_l) {*};
 
-    # normalizer, cbox, sbox, split,scrollbox
+    # IupNormalizer IupNormalizerv
+
+    sub IupCbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupCboxv(Ptr $children -->Ihdle) is native(IUP_l) is export {*}
+
+    # Make a container that lets its child be resized in one direction.
+    sub IupSbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupSplit(Ihdle $child1, Ihdle $child2 -->Ihdle)
+            is native(IUP_l) is export {*}
+
+    sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+
+    # IupFlatScrollBox
 
     sub p6IupGridBox(Ihdle -->Ihdle) is native(IUP_l) {*};
 
@@ -180,31 +222,15 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupMultiBoxv(Ihdle -->Ihdle) is native(IUP_l) is export {*}
 
-    # expander detachbox, backgroundbox
-
-    sub IupCbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupCboxv(Ptr $children -->Ihdle) is native(IUP_l) is export {*}
-
-    # Make a container that lets its child be resized in one direction. 
-    sub IupSbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
-    sub IupSplit(Ihdle $child1, Ihdle $child2 -->Ihdle)
-            is native(IUP_l) is export {*}
-
-    sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-
     sub IupExpander(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
     sub IupDetachBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
     sub IupBackgroundBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
 
-    ###
-
     sub IupFrame(Ihdle $child -->Ihdle) is native(IUP_l) {*};
 
-    ###
+    # IupFlatFrame
 
     sub IupImage(int32, int32, CArray[int8] -->Ihdle) is native(IUP_l) {*};
 
@@ -228,44 +254,69 @@ class IUP::Handle is repr('CPointer') {
 
     sub p6IupButton(Str $title, Str $action -->Ihdle) is native(IUP_l) {*};
 
+    # IupFlatButton IupFlatToggle IupDropButton IupFlatLabel IupFlatSeparator
+
     sub IupCanvas(Str $action -->Ihdle) is native(IUP_l) {*};
 
     sub IupDialog(Ihdle -->Ihdle) is native(IUP_l) {*};
 
-    # IupThread 
-
     # Make a elem to map a foreign thing to an elem, or to a stash attributes.
     sub IupUser(-->Ihdle) is native(IUP_l) {*}
+
+    # IupThread
 
     sub IupLabel(Str -->Ihdle) is native(IUP_l) {*};
 
     # Make a dropdown or visible displayed list, may have editbox. AKA combobox.
     sub IupList( Str -->Ihdle) is native(IUP_l) is export {*};
 
+    # IupFlatList
+
     sub p6IupText(Str $action -->Ihdle) is native(IUP_l) {*};
 
     sub p6IupMultiLine(Str $action -->Ihdle) is native(IUP_l) {*};
 
-    ###
-    #sub IupSplit(Ihdle $child1, Ihdle $child2 -->Ihdle)
-    #        is native(IUP_l) is export {*}
-    #
-    #sub IupScrollBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-    #
-    #sub IupExpander(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-    #
-    #sub IupDetachBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
-    #
-    #sub IupBackgroundBox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+    # IupToggle IupTimer
+    # IupClipboard IupProgressBar IupVal IupFlatVal IupFlatTree
+    # IupTabs IupTabsv IupFlatTabs IupFlatTabsv
+    # IupTree IupLink IupAnimatedLabel
+    # IupDatePick IupCalendar IupColorbar IupGauge
+    # IupDial IupColorBrowser IupSpin IupSpinbox
+    # IupStringCompare IupSaveImageAsText IupImageGetHandle
+    # IupTextConvertLinColToPos IupTextConvertPosToLinCol IupConvertXYToPos
+    # IupStoreGlobal
 
+    # Old name for IupSetStrAttribute
+    sub IupStoreAttribute(Ihdle, Str, Str) is native(IUP_l) {*};    #DEPRECATE
+
+    # IupSetfAttribute IupStoreAttributeId IupSetfAttributeId
+    # IupStoreAttributeId2 IupSetfAttributeId2
+
+    # IupTreeSetUserId IupTreeGetUserId IupTreeGetId IupTreeSetAttributeHandle
     ###
+
+    sub IupFileDlg(    -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupMessageDlg( -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupColorDlg(   -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupFontDlg(    -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupProgressDlg(-->Ihdle) is native(IUP_l) is export {*}
+
+    # IupGetFile
+
+    sub IupMessage(Str $title, Str $message) is export is native(IUP_l) {*};
+
+    # IupMessagef IupMessageError IupMessageAlarm
+
     # returns pressed button number or 0 for noop
     sub IupAlarm( Str:D $title, Str:D $msg,
             Str:D $b1txt, Str $b2txt, Str $b3txt -->int32) is export
         is native(IUP_l) {*};
 
-    sub IupMessage(Str $title, Str $message) is export
-        is native(IUP_l) {*};
+    sub IupScanf(Str $format -->int32) is native(IUP_l) is export {*}
 
     multi sub IupListDialog(        # NATIVE
             int32 $type             # 1 = chose one,  2 = multiple choices
@@ -324,6 +375,15 @@ class IUP::Handle is repr('CPointer') {
         @return;
     }
 
+    # IupGetText IupGetColor IupGetParam IupGetParamv
+    # IupParam
+
+    sub IupParamBox(Ihdle $param -->Ihdle) is native(IUP_l) is export {*}
+    sub IupParamBoxv(Ptr $param_array -->Ihdle) is native(IUP_l) is export {*}
+
+    # IupLayoutDialog IupElementPropertiesDialog
+    # IupGlobalsDialog IupClassInfoDialog
+
     ### METHODS ###
 
     method destroy( -->Mu) { IupDestroy(self) }
@@ -361,10 +421,11 @@ class IUP::Handle is repr('CPointer') {
     # setting multi methods.  They should be renamed set-attr.  One or
     # more attribute can be set; when setting one attribute the :copy
     # flag will copy the value instead of setting it by reference.
-    #
-    multi method sattr( Str:D $preformed-kv-set,Bool :$pre! = True -->Ihdle) {
+
+    multi method sattr( Str:D $pre-kv-str, Bool :$pre where $pre -->Ihdle) {
 say "Preformatted Str";
-        IupSetAttributes(self, $str);
+        die ':pre flag should not be set False' if not $pre;
+        IupSetAttributes(self, $pre-kv-str);
     }
     multi method sattr( Str:D $k, Str:D $v, Bool :$copy -->Ihdle) {
 say "Str,Str,flag";
@@ -396,7 +457,6 @@ say 'Pair Pair Pair …)';
         IupSetAttributes self, $str;
         self;
     }
-
 
     multi method set_attributes(*%attrs) {
         DEPRECATED('set-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
@@ -469,7 +529,6 @@ say "set-attrs pair";
         IupSetStrGlobal($k,$v)
     }
 
-
     method get-int(Str $name -->Int) { IupGetInt(self, $name) }
     method get_int(Str $name -->Int) {
         DEPRECATED('get-int','0.0.2','0.0.3', :what( &?ROUTINE.name));
@@ -516,7 +575,8 @@ say "set-attrs pair";
         IupSetAttributeHandle(self, $name, $ih_named);
     }
     method set_attribute_handle(Str $name, Ihdle $ih_named -->Mu) {
-        DEPRECATED('set-attribute-handle','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-attribute-handle','0.0.2','0.0.3',
+                :what( &?ROUTINE.name));
         IupSetAttributeHandle(self, $name, $ih_named);
     }
 
@@ -589,7 +649,7 @@ say "set-attrs pair";
     }
 
     method gridbox(*@child -->Ihdle) { self.gridboxv(@child); }
-    
+
     method multiboxv(*@child -->Ihdle) {
         my $n = @child.elems;
         if $n > 1 {
@@ -609,10 +669,8 @@ say "set-attrs pair";
     }
 
     method multibox(*@child -->Ihdle) { self.multiboxv(@child); }
-    
-    # expander detachbox, backgroundbox
 
-    ###
+    # expander detachbox, backgroundbox
 
     method frame($child -->Ihdle) { IupFrame($child); }
 
@@ -670,7 +728,7 @@ say "set-attrs pair";
 
     method user(-->Ihdle) { IupUser() }
 
-    # thread 
+    # thread
 
     method label(Str $str = '' -->Ihdle) { IupLabel($str) }
 
@@ -686,12 +744,12 @@ say "set-attrs pair";
         IupMessage($title, $message)
     }
 
-    sub IupParamBox(Ihdle $param -->Ihdle) is native(IUP_l) is export {*}
-    sub IupParamBoxv(Ptr $param_array -->Ihdle) is native(IUP_l) is export {*}
-
 }
 
 class IUP is IUP::Handle {
+
+    constant Ihdle = IUP::Handle;
+    constant Ptr = Pointer;
 
     # Must be called before any other IUP function.
     sub p6IupOpen(int32, CArray[Str] -->int32) is native(IUP_l) {*};
@@ -699,37 +757,42 @@ class IUP is IUP::Handle {
     # Ends IUP usage releasing memory. It destroys all named dialogs & elems.
     sub IupClose() is native(IUP_l) {*};
 
+    # IupIsOpened
+
     sub IupImageLibOpen() is native(IUP_l) {*};
 
     # Starts loop on interaction that stops when a callback returns IUP_CLOSE,
     # IupExitLoop is called, or all dialogs are hidden.
     sub IupMainLoop( -->int32) is native(IUP_l) {*};
 
-    #sub IupLoopStep( -->int32) is native(IUP_l) {*};
-
-    #sub IupLoopStepWait( -->int32) is native(IUP_l) {*};
-
-    #sub IupMainLoopLevel( -->int32) is native(IUP_l) {*};
-
-    #sub IupFlush() is native(IUP_l) {*};
-
-    #sub IupExitLoop() is native(IUP_l) {*};
+    # IupLoopStep IupLoopStepWait IupMainLoopLevel IupFlush IupExitLoop
+    # IupPostMessage  IupRecordInput  IupPlayInput   IupUpdate
+    # IupUpdateChildren IupRedraw IupRefresh IupRefreshChildren
+    # IupExecute IupExecuteWait IupHelp IupLog
+    # IupLoad    IupLoadBuffer
 
     ###
+
     # Return version string
     sub IupVersion(-->str) is export is native(IUP_l) {*}
+
+    # Return version's date.
+    sub IupVersionDate(-->Str) is native(IUP_l) is export {*}
 
     # Return version number.
     sub IupVersionNumber(-->int32) is export is native(IUP_l) {*}
 
-    # Return version's date.
-    sub IupVersionDate(-->Str) is native(IUP_l) is export {*}
+    # IupVersionShow
 
     # Sets the user language: English, Portuguese or Spanish
     sub IupSetLanguage(Str) is native(IUP_l) {*};
 
     # Gets the user language.
     sub IupGetLanguage( -->Str) is native(IUP_l) {*};
+
+    # IupSetLanguageString IupStoreLanguageString IupGetLanguageString
+    # IupSetLanguagePack
+
 
     ### METHODS ###
 
