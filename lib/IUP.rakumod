@@ -750,6 +750,16 @@ say "set-attrs pair";
     method message(Str $title, Str $message -->Mu) {
         IupMessage($title, $message)
     }
+    method file-dlg(-->Ihdle)    { IupFileDlg      }
+
+    method message-dlg(-->Ihdle) { IupMessageDlg   }
+
+    method color-dlg(-->Ihdle)    { IupColorDlg    }
+
+    method font-dlg(-->Ihdle)     { IupFontDlg     }
+
+    method progress-dlg(-->Ihdle) { IupProgressDlg }
+
     method alarm( Str:D $title, Str:D $msg,
             Str:D $b1txt, Str $b2txt, Str $b3txt -->int32) {
         IupAlarm( $title, $msg, $b1txt, $b2txt, $b3txt );
