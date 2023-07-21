@@ -272,16 +272,19 @@ class IUP::Handle is repr('CPointer') {
 
     # IupFlatList
 
-    sub p6IupText(Str $action -->Ihdle) is native(IUP_l) {*};
+    sub p6IupText(Str $action -->Ihdle) is native(IUP_l) {*}
 
-    sub p6IupMultiLine(Str $action -->Ihdle) is native(IUP_l) {*};
+    sub p6IupMultiLine(Str $action -->Ihdle) is native(IUP_l) {*}
 
     # IupToggle IupTimer
     # IupClipboard IupProgressBar IupVal IupFlatVal IupFlatTree
     # IupTabs IupTabsv IupFlatTabs IupFlatTabsv
     # IupTree IupLink IupAnimatedLabel
     # IupDatePick IupCalendar IupColorbar IupGauge
-    # IupDial IupColorBrowser IupSpin IupSpinbox
+
+    sub IupDial(Str $type -->Ihdle) is native(IUP_l) {*}
+
+    # IupColorBrowser IupSpin IupSpinbox
     # IupStringCompare IupSaveImageAsText IupImageGetHandle
     # IupTextConvertLinColToPos IupTextConvertPosToLinCol IupConvertXYToPos
     # IupStoreGlobal
@@ -670,7 +673,9 @@ say "set-attrs pair";
 
     method multibox(*@child -->Ihdle) { self.multiboxv(@child); }
 
-    # expander detachbox, backgroundbox
+    method expander( $child -->Ihdle){  IupExpander( $child) }
+
+    # detachbox, backgroundbox
 
     method frame($child -->Ihdle) { IupFrame($child); }
 
@@ -738,12 +743,17 @@ say "set-attrs pair";
 
     method multiline(Str $action = '' -->Ihdle) { p6IupMultiLine($action) }
 
+    method dial(Str $type -->Ihdle) { IupDial($type) }
+
     ###
 
     method message(Str $title, Str $message -->Mu) {
         IupMessage($title, $message)
     }
-
+    method alarm( Str:D $title, Str:D $msg,
+            Str:D $b1txt, Str $b2txt, Str $b3txt -->int32) {
+        IupAlarm( $title, $msg, $b1txt, $b2txt, $b3txt );
+    }
 }
 
 class IUP is IUP::Handle {
