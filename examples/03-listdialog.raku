@@ -15,27 +15,23 @@ sub MAIN() {
     $iup.open;
     $iup.set-str-global( 'DEFAULTFONTSIZE', '24' );
 
-    # --- single selection by index via return value
-    my Str $title = 'Title';
-    my Str @option = < Red White Blue >;
-    my int32 $size = @option.end;
-    my int32 $chosen = 2;       # highlight default by index+1
-    my int32 $columns = 6;
-    my int32 $lines = 4;
+    my Str $title = 'Choose One from List';
+    my Str @list = < Red White Blue Green Yellow Black Orange Gold >;
+    my int32 $size = @list.end;
+    my int32 $hi = 6;       # default by index+1
+    my int32 $cols = 8;
+    my int32 $lines = 8;
 
-    my $sel = IupListDialog( $title, @option, $chosen, $columns, $lines );
-    say 'First selection index: ', $sel;
+    # --- only single selection
+    my @sel = $iup.list-dialog: $title, @list, $hi, $cols, $lines, :single;
+    say 'Single selection: ', @sel.raku;
 
-    # multiple selection by indices returned
-    $title = 'Title choose multiple';
-    @option = < Red White Blue Green Yellow Black Orange Gold>;
-    $size = @option.end;
-    $chosen = 1;       # highlight default by index+1
-    $columns = 8;
-    $lines = 7;
+    # multiple selection
+    $title = 'Choose Multiple from List';
+    $hi = -1;       # Not used in multi-choice
 
-    my @sel = IupListDialog( $title, @option, $columns, $lines );
-    say @sel.raku;
+    @sel = $iup.list-dialog: $title, @list, $hi, $cols, $lines;
+    say 'Multiple selection: ', @sel.raku;
 
     $iup.close; # Finishes IUP
 }

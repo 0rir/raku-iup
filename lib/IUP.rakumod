@@ -322,60 +322,57 @@ class IUP::Handle is repr('CPointer') {
     sub IupScanf(Str $format -->int32) is native(IUP_l) is export {*}
 
     multi sub IupListDialog(        # NATIVE
-            int32 $type             # 1 = chose one,  2 = multiple choices
-            , Str $title            # widget title
+              int32 $type           # 1 = chose one,  2 = multiple choices
+            , Str $title            # widget's title
             , int32 $size           # size of $list
-            , CArray[Str] $list     # list to display as choice
-            , int32 $op             # choice if $type = 1
-            , int32 $max_col        # visible columns
-            , int32 $max_lin        # visible lines
-            , CArray[int32] $marks  # if $type=2, ($mark[n] == 1) means
+            , CArray[Str] $list     # list to display for selection
+            , int32 $hi             # highlighted selection when $type == 1
+            , int32 $max_col        # displayed columns
+            , int32 $max_lin        # displayed lines
+            , CArray[int32] $markN  # if $type=2 then ($mark[n] == 1) means
                                     # $list[n] selected
             -->int32 )
             is native(IUP_l) is export {*}
 
-    sub int32-ro( $i -->int32) { my int32 $ = $i }
+    sub int32ro( $i -->int32) { my int32 $ = $i }  # helper function
 
-    # For single selection only.
-    # Returns -1 if action cancelled or index of selection from $list).
-    multi sub IupListDialog( Str $title, Array[Str] $list,
-            Int $op is rw, Int $max_col, Int $max_lin -->Int) is export {
-        my $size = $list.elems;
-        my CArray[Str] $listN = CArray[Str].new;
-        my CArray[int32] $marks = CArray[int32].new;
-        for ^$size {
+# XXX make $hi optional as it defaults to 1 and have :single and/or
+# Int :$highlight set single selection.
+
+    # For single selection, returns [] if cancelled else an array w/ one elem.
+    multi sub IupListDialog( Str $title, Array[Str] $list, Int $hi,
+            Int $max_col, Int $max_lin,
+        Bool :$single! where ?$single -->Array) is export {
+
+        my int32 $sizeN = $list.elems;
+        my $listN = CArray[Str].new;
+        my $markN = CArray[int32].new;
+        for ^$sizeN {
             $listN[$_] = $list[$_];
-            $marks[$_] = 0;
+            $markN[$_] = 0;
         }
-        my int32 $sizeN = $size;
-
-        return IupListDialog( int32-ro(1), $title, $sizeN, $listN,
-            int32-ro($op), int32-ro($max_col), int32-ro($max_lin), $marks);
+        given IupListDialog( int32ro(1), $title, $sizeN, $listN,
+                int32ro($hi), int32ro($max_col), int32ro($max_lin), $markN) {
+            when -1 { [] }
+            default { [ $list[$_] ] }
+        }
     }
 
-    # IupListDialog for multiple selections from list
-    multi sub IupListDialog( Str $title, Array[Str] $list, Int $max_col,
-            Int $max_lin, --> Array) is export {
+    # IupListDialog for multiple, or single, selections from list
+    multi sub IupListDialog( Str $title, Array[Str] $list, Int $hi,
+            Int $max_col, Int $max_lin -->Array) {
 
-        my int32 $type = 2;                # multiple choices
         my int32 $size = $list.elems;      # number of choices available
-        my int32 $op;
-        my CArray[Str] $listN = CArray[Str].new;       # list of choices
-        my CArray[int32] $marks = CArray[int32].new;  # selections made
+        my $listN = CArray[Str].new;       # list of choices
+        my $markN = CArray[int32].new;      # selections made
         for ^$size {
             $listN[$_] = $list[$_];
-            $marks[$_] = 0;
+            $markN[$_] = 0;
         }
-
-        my int32 $status = IupListDialog( int32-ro($type), $title, $size,
-                $listN, int32-ro($op), int32-ro($max_col),
-                int32-ro($max_lin), $marks);
-        return [] if $status == -1;
-        my @return;
-        for 0 .. $size -1 {
-            if $marks[$_] { @return.push( $listN[$_]); }
-        }
-        @return;
+        -1 == IupListDialog( int32ro(2), $title, $size, $listN, int32ro(0),
+                    int32ro($max_col), int32ro($max_lin), $markN)
+            ?? []
+            !! $listN[ $markN.grep( ?*, :k)].Array
     }
 
     # IupGetText IupGetColor IupGetParam IupGetParamv
@@ -763,6 +760,18 @@ say "set-attrs pair";
     method alarm( Str:D $title, Str:D $msg,
             Str:D $b1txt, Str $b2txt, Str $b3txt -->int32) {
         IupAlarm( $title, $msg, $b1txt, $b2txt, $b3txt );
+    }
+
+    multi method list-dialog( Str:D $title, Array[Str] $list, Int:D $hi,
+            Int:D $max_col, Int:D $max_lin, Bool :$single! where ?$single
+            -->Array) {
+        IupListDialog $title, $list, $hi, $max_col, $max_lin, :single;
+    }
+
+    multi method list-dialog( Str:D $title, Array[Str] $list, Int:D $hi,
+            Int:D $max_col, Int:D $max_lin -->Array) {
+    #XXX delete $hi ??? and $single above ???
+        IupListDialog $title, $list, $hi, $max_col, $max_lin;
     }
 }
 
