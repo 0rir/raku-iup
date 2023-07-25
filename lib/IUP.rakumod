@@ -308,7 +308,9 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupProgressDlg(-->Ihdle) is native(IUP_l) is export {*}
 
-    # IupGetFile
+    # Shows a modal, native dialog to select a filename. Uses IupFileDlg.
+    sub IupGetFile(Str $arg -->int32) is native(IUP_l) is export {*}
+
     # Makes a popup at center of screen with a message and an OK button, which
     # has to be pressed.
     sub IupMessage(Str $title, Str $message)  is native(IUP_l) is export {*};
@@ -769,6 +771,10 @@ say "set-attrs pair";
     method font-dlg(-->Ihdle)     { IupFontDlg     }
 
     method progress-dlg(-->Ihdle) { IupProgressDlg }
+
+    method get-file(Str $arg -->int32) is native(IUP_l) {
+        IupGetFile($arg);
+    }
 
     method alarm( Str:D $title, Str:D $msg,
             Str:D $b1txt, Str $b2txt, Str $b3txt -->int32) {

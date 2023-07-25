@@ -1,7 +1,7 @@
 Raku-iup TODOs
 
-1) Raku IupListDialog multis should return type object on cancel.  And
-    the 1-item version should return a Str instead of -1 int32.
+IupListDialog stuff returns [] for both 'Cancel' and nothing selected. XXX
+Upstream these situations are distinguishable.
 
 This TODO contains all IUP functions that are listed in the sidebar on
 https://www.tecgraf.puc-rio.br/iup/ .  There are many other IUP functions
@@ -10,15 +10,16 @@ and a few have no specific toolkit-iness about them, e.g. IupVersion just
 grabs a string.  Such functions are listed if they are used.
 
 Legend:
-    u  - Unnoted in upstream doc's ToC. AKA utility functions.
+    u  - Not in ToC of upstream doc's. AKA utility function.
     n  - Native call exists.
     n* - Native call exists with oddity; usually rewrapped within custom C.
     m  - Has a method calling it.
     /  - Not meaningful or not needed. (E.g. call directly vs method. )
     e  - Exercised by an example.
     x  - broken, should also be implied by example file not being executable.
+    NI - Not Important - proposing the issue is handled in Raku
 
-Function name    Category    u| n*| m | e |   |   |   |
+Function name    Category    u| n*| m | e |NI |   |   |
                  System/Reference
 IupOpen             ......... | n*| m | e |   |   |   |
 IupClose            ......... | n | m | e |   |   |   |
@@ -80,7 +81,7 @@ IupGetText    ............... |   |   |   |   |   |   |
 IupListDialog ............... | n | m | e |   |   |   |
 IupMessage    ............... | n |   |   |   |   |   |
 IupMessageError  ............ |   |   |   |   |   |   |
-IupScanf      ............... |   |   |   |   |   |   |
+IupScanf      ............... |   |   |   |NI |   |   |
 IupLayoutDialog  ............ |   |   |   |   |   |   |
 IupElementPropertiesDialog .. |   |   |   |   |   |   |
 IupGlobalsDialog  ........... |   |   |   |   |   |   |
