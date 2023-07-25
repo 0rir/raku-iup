@@ -17,7 +17,7 @@ sub MAIN() {
   #$bt.set-attr("EXPAND", "VERTICAL"); #  This is the only necessary EXPAND
   $bt.set-attr( "EXPAND", "YES");
 
-  $box = $ih.sbox( $bt.);
+  $box = $ih.sbox( $bt);
   $box.set-attr( "DIRECTION", "SOUTH");  # place at the button's bottom 
   $box.set-attr( "COLOR", "0 255 0");
 
