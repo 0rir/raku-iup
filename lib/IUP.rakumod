@@ -309,16 +309,26 @@ class IUP::Handle is repr('CPointer') {
     sub IupProgressDlg(-->Ihdle) is native(IUP_l) is export {*}
 
     # IupGetFile
+    # Makes a popup at center of screen with a message and an OK button, which
+    # has to be pressed.
+    sub IupMessage(Str $title, Str $message)  is native(IUP_l) is export {*};
 
-    sub IupMessage(Str $title, Str $message) is export is native(IUP_l) {*};
+    # XXX Before researching:
+    # I don't know how to handle variadic C functions from Raku.  Th𝑒 params
+    # mirror sprintf's.  My first plan is to format in Raku and use IupMessage
+    # instead; hopefully that may be the last plan.
+    # void IupMessagef(const char * title , const char * format, ... );
+    #sub IupMessagef(Str $title, Str $format) is native(IUP_l) is export {*}
 
-    # IupMessagef IupMessageError IupMessageAlarm
+    #IupMessageError IupMessageAlarm
 
-    # returns pressed button number or 0 for noop
+    # Returns pressed button number or 0 for noop
     sub IupAlarm( Str:D $title, Str:D $msg,
             Str:D $b1txt, Str $b2txt, Str $b3txt -->int32) is export
         is native(IUP_l) {*};
 
+    # Make modal dialog to capture value with a format like the C stdio lib
+    # scanf function. Deprecated upstream; use IupGetParam
     sub IupScanf(Str $format -->int32) is native(IUP_l) is export {*}
 
     multi sub IupListDialog(        # NATIVE
@@ -326,7 +336,7 @@ class IUP::Handle is repr('CPointer') {
             , Str $title            # widget's title
             , int32 $size           # size of $list
             , CArray[Str] $list     # list to display for selection
-            , int32 $hi             # highlighted selection when $type == 1
+            , int32 $presel         # highlighted selection when $type == 1
             , int32 $max_col        # displayed columns
             , int32 $max_lin        # displayed lines
             , CArray[int32] $markN  # if $type=2 then ($mark[n] == 1) means
@@ -334,15 +344,13 @@ class IUP::Handle is repr('CPointer') {
             -->int32 )
             is native(IUP_l) is export {*}
 
-    sub int32ro( $i -->int32) { my int32 $ = $i }  # helper function
-
-# XXX make $hi optional as it defaults to 1 and have :single and/or
-# Int :$highlight set single selection.
+    sub int32-ro( $i -->int32) { my int32 $ = $i }  # helper function
+    constant &i32ro := &int32-ro;
 
     # For single selection, returns [] if cancelled else an array w/ one elem.
-    multi sub IupListDialog( Str $title, Array[Str] $list, Int $hi,
-            Int $max_col, Int $max_lin,
-        Bool :$single! where ?$single -->Array) is export {
+    # The zeroeth item is highlighted by default or out of bounds $presel
+    multi sub IupListDialog( Str $title, Array[Str] $list, Int $presel is copy,
+            Int $max_col, Int $max_lin, -->Array) is export {
 
         my int32 $sizeN = $list.elems;
         my $listN = CArray[Str].new;
@@ -351,26 +359,31 @@ class IUP::Handle is repr('CPointer') {
             $listN[$_] = $list[$_];
             $markN[$_] = 0;
         }
-        given IupListDialog( int32ro(1), $title, $sizeN, $listN,
-                int32ro($hi), int32ro($max_col), int32ro($max_lin), $markN) {
+        $presel //= 0;
+        ++$presel;
+        given IupListDialog( i32ro(1), $title, $sizeN, $listN,
+                i32ro($presel), i32ro($max_col), i32ro($max_lin), $markN) {
             when -1 { [] }
             default { [ $list[$_] ] }
         }
     }
 
     # IupListDialog for multiple, or single, selections from list
-    multi sub IupListDialog( Str $title, Array[Str] $list, Int $hi,
+    # Here @hi contains Ints of the list items to pre-highlight origin 1.
+    multi sub IupListDialog( Str $title, Array[Str] $list, @presel,
             Int $max_col, Int $max_lin -->Array) {
 
         my int32 $size = $list.elems;      # number of choices available
         my $listN = CArray[Str].new;       # list of choices
-        my $markN = CArray[int32].new;      # selections made
+        my $markN = CArray[int32].new;     # selections made
         for ^$size {
             $listN[$_] = $list[$_];
             $markN[$_] = 0;
         }
-        -1 == IupListDialog( int32ro(2), $title, $size, $listN, int32ro(0),
-                    int32ro($max_col), int32ro($max_lin), $markN)
+        for @presel -> $i { if $i ~~ 1..$list.elems { $markN[$i] = 1 } }
+
+        -1 == IupListDialog( i32ro(2), $title, $size, $listN, i32ro(0),
+                i32ro($max_col), i32ro($max_lin), $markN)
             ?? []
             !! $listN[ $markN.grep( ?*, :k)].Array
     }
@@ -762,16 +775,24 @@ say "set-attrs pair";
         IupAlarm( $title, $msg, $b1txt, $b2txt, $b3txt );
     }
 
-    multi method list-dialog( Str:D $title, Array[Str] $list, Int:D $hi,
-            Int:D $max_col, Int:D $max_lin, Bool :$single! where ?$single
-            -->Array) {
-        IupListDialog $title, $list, $hi, $max_col, $max_lin, :single;
+    # .list-dialog
+    #
+    # NOTE: pre-selects/highlights are by indices for both multis.  Upstream
+    #       the Clang single selection version used origin one.  That behavior
+    # behavior can be got by calling the _native_ IupListDialog directly.
+    #
+    # $presel versus @presel distinguishes which multi is called.
+    # For simple single selection, Int or 0 yield the default preselect.
+    # For the multiple selection, use the empty array to get no preselection.
+
+    multi method list-dialog( Str:D $title, Array[Str] $list, Int $presel,
+            Int:D $max_col, Int:D $max_lin -->Array) {
+        IupListDialog $title, $list, $presel, $max_col, $max_lin;
     }
 
-    multi method list-dialog( Str:D $title, Array[Str] $list, Int:D $hi,
+    multi method list-dialog( Str:D $title, Array[Str] $list, @presel,
             Int:D $max_col, Int:D $max_lin -->Array) {
-    #XXX delete $hi ??? and $single above ???
-        IupListDialog $title, $list, $hi, $max_col, $max_lin;
+        IupListDialog $title, $list, @presel, $max_col, $max_lin;
     }
 }
 
@@ -864,9 +885,35 @@ class IUP is IUP::Handle {
     method set-language(Str $language) { IupSetLanguage($language) }
     method set_language(Str $language) {
         DEPRECATED('set-language','0.0.2','0.0.3', :what( &?ROUTINE.name));
-        self.set-language($language)
+        IupSetLanguage($language)
     }
 
-    method get_language( -->Str) { IupGetLanguage }
+    method get-language( -->Str) { IupGetLanguage }
+    method get_language( -->Str) {
+        DEPRECATED('get-language','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetLanguage
+    }
+
+    method version(-->Str) { IupVersion }
+    method get-version(-->Str) { IupVersion }
+    method get_version(-->Str) {
+        DEPRECATED('get-version','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupVersion
+    }
+
+    # Return version's date.
+    method get-version-date(-->Str) { IupVersionDate }
+    method get_version_date(-->Str) {
+        DEPRECATED('get-version-date','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupVersionDate
+    }
+
+    # Return version number.
+    method get-version-number(-->int32) { IupVersionNumber }
+    method get_version_number(-->int32) {
+        DEPRECATED('get-version-number','0.0.2','0.0.3',
+                :what( &?ROUTINE.name));
+        IupVersionNumber
+    }
 }
 
