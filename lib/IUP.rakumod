@@ -772,7 +772,7 @@ say "set-attrs pair";
 
     method progress-dlg(-->Ihdle) { IupProgressDlg }
 
-    method get-file(Str $arg -->int32) is native(IUP_l) {
+    method get-file(Str $arg -->int32) {
         IupGetFile($arg);
     }
 
