@@ -22,18 +22,19 @@ sub MAIN() {
 
     
     # Creates frame with three top aligned buttons */
+    my $hbox;
     my $frame1 = $ih.frame(
-        $ih.hbox(
+        $hbox = $ih.hbox(
             $ih.fill(),
             $ih.button("1", "").sattr("SIZE" => "30x30"),
             $ih.button("2", "").sattr("SIZE" => "30x40"),
             $ih.button("3", "").sattr("SIZE" => "30x50"),
-            $ih.fill().sattr("ALIGNMENT" => "ATOP", GAP => "10",
-                    "SIZE" => "200")
-            # Sets hbox's alignment, gap and size
+            $ih.fill(),
             )
         );
-    $frame1.sattr("TITLE", "ALIGNMENT=ATOP, GAP=10, SIZE=200");
+    # Sets hbox's alignment, gap and size
+    $hbox.sattr("ALIGNMENT" => "ATOP", GAP => "10", "SIZE" => "200");
+    $frame1.sattr("TITLE", "ALIGNMENT=ATOP, GAP=10, SIZE=200", :copy );
 
     # Creates frame with three buttons */
     my $frame2 = $ih.frame(
@@ -42,8 +43,7 @@ sub MAIN() {
             $ih.button("1", "").sattr("SIZE" => "30x30"),
             $ih.button("2", "").sattr("SIZE" => "30x40"),
             $ih.button("3", "").sattr("SIZE" => "30x50"),
-            $ih.fill().sattr("ALIGNMENT", "ACENTER",
-                'GAP', "20")
+            $ih.fill().sattr("ALIGNMENT", "ACENTER", 'GAP', "20")
             # Sets hbox's alignment and gap
         )
     );
@@ -72,7 +72,7 @@ sub MAIN() {
             $frame3
         )
     );
-    $dialog.set-attribute("TITLE", "IupHbox");
+    $dialog.set-attribute( "TITLE", "IupHbox");
     # Sets dialog's title
 
     $dialog.show(IUP_CENTER, IUP_CENTER);
