@@ -88,7 +88,9 @@ class IUP::Handle is repr('CPointer') {
     # Return the dialog that contains the interface element.
     sub IupGetDialog(Ihdle -->int32) is native(IUP_l) {*};
 
-    #IupGetDialogChild IupReparent
+    sub IupGetDialogChild(Ihdle $ih, Str $name -->Ihdle)is native(IUP_l) {*}
+
+    #IupReparent
 
     sub IupPopup(Ihdle, int32, int32 -->int32) is native(IUP_l) {*};
 
@@ -145,8 +147,11 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupGetGlobal( Str -->Str)   is native(IUP_l) is export {*}
 
-    # IupSetFocus IupGetFocus IupPreviousField IupNextField
-    # IupGetCallback
+    sub IupSetFocus(Ihdle $ih -->Ihdle) is native(IUP_l) is export {*}
+
+    sub IupGetFocus(-->Ihdle) is native(IUP_l) is export {*}
+
+    # IupPreviousField IupNextField IupGetCallback
 
     ### Callbacks
 
@@ -403,6 +408,8 @@ class IUP::Handle is repr('CPointer') {
 
     method destroy( -->Mu) { IupDestroy(self) }
 
+    # detach
+
     method append(Ihdle $child -->Ihdle) { IupAppend(self, $child) }
 
     method insert(Ihdle $ref_child, Ihdle $child -->Ihdle) {
@@ -411,15 +418,35 @@ class IUP::Handle is repr('CPointer') {
 
     method get_child($position -->Ihdle) { IupGetChild(self, $position) }
 
+    # getchildpos getchildcount
+
     method get_next_child(Ihdle $child -->Ihdle) {
         IupGetNextChild(self, $child)
     }
 
-    method get_parent(-->Ihdle) { IupGetParent(self) }
+    # getbrother
 
-    method get_dialog(-->int32) { IupGetDialog(self) }
+    method get-parent(-->Ihdle) { IupGetParent(self) }
+    method get_parent(-->Ihdle) {
+        DEPRECATED('get-parent','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetParent(self)
+    }
+
+    method get-dialog(-->Ihdle) { IupGetDialog(self) }
+    method get_dialog(-->Ihdle) {
+        DEPRECATED('get-dialog','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetDialog(self)
+    }
+
+    method get-dialog-child($name -->Ihdle) { IupGetDialogChild(self, $name ) }
+    method get_dialog_child($name -->Ihdle) {
+        DEPRECATED('get-dialog-child','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetDialogChild(self, $name )
+    }
 
     ###
+
+    # reparent
 
     method popup(Int $x, Int $y -->int32) { IupPopup(self, $x, $y) }
 
@@ -430,6 +457,8 @@ class IUP::Handle is repr('CPointer') {
     method hide(-->int32) { IupHide(self) }
 
     method map(-->int32) { IupMap(self) }
+
+    # unmap
 
     ###  TODO
     # This is a, currently experimental, set of new Rakuish attribute
@@ -527,22 +556,16 @@ say "set-attrs pair";
         IupGetAttributes(self)
     }
 
-    method get-global( $attr -->Str) { IupGetGlobal( $attr) }
-    method get_global( $attr -->Str) {
-        DEPRECATED('get-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
-        IupGetGlobal( $attr)
-    }
-
-    method set-global( Str $k, Str $v -->Mu) { IupSetGlobal($k,$v) }
-    method set_global( Str $k, Str $v -->Mu) {
-        DEPRECATED('set-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
-        IupSetStrGlobal($k,$v)
-    }
-    method set-str-global( Str $k, Str $v -->Mu) { IupSetStrGlobal($k,$v) }
-    method set_str_global( Str $k, Str $v -->Mu) {
-        DEPRECATED('set-str-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
-        IupSetStrGlobal($k,$v)
-    }
+    # resetattribute
+    # getallattributes
+    # copyattributes XXX
+    # setatt XXX
+    # setattributes XXX
+    # getattributes XXX
+    # setattribute XXX
+    # setstrattribute XXX
+    # setstrf setint setfloat setdouble setRGB setRGBA
+    # getattribute XXX
 
     method get-int(Str $name -->Int) { IupGetInt(self, $name) }
     method get_int(Str $name -->Int) {
@@ -550,12 +573,48 @@ say "set-attrs pair";
         IupGetInt(self, $name)
     }
 
+    # getint2 getintint getfloat getdouble
+    # getRGB getRGBA setattributeid setstrattributeid setstrfid setintid
+    # setfloatid setdoubleid setRGBid getattributeid getintid getfloatid
+    # getRGBid setattributeid2 setstrattributeid2 setstrfid2
+    # setintid2 setfloatid2 setdoubleid2 setRGBid2 getattributeid2 getintid2
+    # getfloatid2 getdoubleid2 getRGBid2
+    
+    method set-global( Str $k, Str $v -->Mu) { IupSetGlobal($k,$v) }
+    method set_global( Str $k, Str $v -->Mu) {
+        DEPRECATED('set-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupSetStrGlobal($k,$v)
+    }
+
+    method set-str-global( Str $k, Str $v -->Mu) { IupSetStrGlobal($k,$v) }
+    method set_str_global( Str $k, Str $v -->Mu) {
+        DEPRECATED('set-str-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupSetStrGlobal($k,$v)
+    }
+
+    
+    method get-global( $attr -->Str) { IupGetGlobal( $attr) }
+    method get_global( $attr -->Str) {
+        DEPRECATED('get-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetGlobal( $attr)
+    }
+
+    method set-focus( -->Ihdle) { IupSetFocus( self) }
+    method set_focus( -->Ihdle) {
+        DEPRECATED('set_focus','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupSetFocus( self)
+    }
+
+    method get-focus(-->Ihdle) { IupGetFocus }
+    method get_focus(-->Ihdle) {
+        DEPRECATED('get_focus','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupGetFocus
+    }
+
     ###
 
-    method set_callback(Str $name, $func -->IUP::Callback) {
-        DEPRECATED('set-callback','0.0.2','0.0.3', :what( &?ROUTINE.name));
-        self.set-callback( $name, $func)
-    }
+    # previousfield nextfield getcallback
+
     method set-callback(Str $name, $func -->IUP::Callback) {
         my @params = $func.signature.params;
         given @params.elems {
@@ -564,6 +623,10 @@ say "set-attrs pair";
             default { say "Error... no callback"  }
         }
     }
+    method set_callback(Str $name, $func -->IUP::Callback) {
+        DEPRECATED('set-callback','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        self.set-callback( $name, $func)
+    }
 
     method set_callbacks(*%callbacks -->Ihdle) {
         for %callbacks.kv -> $name, $function {
@@ -571,6 +634,8 @@ say "set-attrs pair";
         }
         return self;
     }
+
+    # getfunction setfunction
 
     ###
     method get-handle(Str $name -->Ihdle) { IupGetHandle($name) }
@@ -584,8 +649,9 @@ say "set-attrs pair";
         DEPRECATED('set-handle','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetHandle($name, self)
     }
-    ###
 
+    ###
+    # getallnames getalldialogs getname 
     method set-attribute-handle(Str $name, Ihdle $ih_named -->Mu) {
         IupSetAttributeHandle(self, $name, $ih_named);
     }
@@ -596,8 +662,14 @@ say "set-attrs pair";
     }
 
     ###
-
+    # getattributehandle
+    # setattributehandleid getattributehandleid setattributehandleid2 
+    # getattributehandleid2 getclassname getclasstype getallclasses
+    # getclassattributes getclasscallbacks saveclassattributes
+    # setclassdefaultattribute classmatch create createp createv
     method fill(-->Ihdle) { IupFill() }
+
+    # radio space
 
     method vboxv(*@child -->Ihdle) {
         my $n = @child.elems;
@@ -618,6 +690,8 @@ say "set-attrs pair";
     }
 
     method vbox(*@child -->Ihdle) { self.vboxv(@child); }
+
+    # zbox 
 
     method hboxv(*@child -->Ihdle) {
         my $n = @child.elems;
@@ -643,7 +717,7 @@ say "set-attrs pair";
 
     method sbox( $child -->Ihdle) { IupSbox($child) }
 
-    # split,scrollbox
+    # split,scrollbox, flatscrollbox
 
     method gridboxv(*@child -->Ihdle) {
         my $n = @child.elems;
@@ -691,6 +765,7 @@ say "set-attrs pair";
 
     method frame($child -->Ihdle) { IupFrame($child); }
 
+    # FlatFrame 
     ###
 
     method image(
@@ -739,6 +814,8 @@ say "set-attrs pair";
         p6IupButton($title, $action);
     }
 
+    # FlatButton FlatToggle DropButton FlatLabel FlatSeparator 
+
     method canvas(Str $action -->Ihdle) { IupCanvas($action) }
 
     method dialog($child -->Ihdle) { IupDialog($child) }
@@ -751,17 +828,26 @@ say "set-attrs pair";
 
     method list(Str $action = '' -->Ihdle) { IupList( $action) }
 
+    # flatlist
+
     method text(Str $action = '' -->Ihdle) { p6IupText($action) }
 
     method multiline(Str $action = '' -->Ihdle) { p6IupMultiLine($action) }
 
+    # Toggle Timer Clipboard ProgressBar Val FlatVal FlatTree
+    # Tabs Tabsv FlatTabs FlatTabsv Tree Link AnimatedLabel
+    # DatePick Calendar Colorbar Gauge
+
     method dial(Str $type -->Ihdle) { IupDial($type) }
 
-    ###
+    # ColorBrowser Spin Spinbox StringCompare SaveImageAsText ImageGetHandle
+    # TextConvertLinColToPos TextConvertPosToLinCol ConvertXYToPos StoreGlobal
 
-    method message(Str $title, Str $message -->Mu) {
-        IupMessage($title, $message)
-    }
+    ###
+    # StoreAttribute SetfAttribute StoreAttributeId SetfAttributeId
+    # StoreAttributeId2 SetfAttributeId2 TreeSetUserId TreeGetUserId
+    # TreeGetId TreeSetAttributeHandle 
+
     method file-dlg(-->Ihdle)    { IupFileDlg      }
 
     method message-dlg(-->Ihdle) { IupMessageDlg   }
@@ -776,10 +862,18 @@ say "set-attrs pair";
         IupGetFile($arg);
     }
 
+    method message(Str $title, Str $message -->Mu) {
+        IupMessage($title, $message)
+    }
+
+    # Messagef MessageError MessageAlarm
+
     method alarm( Str:D $title, Str:D $msg,
             Str:D $b1txt, Str $b2txt, Str $b3txt -->int32) {
         IupAlarm( $title, $msg, $b1txt, $b2txt, $b3txt );
     }
+
+    # IupScanf
 
     # .list-dialog
     #
@@ -800,6 +894,9 @@ say "set-attrs pair";
             Int:D $max_col, Int:D $max_lin -->Array) {
         IupListDialog $title, $list, @presel, $max_col, $max_lin;
     }
+
+    # GetText GetColor GetParam GetParamv Param ParamBox ParamBoxv LayoutDialog
+    # ElementPropertiesDialog GlobalsDialog ClassInfoDialog
 }
 
 class IUP is IUP::Handle {
@@ -821,7 +918,8 @@ class IUP is IUP::Handle {
     # IupExitLoop is called, or all dialogs are hidden.
     sub IupMainLoop( -->int32) is native(IUP_l) {*};
 
-    # IupLoopStep IupLoopStepWait IupMainLoopLevel IupFlush IupExitLoop
+    # IupLoopStep IupLoopStepWait IupMainLoopLevel
+    # IupFlush IupExitLoop
     # IupPostMessage  IupRecordInput  IupPlayInput   IupUpdate
     # IupUpdateChildren IupRedraw IupRefresh IupRefreshChildren
     # IupExecute IupExecuteWait IupHelp IupLog
