@@ -17,19 +17,19 @@ my $btn = $iup.button("&Ok", "");
 
 $btn.set-callback("ACTION", &exit_callback);
 
-$btn.set-attr("IMAGE", "IUP_ActionOk");
-$btn.set-attr("EXPAND", "YES");
-$btn.set-attr("TIP", "Exit button");
+$btn.set_attr("IMAGE", "IUP_ActionOk");
+$btn.set_attr("EXPAND", "YES");
+$btn.set_attr("TIP", "Exit button");
 
 my $lbl = $iup.label("Hello, world!");
 
 my $vb = $iup.vbox($lbl, $btn);
-$vb.set-attr("MARGIN", "10x10");
-$vb.set-attr("GAP", "10");
-$vb.set-attr("ALIGNMENT", "ACENTER");
+$vb.set_attr("MARGIN", "10x10");
+$vb.set_attr("GAP", "10");
+$vb.set_attr("ALIGNMENT", "ACENTER");
 
 my $dlg = $iup.dialog($vb);
-$dlg.set-attr("TITLE", "Hello");
+$dlg.set_attr("TITLE", "Hello");
 
 # Map widgets and show dialog
 $dlg.show();

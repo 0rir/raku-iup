@@ -23,11 +23,11 @@ sub MAIN() {
     $lbl3 = $iup.label("DST DIR");
     $lbl4 = $iup.label(":");
     $txt1 = $iup.text();
-    $txt1.sattr("RASTERSIZE", "125");
-    $txt1.sattr("MULTILINE", "NO");
+    $txt1.set-attr("RASTERSIZE", "125");
+    $txt1.set-attr("MULTILINE", "NO");
     $txt2 = $iup.text;
-    $txt2.sattr("RASTERSIZE", "125");
-    $txt2.sattr("MULTILINE", "NO");
+    $txt2.set-attr("RASTERSIZE", "125");
+    $txt2.set-attr("MULTILINE", "NO");
     $btn1 = $iup.button("SRC", '');
     $btn1.set-callback("ACTION", &fnSrcFile);
     $btn2 = $iup.button("DST", '');
@@ -44,22 +44,22 @@ sub MAIN() {
                             $lbl5, $lbl6, $btn3, $btn4,
     );
 
-    $gbox.sattr("ORIENTATION", "HORIZONTAL");
-    $gbox.sattr("NUMDIV", "4");
-    # $gbox.sattr("SIZELIN","0");
-    # $gbox.sattr("SIZECOL","2");
-    $gbox.sattr("SIZELIN", "-1");
-    $gbox.sattr("SIZECOL", "-1");
-    $gbox.sattr("MARGIN", "30x30");
-    $gbox.sattr("GAPCOL", "30");
-    $gbox.sattr("GAPLIN", "30");
-    $gbox.sattr("ALIGNMENTLIN", "ACENTER");
-    $gbox.sattr("ALIGNMENTCOL", "ARIGHT");
-    # $gbox.sattr( "ALIGNMENTLIN", "ATOP");
-    # $gbox.sattr( "ALIGNMENTCOL", "ALEFT");
+    $gbox.set-attr("ORIENTATION", "HORIZONTAL");
+    $gbox.set-attr("NUMDIV", "4");
+    # $gbox.set-attr("SIZELIN","0");
+    # $gbox.set-attr("SIZECOL","2");
+    $gbox.set-attr("SIZELIN", "-1");
+    $gbox.set-attr("SIZECOL", "-1");
+    $gbox.set-attr("MARGIN", "30x30");
+    $gbox.set-attr("GAPCOL", "30");
+    $gbox.set-attr("GAPLIN", "30");
+    $gbox.set-attr("ALIGNMENTLIN", "ACENTER");
+    $gbox.set-attr("ALIGNMENTCOL", "ARIGHT");
+    # $gbox.set-attr( "ALIGNMENTLIN", "ATOP");
+    # $gbox.set-attr( "ALIGNMENTCOL", "ALEFT");
 
     $dlg = $iup.dialog($gbox);
-    $dlg.sattr("TITLE", "Hello World", :copy);
+    $dlg.set-attr("TITLE", "Hello World", :copy);
     $dlg.show(IUP_CENTER, IUP_CENTER);
 
     $iup.main-loop;

@@ -1,3 +1,4 @@
+#!/usr/bin/env raku
 use v6;
 use IUP;
 
@@ -27,11 +28,11 @@ sub MAIN() {
     $lbl3 = $iup.label("DST DIR");
     $lbl4 = $iup.label(":");
     $txt1 = $iup.text();
-    $txt1.sattr("RASTERSIZE", "125");
-    $txt1.sattr("MULTILINE", "NO");
+    $txt1.set-attr("RASTERSIZE", "125");
+    $txt1.set-attr("MULTILINE", "NO");
     $txt2 = $iup.text;
-    $txt2.sattr("RASTERSIZE", "125");
-    $txt2.sattr("MULTILINE", "NO");
+    $txt2.set-attr("RASTERSIZE", "125");
+    $txt2.set-attr("MULTILINE", "NO");
     $btn1 = $iup.button("SRC", '');
     $btn1.set-callback("ACTION", &fnSrcFile);
     $btn2 = $iup.button("DST", '');
@@ -48,22 +49,22 @@ sub MAIN() {
                             $lbl5, $lbl6, $btn3, $btn4,
     );
 
-    $mbox.sattr("ORIENTATION", "HORIZONTAL");
-    $mbox.sattr("NUMDIV", "4");
-    # $mbox.sattr("SIZELIN","0");
-    # $mbox.sattr("SIZECOL","2");
-    $mbox.sattr("SIZELIN", "-1");
-    $mbox.sattr("SIZECOL", "-1");
-    $mbox.sattr("MARGIN", "30x30");
-    $mbox.sattr("GAPCOL", "30");
-    $mbox.sattr("GAPLIN", "30");
-    $mbox.sattr("ALIGNMENTLIN", "ACENTER");
-    $mbox.sattr("ALIGNMENTCOL", "ARIGHT");
-    # $mbox.sattr( "ALIGNMENTLIN", "ATOP");
-    # $mbox.sattr( "ALIGNMENTCOL", "ALEFT");
+    $mbox.set-attr("ORIENTATION", "HORIZONTAL");
+    $mbox.set-attr("NUMDIV", "4");
+    # $mbox.set-attr("SIZELIN","0");
+    # $mbox.set-attr("SIZECOL","2");
+    $mbox.set-attr("SIZELIN", "-1");
+    $mbox.set-attr("SIZECOL", "-1");
+    $mbox.set-attr("MARGIN", "30x30");
+    $mbox.set-attr("GAPCOL", "30");
+    $mbox.set-attr("GAPLIN", "30");
+    $mbox.set-attr("ALIGNMENTLIN", "ACENTER");
+    $mbox.set-attr("ALIGNMENTCOL", "ARIGHT");
+    # $mbox.set-attr( "ALIGNMENTLIN", "ATOP");
+    # $mbox.set-attr( "ALIGNMENTCOL", "ALEFT");
 
     $dlg = $iup.dialog($mbox);
-    $dlg.sattr("TITLE", "Hello World", :copy);
+    $dlg.set-attr("TITLE", "Hello World", :copy);
     $dlg.show(IUP_CENTER, IUP_CENTER);
 
     $iup.main-loop;

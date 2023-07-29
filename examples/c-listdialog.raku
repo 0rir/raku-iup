@@ -1,3 +1,4 @@
+#!/usr/bin/env raku
 # IupListDialog: Example in C
 # Shows a color-selection dialog.
 

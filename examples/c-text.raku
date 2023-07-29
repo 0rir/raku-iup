@@ -12,16 +12,16 @@ sub MAIN() {
     my $ih = IUP::Handle.new();
 
     my $text = $ih.text;
-    $text.sattr("SIZE", "200x");
+    $text.set-attr("SIZE", "200x");
 
     my $pwd = $ih.text;
-    $pwd.sattr("VALUE", "current directory: $*CWD");
-    $pwd.sattr("READONLY", "YES");
-    $pwd.sattr("SIZE", "200x");
+    $pwd.set-attr("VALUE", "current directory: $*CWD");
+    $pwd.set-attr("READONLY", "YES");
+    $pwd.set-attr("SIZE", "200x");
 
     my $vbox = $ih.vbox($text, $pwd);
     my $dlg = $ih.dialog($vbox);
-    $dlg.sattr("TITLE", "IupText", :copy);
+    $dlg.set-attr("TITLE", "IupText", :copy);
     $dlg.show(IUP_CENTER, IUP_CENTER);
 
     $iup.main_loop;

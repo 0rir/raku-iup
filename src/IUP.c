@@ -81,6 +81,10 @@ DLLEXPORT Ihandle* p6IupVbox(Ihandle* child) {
 	return IupVbox(child, NULL);
 }
 
+DLLEXPORT Ihandle* p6IupZbox(Ihandle* child) {
+	return IupZbox(child, NULL);
+}
+
 DLLEXPORT Ihandle* p6IupHbox(Ihandle* child) {
 	return IupHbox(child, NULL);
 }

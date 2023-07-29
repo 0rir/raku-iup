@@ -11,8 +11,8 @@ multi MAIN ( ) {
     my ( $sub1_menu, $menu);
 
     my $multitext = $iup.text('');
-    $multitext.sattr( "MULTILINE", "YES");
-    $multitext.sattr( "EXPAND", "YES");
+    $multitext.set-attr( "MULTILINE", "YES");
+    $multitext.set-attr( "EXPAND", "YES");
 
     $item_open = $iup.item( "Open", '');
     $item_saveas = $iup.item( "Save As", '');
@@ -31,16 +31,16 @@ multi MAIN ( ) {
 
     my $vbox = $iup.vbox( $multitext,);
 
-            $multitext.sattr( "MULTILINE", "YES");
-            $multitext.sattr( "EXPAND", "YES");
+            $multitext.set-attr( "MULTILINE", "YES");
+            $multitext.set-attr( "EXPAND", "YES");
 
     my $dlg = $iup.dialog($vbox);
     $dlg.set_attribute_handle( "MENU", $menu);
-    $dlg.sattr( "TITLE", "Simple Notepad", :copy);
-    $dlg.sattr( "SIZE", "QUARTERxQUARTER");
+    $dlg.set-attr( "TITLE", "Simple Notepad", :copy);
+    $dlg.set-attr( "SIZE", "QUARTERxQUARTER");
 
     $dlg.show( IUP_CENTER, IUP_CENTER);
-    $dlg.sattr( "USERSIZE", '');
+    $dlg.set-attr( "USERSIZE", '');
 
     $iup.main_loop();
     $iup.close();

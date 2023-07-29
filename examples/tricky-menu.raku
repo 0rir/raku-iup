@@ -41,24 +41,24 @@ sub menu-test {
 
     # Creates menu create
     my $menu-create = $ih.menu(
-        $ih.item("Line", ""),
+        $ih.item("Line",'' ),
         $ih.item("Circle", ""),
         $ih.submenu("Triangle",
             $ih.menu(
-                $ih.item("Equilateral", "").sattr("VALUE" => "ON"),
+                $ih.item("Equilateral", "").set-attr(:copy, "VALUE" => "ON"),
                 $ih.item("Isoceles", ""),
                 $ih.item("Scalenus", "")
-            ).sattr('RADIO' => "YES")
+            ).set-attr(:copy, 'RADIO' => "YES")
         )
     );
 
     # File Menu
     my $menu-file = $ih.menu(
         $ih.item("Item with Image \tCtrl+M", ""),
-        $ih.item("Toggle using &VALUE", "").sattr("VALUE" => "ON", "KEY" => "KcV"),
-        $ih.item("Auto &Toggle Text", "").sattr("AUTOTOGGLE" => "YES", "VALUE" => "OFF"),
-        $ih.item("Auto &Toggle Image", ""),
-        $ih.item("Big Image", ""),
+        $ih.item("Toggle using &VALUE", "").set-attr(:copy, "VALUE" => "ON", "KEY" => "KcV"),
+        $ih.item( "Auto &Toggle Text", "").set-attr(:copy, "AUTOTOGGLE" => "YES", "VALUE" => "OFF"),
+        $ih.item( "Auto &Toggle Image", ""),
+        $ih.item( "Big Image", ""),
         $ih.separator,
         $ih.item("Exit (Destroy)", ""),
         $ih.item("Exit (Close)", "")
@@ -66,7 +66,7 @@ sub menu-test {
 
     # Edit Menu
     my $menu-edit = $ih.menu(
-        $ih.item("Active Next", "").set-attribute('IMAGE', "IUP_ArrowRight"),
+        $ih.item("Active Next", "").set_attribute('IMAGE', "IUP_ArrowRight"),
         $ih.item("Rename Next", ""),
         $ih.item("Set Next Image", ""),
         $ih.item("Item && Acc\tCtrl+A", ""),
@@ -80,7 +80,7 @@ sub menu-test {
         $ih.item("Insert", ""),
         $ih.item("Remove", ""),
         $ih.separator,
-        $ih.item("Info", "").sattr('IMAGE' => "IUP_MessageInfo")
+        $ih.item("Info", "").set-attr('IMAGE' => "IUP_MessageInfo")
     );
 
     # Creates main menu with file menu
@@ -94,7 +94,7 @@ sub menu-test {
     my $canvas = $ih.canvas("");
     my $dlg = $ih.dialog($canvas);
     $dlg.set_attribute_handle("MENU", $menu);
-    $dlg.sattr(
+    $dlg.set-attr( :copy,
         "TITLE" => "IupMenu Test",
         "SIZE"  => "QUARTERxQUARTER");
 

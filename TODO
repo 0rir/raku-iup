@@ -18,7 +18,7 @@ These just include iup.h and so are the first to be addressed.
     mdi menu multiline1 parambox progressdlg radio
     separator split submenu tabs
     textformat -- depends on iup/src/iup_key.c for iupKeyCodeToName
-    timer treednd val vbox zbox
+    timer treednd val
 
 These require the ability to build a good image.  Something I have not
 sorted out yet.
@@ -60,20 +60,20 @@ IupVersionDate      .........u| n | m |   |   |   |   |
 IupSetLanguage      .........u| n | m | e |   |   |   |
 IupGetLanguage      .........u| n | m |   |   |   |   |
                  Attributes/Functions
-IupSetAttribute     ......... | n | m | e |   |   |   |
-IupSetStrAttribute  .........u| n | m | e |   |   |   |
-IupStoreAttribute   .........u| n | m | e |   |   |   | IupSetStrAttribute
-IupSetAttributes    ......... | n | m | e |   |   |   |
+IupSetAttribute     ......... | n | m | e |   |   |   | set-attr
+IupSetStrAttribute  .........u| n | m | e |   |   |   | set-attr :copy
+IupStoreAttribute   .........u| n | m | e |   |   |   | set-attr :copy
+IupSetAttributes    ......... | n | m | e |   |   |   | set-attr
 IupResetAttribute   ......... |   |   |   |   |   |   |
-IupSetAtt           ......... |   |   |   |   |   |   |
+IupSetAtt           ......... |   |   |   |NI |   | use set-handle & set-attr
 IupSetAttributeHandle  ...... | n | m |   |   |   |   |
 IupGetAttribute     ......... | n | m |   |   |   |   |
 IupGetAllAttributes  ........ |   |   |   |   |   |   |
 IupGetAttributes    ......... | n | m |   |   |   |   |
-IupCopyAttributes   ......... |   |   |   |   |   |   |
+IupCopyAttributes   ......... |   |   |   |NI |  copy hash str attrs twxt elems
 IupGetAttributeHandle  ...... |   |   |   |   |   |   |
 IupSetGlobal        ......... | n | m |   |   |   |   |
-IupSetStrGlobal     .........u| n | m | e |   |   |   |
+IupSetStrGlobal     .........u| n | m | e |   |   |   | set-global :copy
 IupGetGlobal        ......... | n | m | e |   |   |   |
 IupGetInt           .........u| n | m |   |   |   |   |
 IupStringCompare    ......... |   |   |   |   |   |   |
@@ -141,7 +141,7 @@ IupGridBox   ................ | n*| m | e |   |   |   |
 IupMultiBox  ................ | n*| m | e |   |   |   |
 IupHbox      ................ | n*| m | e |   |   |   |
 IupVbox      ................ | n*| m | e |   |   |   |
-IupZbox      ................ | n*|   |   |   |   |   |
+IupZbox      ................ | n*| m |   |   |   |   |
 IupRadio     ................ | n | m | e |   |   |   |
 IupNormalizer  .............. |   |   |   |   |   |   |
 IupFrame     ................ | n | m | e |   |   |   |

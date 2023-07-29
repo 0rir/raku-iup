@@ -1,3 +1,4 @@
+#!/usr/bin/env raku
 # IupFileDlg Raku Example from the C 
 # Shows a typical file-saving dialog.
 
@@ -13,8 +14,8 @@ sub MAIN() {
 
    $filedlg = $iup.file-dlg(); 
  
-   $filedlg.sattr( :pre,  "DIALOGTYPE = SAVE, TITLE = \"File Save\"");
-   $filedlg.sattr( :pre,  "FILTER = \"*.bmp\", FILTERINFO = \"Bitmap Files\"");
+   $filedlg.set-attr( :pre,  "DIALOGTYPE = SAVE, TITLE = \"File Save\"");
+   $filedlg.set-attr( :pre,  "FILTER = \"*.bmp\", FILTERINFO = \"Bitmap Files\"");
 
    $filedlg.popup(  IUP_CENTER, IUP_CENTER); 
 

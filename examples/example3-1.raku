@@ -11,14 +11,14 @@ multi MAIN ( ) {
     my $multitext = $iup.text('');
     my $vbox = $iup.vbox( $multitext,);
 
-    $multitext.sattr( "MULTILINE", "YES");
-    $multitext.sattr( "EXPAND", "YES");
+    $multitext.set-attr( "MULTILINE", "YES");
+    $multitext.set-attr( "EXPAND", "YES");
     my $dlg = $iup.dialog($vbox);
-    $dlg.sattr( "TITLE", "Simple Notepad", :copy);
-   $dlg.sattr( "SIZE", "QUARTERxQUARTER");
+    $dlg.set-attr( "TITLE", "Simple Notepad", :copy);
+   $dlg.set-attr( "SIZE", "QUARTERxQUARTER");
 
     $dlg.show( IUP_CENTER, IUP_CENTER);
-    $dlg.sattr( "USERSIZE", '');
+    $dlg.set-attr( "USERSIZE", '');
 
     $iup.main_loop();
     $iup.close();

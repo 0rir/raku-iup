@@ -1,3 +1,4 @@
+#!/usr/bin/env raku
 # Iup Alarm: Raku example converted from  C 
 #   Shows a dialog similar to the one shown when you exit
 # a program without saving.

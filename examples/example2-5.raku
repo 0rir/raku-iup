@@ -12,11 +12,11 @@ sub MAIN ( ) {
     my $button  = $iup.button( '&OK', '' );
     $button.set_callback("ACTION", &exit_callback);
     my $vbox  = $iup.vbox( $label, $button );
-    $vbox.sattr( 'ALIGNMENT', 'ACENTER');
-    $vbox.sattr( 'GAP', '30');
-    $vbox.sattr( 'MARGIN', '50x50');
+    $vbox.set-attr( 'ALIGNMENT', 'ACENTER');
+    $vbox.set-attr( 'GAP', '30');
+    $vbox.set-attr( 'MARGIN', '50x50');
     my $dlg = $iup.dialog( $vbox);
-    $dlg.sattr( "TITLE", "Hello World 5", :copy);
+    $dlg.set-attr( "TITLE", "Hello World 5", :copy);
 
     $dlg.show( IUP_CENTER, IUP_CENTER);
     $iup.main_loop();

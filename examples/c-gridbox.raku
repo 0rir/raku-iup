@@ -13,18 +13,18 @@ sub GridBoxTest() {
     my $fr1 = $ih.frame(
             $gbox = $ih.gridbox(
                     $ih.label();  # XXX C version uses IupSetAttributes( "")???
-                    $ih.label("col1").sattr("FONTSTYLE" => "Bold"),
-                    $ih.label("col2").sattr("FONTSTYLE" => "Bold"),
+                    $ih.label("col1").set-attr("FONTSTYLE" => "Bold"),
+                    $ih.label("col2").set-attr("FONTSTYLE" => "Bold"),
 
-                    $ih.label().sattr("FONTSTYLE" => "Bold"),
-                    $ih.label().sattr("XSIZE" => "50x12"),
-                    $ih.button("but").sattr("XSIZE" => "50", 'FGCOLOR' => Red),
+                    $ih.label().set-attr("FONTSTYLE" => "Bold"),
+                    $ih.label().set-attr("XSIZE" => "50x12"),
+                    $ih.button("but").set-attr("XSIZE" => "50", 'FGCOLOR' => Red),
 
-                    $ih.label("lin2").sattr("FONTSTYLE" => "Bold"),
-                    $ih.label("label").sattr("XSIZE" => "x12"),
-                    $ih.button("button").sattr("XEXPAND" => "Horizontal"),
-                    $ih.label("lin3").sattr("FONTSTYLE" => "Bold"),
-                    $ih.label("label large").sattr("XSIZE" => "x12"),
+                    $ih.label("lin2").set-attr("FONTSTYLE" => "Bold"),
+                    $ih.label("label").set-attr("XSIZE" => "x12"),
+                    $ih.button("button").set-attr("XEXPAND" => "Horizontal"),
+                    $ih.label("lin3").set-attr("FONTSTYLE" => "Bold"),
+                    $ih.label("label large").set-attr("XSIZE" => "x12"),
                     $ih.button("button large"),
                     ),
             );

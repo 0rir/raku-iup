@@ -195,9 +195,9 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupVboxv(Ptr -->Ihdle) is native(IUP_l) {*};
 
-    sub IupZbox(Ihdle $child -->Ihdle) is native(IUP_l) is export {*}
+    sub p6IupZbox(Ihdle -->Ihdle) is native(IUP_l) {*}
 
-     sub IupZboxv(Ptr $children -->Ihdle) is native(IUP_l) is export {*}
+    sub IupZboxv(Ptr -->Ihdle) is native(IUP_l) {*}
 
     sub p6IupHbox(Ihdle -->Ihdle) is native(IUP_l) {*};
 
@@ -460,65 +460,58 @@ class IUP::Handle is repr('CPointer') {
 
     # unmap
 
-    ###  TODO
-    # This is a, currently experimental, set of new Rakuish attribute
-    # setting multi methods.  They should be renamed set-attr.  One or
-    # more attribute can be set; when setting one attribute the :copy
-    # flag will copy the value instead of setting it by reference.
-
-    multi method sattr( Str:D $pre-kv-str, Bool :$pre where $pre -->Ihdle) {
+    # These multis cover setting one or more attributes by reference.
+    # :copy indicates that the data should be copied instead of using a ref.
+    # :pre is only to support the preformatted string arg used by
+    # IupSetAttributes in C-code.
+    # All the set-attrs return the self element.
+    # XXX ??? Hole to globals by calling type-object ??? XXX
+    multi method set-attr( Str:D $pre-kv-str, Bool :$pre where $pre -->Ihdle) {
 say "Preformatted Str";
         die ':pre flag should not be set False' if not $pre;
         IupSetAttributes(self, $pre-kv-str);
+        self
     }
-    multi method sattr( Str:D $k, Str:D $v, Bool :$copy -->Ihdle) {
-say "Str,Str,flag";
-        $copy ?? IupStoreAttribute( self, $k, $v)
-              !!   IupSetAttribute( self, $k, $v);
-        self;
+    multi method set-attr(
+        Str:D $k, Str:D $v, Bool :$copy where $copy -->Ihdle) {
+say "Str,Str,:copy";
+        IupStoreAttribute( self, $k, $v);
+        self
     }
-    multi method sattr(Str:D $k, Str:D $v, *@kv -->Ihdle) {
+    multi method set-attr( Str:D $k, Str:D $v -->Ihdle) {
+say "Str,Str,  $k, $v";
+        IupSetAttribute( self, $k, $v);
+        self
+    }
+    multi method set-attr(Str:D $k, Str:D $v, *@kv -->Ihdle) {
 say "Str,Str,…";
         die "Expected even number of args." unless @kv.elems %% 2;
         my $str = "$k=\"$v\"";
         for @kv -> $kk, $vv { $str ~= ",$kk=\"$vv\""; }
         IupSetAttributes(self, $str);
-        self;
     }
-    multi method sattr( Pair $kv, Bool :$copy -->Ihdle) {
-say 'Pair :$flag)';
-        $copy ?? IupStoreAttribute( self, $kv.key, $kv.value)
-              !!   IupSetAttribute( self, $kv.key, $kv.value);
-        self;
+    multi method set-attr( Pair $kv, Bool :$copy where $copy -->Ihdle) {
+say 'Pair :copy';
+        IupStoreAttribute( self, $kv.key, $kv.value);
+        self
     }
-    multi method sattr( Pair $kv, Pair $kw, *@etc -->Ihdle) {  # XXX need 2 pair??
-say 'Pair Pair Pair …)';
+    multi method set-attr( Pair $kv -->Ihdle) {
+say 'Pair';
+         IupSetAttribute( self, $kv.key, $kv.value);
+    }
+    multi method set-attr( Pair $kv, Pair $kw, *@etc -->Ihdle) { #XXX 2 pair??
+say 'Pair Pair …';
         my $str = "$kv.key()=\"$kv.value()\",$kw.key()=\"$kw.value()\"";
         for @etc -> $p {
             die "Expected a Pair object" unless $p ~~ Pair;
             $str ~= ",$p.key()=\"$p.value()\""
         }
         IupSetAttributes self, $str;
-        self;
     }
 
     multi method set_attributes(*%attrs) {
-        DEPRECATED('set-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-attr see docs','0.0.2','0.0.3', :what( &?ROUTINE.name));
         .set-attrs( %attrs);
-    }
-    multi method set-attributes(*%attrs) {
-        DEPRECATED('set-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
-        .set-attrs( %attrs);
-    }
-
-    multi method set-attrs(Pair $p, *@attrs) {
-say "set-attrs pair";
-        my Str @tmp;
-        @attrs.unshift: $p;
-        for @attrs -> $e {
-            push(@tmp, join("=", $e.key, "\"$e.value()\""));
-        }
-        return IupSetAttributes(self, join(", ", @tmp).Str);
     }
 
     # http://www.tecgraf.puc-rio.br/iup/en/func/iupsetattribute.html
@@ -526,20 +519,12 @@ say "set-attrs pair";
         DEPRECATED('set-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetStrAttribute(self, $name, $value);
     }
-    method set-attribute(Str $name, Str $value -->Mu) {
-        IupSetStrAttribute(self, $name, $value);
-    }
-    method set-attr(     Str $name, Str $value -->Mu) {
+    method set_attr(Str $name, Str $value -->Mu) {
+        DEPRECATED('set-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetStrAttribute(self, $name, $value);
     }
 
-    multi method set_attributes(*%attributes -->Ihdle) {
-        my Str @tmp = ();
-        for %attributes.kv -> Str $name, $value {
-            push(@tmp, join("=", $name, "\"$value\""));
-        }
-        return IupSetAttributes(self, join(", ", @tmp).Str);
-    }
+    ###
 
     # Get an attrib by name.
     method get-attr(Str $name -->Str) {      IupGetAttribute(self, $name) }
@@ -579,16 +564,24 @@ say "set-attrs pair";
     # getRGBid setattributeid2 setstrattributeid2 setstrfid2
     # setintid2 setfloatid2 setdoubleid2 setRGBid2 getattributeid2 getintid2
     # getfloatid2 getdoubleid2 getRGBid2
-    
-    method set-global( Str $k, Str $v -->Mu) { IupSetGlobal($k,$v) }
+
+    multi method set-global( Str $k, Str $v, Bool :$copy where ?$copy -->Mu) {
+        IupSetStrGlobal($k,$v)
+    }
+    multi method set-global( Str $k, Str $v -->Mu) {
+        IupSetGlobal($k,$v)
+    }
+
     method set_global( Str $k, Str $v -->Mu) {
         DEPRECATED('set-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetStrGlobal($k,$v)
     }
 
-    method set-str-global( Str $k, Str $v -->Mu) { IupSetStrGlobal($k,$v) }
+    method set-str-global( Str $k, Str $v -->Mu) {
+        DEPRECATED('set-global :copy','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        IupSetStrGlobal($k,$v) }
     method set_str_global( Str $k, Str $v -->Mu) {
-        DEPRECATED('set-str-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-str-global :copy','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetStrGlobal($k,$v)
     }
 
@@ -652,11 +645,16 @@ say "set-attrs pair";
 
     ###
     # getallnames getalldialogs getname 
+    method set-attr-handle(Str $name, Ihdle $ih_named -->Mu) {
+        IupSetAttributeHandle(self, $name, $ih_named);
+    }
     method set-attribute-handle(Str $name, Ihdle $ih_named -->Mu) {
+        DEPRECATED('set-attr-handle','0.0.2','0.0.3',
+                :what( &?ROUTINE.name));
         IupSetAttributeHandle(self, $name, $ih_named);
     }
     method set_attribute_handle(Str $name, Ihdle $ih_named -->Mu) {
-        DEPRECATED('set-attribute-handle','0.0.2','0.0.3',
+        DEPRECATED('set-attr-handle','0.0.2','0.0.3',
                 :what( &?ROUTINE.name));
         IupSetAttributeHandle(self, $name, $ih_named);
     }
@@ -689,9 +687,26 @@ say "set-attrs pair";
         }
     }
 
-    method vbox(*@child -->Ihdle) { self.vboxv(@child); }
+    method vbox(*@child -->Ihdle) { self.vboxv(@child) }
 
-    # zbox 
+    method zboxv(Ptr *@children -->Ihdle) {
+        given @children.elems {
+            when 1 { p6IupZbox: @children[0] }
+            default {
+                my $list = p6IupNewChildrenList($_);
+                my $pos = 0;
+                for @children -> $c {
+                    p6IupAddChildToList($list, $c, $pos, $_);
+                    $pos++;
+                }
+                my $ret = IupZboxv($list);
+                p6IupFree($list);
+                return $ret;
+            }
+        }
+    }
+
+    method zbox(Ptr *@child -->Ihdle) { self.zbox(@child) }
 
     method hboxv(*@child -->Ihdle) {
         my $n = @child.elems;
@@ -826,7 +841,7 @@ say "set-attrs pair";
 
     method label(Str $str = '' -->Ihdle) { IupLabel($str) }
 
-    method list(Str $action = '' -->Ihdle) { IupList( $action) }
+    method list(Str $action = Str -->Ihdle) { IupList( $action) }
 
     # flatlist
 

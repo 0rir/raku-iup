@@ -15,17 +15,17 @@ $iup.open;
 my $ih = IUP::Handle.new;
 
 my $item-open = $ih.item("Open", "");
-$item-open.set-attr("KEY", "O");
+$item-open.set_attr("KEY", "O");
 
 my $item-save = $ih.item("Save", "");
-$item-save.set-attribute("KEY", "S");
+$item-save.set_attribute("KEY", "S");
 
 my $item-undo = $ih.item("Undo", "");
-$item-undo.set-attribute("KEY", "U");
-$item-undo.set-attribute("ACTIVE", "NO");
+$item-undo.set_attribute("KEY", "U");
+$item-undo.set_attribute("ACTIVE", "NO");
 
 my $item-exit = $ih.item("Exit", "");
-$item-exit.set-attribute("KEY", "x");
+$item-exit.set_attribute("KEY", "x");
 $item-exit.set-callback("ACTION", &exit-cb);
 
 my $file-menu = $ih.menu(
@@ -44,10 +44,10 @@ $menu.set-handle("mymenu");
 my $canvas = $ih.canvas("");
 my $dlg = $ih.dialog($canvas);
 
-$dlg.set-attribute("MENU", "mymenu");
+$dlg.set_attribute("MENU", "mymenu");
 
-$dlg.set-attribute("TITLE", "IupMenu");
-$dlg.set-attribute("SIZE", "200x100");
+$dlg.set_attribute("TITLE", "IupMenu");
+$dlg.set_attribute("SIZE", "200x100");
 
 $dlg.show;
 

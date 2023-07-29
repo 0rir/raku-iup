@@ -23,7 +23,7 @@ sub set_attribute (Str $attribute -->Int) {
 
     my $mltline = $iup.get-handle("mltline");
     my $text    = $iup.get-handle("text");
-    $mltline.sattr( $attribute, $text.get-attr( $text, "VALUE"));
+    $mltline.set-attr( $attribute, $text.get-attr( $text, "VALUE"));
 
     sprintf( $string_message, "Attribute %s set with value %s",
     $attribute, $text.get-attr( "VALUE"));
@@ -43,7 +43,7 @@ sub get_attribute (Str $attribute -->int32) {
 
     $mltline = $iup.get-handle("$mltline");
     $text = $iup.get-handle("text");
-    $text.set-attr( "VALUE", $mltline.get-attr($mltline, $attribute));
+    $text.set_attr( "VALUE", $mltline.get-attr($mltline, $attribute));
 
     $string_message.sprintf( "Attribute %s get with value %s", $attribute,
         $text.get-attr( "VALUE"));
@@ -61,7 +61,7 @@ sub btn_append_cb (-->int32) {
   my $list = $ih.get-handle("list");
 
   if $list.get-int( "VALUE") == 1 {
-    $list.set-attribute("APPEND");
+    $list.set_attribute("APPEND");
   } else {
      $list.get-attribute("APPEND");
   }
@@ -78,7 +78,7 @@ sub btn_insert_cb (-->int32) {
   $list = $ih.get-handle("list");
 
   if $list.get-int( "VALUE") == 1 {
-      $list.set-attr("INSERT")
+      $list.set_attr("INSERT")
   } else {
       $list.get-attr("INSERT");
   }
@@ -95,7 +95,7 @@ sub btn_border_cb (-->int32)
    my $list = $ih.get-handle("list");
 
   if $list.get-int( "VALUE") == 1 {
-      $list.set-attr("BORDER"); 
+      $list.set_attr("BORDER"); 
   }else{
       $list.get-attr("BORDER");
   }
@@ -111,7 +111,7 @@ sub btn_caret_cb (-->int32) {
   my $list = $ih.get-handle("list");
 
   if $list.get-int( "VALUE") == 1 {
-      $list.set-attr("CARET");
+      $list.set_attr("CARET");
   }else{
       $list.get-attr("CARET");
   }
@@ -127,7 +127,7 @@ sub btn_readonly_cb(-->int32) {
   my $list = $ih.get-handle("list");
 
   if $list.get-int( "VALUE") == 1 {
-      $list.set-attr("READONLY")
+      $list.set_attr("READONLY")
   } else {
       $list.get-attr("READONLY");
   }
@@ -142,7 +142,7 @@ sub btn_selection_cb (-->int32) {
   my $list = $ih.get-handle("list");
 
   if $list.get-int( "VALUE") == 1 {
-      $list.set-attr("SELECTION");
+      $list.set_attr("SELECTION");
   }else{
       $list.get-attr("SELECTION");
   }
@@ -157,7 +157,7 @@ sub btn_selectedtext_cb (-->int32){
   my $list = $ih.get-handle("list");
 
   if $list.get-int( "VALUE") == 1 {
-      $list.set-attr("SELECTEDTEXT"); 
+      $list.set_attr("SELECTEDTEXT"); 
   }else{
       $list.get-attr("SELECTEDTEXT");
   }
@@ -174,7 +174,7 @@ sub btn_nc_cb (-->int32) {
   $list = $ih.get-handle("list");
 
   if ($list.get-int( "VALUE") == 1) {
-        $list.set-attr("NC");
+        $list.set_attr("NC");
     } else {
         $list.get-attr("NC");
     }
@@ -191,7 +191,7 @@ sub btn_value_cb (-->int32) {
   my $list = $ih.get-handle("list");
 
   if $list.get-int( "VALUE") == 1 {
-      $list.set-attr("VALUE");
+      $list.set_attr("VALUE");
   }else{
       $list.get-attr("VALUE");
   }
@@ -219,8 +219,8 @@ sub MAIN(-->Int) {
   $list = IupList(''); 
 
   # Turns on multiline expand and text horizontal expand
-  $mltline.set-attr( "EXPAND", "YES");
-  $text.set-attr( "EXPAND", "HORIZONTAL");
+  $mltline.set_attr( "EXPAND", "YES");
+  $text.set_attr( "EXPAND", "HORIZONTAL");
 
   # Associates handles to multiline, text and list
   $mltline.set-handle( 'mltline');
@@ -228,7 +228,7 @@ sub MAIN(-->Int) {
   $list.set-handle("list");
 
   # Sets list items and dropdown
-  $list.set-attrs( "1" => "SET", "2" => "GET", "DROPDOWN" => "YES");
+  $list.set-attr( "1" => "SET", "2" => "GET", "DROPDOWN" => "YES");
 
   # Creates buttons
   $btn_append = $iup.button("Append");
@@ -264,7 +264,7 @@ sub MAIN(-->Int) {
     );
 
                    # Sets title and size of the dialog
-  $dlg.sattr( "TITLE" => "IupMultiLine Example", "SIZE" => "HALFxQUARTER");
+  $dlg.set-attr( "TITLE" => "IupMultiLine Example", "SIZE" => "HALFxQUARTER");
 
   # Shows dialog in the center of the screen
   $dlg.show( IUP_CENTER, IUP_CENTER);

@@ -19,12 +19,12 @@ sub MAIN() {
     # Creates frame with a hbox with a label
     my $frame = $ih.frame(
             $ih.hbox(
-                    $ih.fill(),
+                    $ih.fill,
                     $ih.label(
 "IupFrame Attributes:\nFGCOLOR = \"255 0 0\"\nSIZE = \"EIGHTHxEIGHTH\"\nTITLE = \"This is the frame\"\nMARGIN = \"10x10\""),
-                        $ih.fill()
-                    )
-            ).set-attrs(
+                        $ih.fill,
+                    ),
+            ).set-attr(
                 "FGCOLOR" => Red,
                 "SIZE" => "EIGHTHxEIGHTH",
                 "TITLE" => "This is the frame",
@@ -33,7 +33,7 @@ sub MAIN() {
 
     # Creates dialog
     my $dlg = $ih.dialog($frame);
-    $dlg.set-attr("TITLE", "IupFrame");
+    $dlg.set_attr("TITLE", "IupFrame");
 
     # Shows dialog in the center of the screen
     $dlg.show;

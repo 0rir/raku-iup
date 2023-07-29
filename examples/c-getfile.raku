@@ -1,3 +1,4 @@
+#!/usr/bin/env raku
 #  IupGetFile: example in Raku from the C 
 #    Shows a typical file-selection dialog.
 
