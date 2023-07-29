@@ -6,8 +6,6 @@ Upstream these situations are distinguishable.
 
     Short Road map
 
-Versions of controls with 'Flat' in the name are deemed unimportant.
-
 This is mostly about getting the upstream ~/examples/C/ files working (here
 working is not yet requiring correct memory management).  Note that some files
 exercise widgets/controls/elements that are expected to be displaced by Raku
@@ -16,7 +14,7 @@ code.
 These just include iup.h and so are the first to be addressed.
 
     backgroundbox dialog1 dialog2 expander
-    fill frame getattribute getfile getparam hbox idle item
+    fill frame getattribute getfile getparam idle item
     mdi menu multiline1 parambox progressdlg radio
     separator split submenu tabs
     textformat -- depends on iup/src/iup_key.c for iupKeyCodeToName
@@ -27,7 +25,7 @@ sorted out yet.
 
     button image label list1 list  list3
     sample -- depends on iup/src/iup_key.c for iupKeyCodeToName
-    toggle  
+    
 
 These also include a secondary header, iupcontrols.h, which I have
 not installed. 
@@ -112,7 +110,7 @@ IupGetColor   ............... |   |   |   |   |   |   |
 IupGetParam   ............... |   |   |   |   |   |   |
 IupGetText    ............... |   |   |   |   |   |   |
 IupListDialog ............... | n | m | e |   |   |   | XXX cancel==null select
-IupMessage    ............... | n | m |   |   |   |   |
+IupMessage    ............... | n | m | e |   |   |   |
 IupMessageError  ............ |   |   |   |   |   |   |
 IupScanf      ............... |   |   |   |NI |   |   |
 IupLayoutDialog  ............ |   |   |   |   |   |   |
@@ -144,15 +142,15 @@ IupMultiBox  ................ | n*| m | e |   |   |   |
 IupHbox      ................ | n*| m | e |   |   |   |
 IupVbox      ................ | n*| m | e |   |   |   |
 IupZbox      ................ | n*|   |   |   |   |   |
-IupRadio     ................ |   |   |   |   |   |   |
+IupRadio     ................ | n | m | e |   |   |   |
 IupNormalizer  .............. |   |   |   |   |   |   |
 IupFrame     ................ | n | m | e |   |   |   |
-IupFlatFrame  ............... |   |   |   |   |   |   |
+IupFlatFrame  ............... |   |   |   |NI |   |   |
 IupTabs     ................. |   |   |   |   |   |   |
-IupFlatTabs  ................ |   |   |   |   |   |   |
+IupFlatTabs  ................ |   |   |   |NI |   |   |
 IupBackgroundBox  ........... |   |   |   |   |   |   |
 IupScrollBox      ........... |   |   |   |   |   |   |
-IupFlatScrollBox  ........... |   |   |   |   |   |   |
+IupFlatScrollBox  ........... |   |   |   |NI |   |   |
 IupDetachBox     ............ |   |   |   |   |   |   |
 IupExpander      ............ | n | m |   |   |   |   |
 IupSbox          ............ | n | m | e |   |   |   |
@@ -162,7 +160,7 @@ IupParamBox      ............ |   |   |   |   |   |   |
               Controls/Standard
 IupAnimatedLabel  ........... |   |   |   |   |   |   |
 IupButton         ........... | n | m | e |   |   |   |
-IupFlatButton     ........... |   |   |   |   |   |   |
+IupFlatButton     ........... |   |   |   |NI |   |   |
 IupDropButton     ........... |   |   |   |   |   |   |
 IupCalendar       ........... |   |   |   |   |   |   |
 IupCanvas         ........... | n | m |   |   |   |   |
@@ -172,21 +170,21 @@ IupDatePick       ........... |   |   |   |   |   |   |
 IupDial           ........... | n | m |   |   |   |   |
 IupGauge          ........... |   |   |   |   |   |   |
 IupLabel          ........... | n | m | e |   |   |   |
-IupFlatLabel      ........... |   |   |   |   |   |   |
-IupFlatSeparator  ........... | n | m | e |   |   |   |
+IupFlatLabel      ........... |   |   |   |NI |   |   |
+IupFlatSeparator  ........... | n | m | e |NI |   |   |
 IupLink           ........... |   |   |   |   |   |   |
 IupList           ........... | n | m |   |   |   |   |
-IupFlatList       ........... |   |   |   |   |   |   |
+IupFlatList       ........... |   |   |   |NI |   |   |
 IupProgressBar    ........... |   |   |   |   |   |   |
 IupSpin           ........... |   |   |   |   |   |   |
 IupText           ........... | n*| m | e |   |   |   |
 IupMultiLine      ........... | n*| m | e |   |   |   |a Text w/ MULTILINE=YES
-IupToggle         ........... |   |   |   |   |   |   |
-IupFlatToggle     ........... |   |   |   |   |   |   |
+IupToggle         ........... | n | m | e |   |   |   |
+IupFlatToggle     ........... |   |   |   |NI |   |   |
 IupTree           ........... |   |   |   |   |   |   |
-IupFlatTree       ........... |   |   |   |   |   |   |
+IupFlatTree       ........... |   |   |   |NI |   |   |
 IupVal            ........... |   |   |   |   |   |   |
-IupFlatVal        ........... |   |   |   |   |   |   |
+IupFlatVal        ........... |   |   |   |NI |   |   |
    Additional controls requiring CD lib are ignored.
               Controls/Management
 IupMap            ......... | n | m |   |   |   |   |
