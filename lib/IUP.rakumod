@@ -189,7 +189,9 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupFill( -->Ihdle) is native(IUP_l) {*};
 
-    # IupSpace IupRadio
+    # IupSpace
+
+    sub IupRadio(Ihdle $child -->Ihdle) is native(IUP_l) {*}
 
     sub p6IupVbox(Ihdle -->Ihdle) is native(IUP_l) {*};
 
@@ -281,7 +283,9 @@ class IUP::Handle is repr('CPointer') {
 
     sub p6IupMultiLine(Str $action -->Ihdle) is native(IUP_l) {*}
 
-    # IupToggle IupTimer
+    sub IupToggle(Str $title, Str $action -->Ihdle) is native(IUP_l) {*}
+
+    # IupTimer
     # IupClipboard IupProgressBar IupVal IupFlatVal IupFlatTree
     # IupTabs IupTabsv IupFlatTabs IupFlatTabsv
     # IupTree IupLink IupAnimatedLabel
@@ -667,7 +671,9 @@ say 'Pair Pair …';
     # setclassdefaultattribute classmatch create createp createv
     method fill(-->Ihdle) { IupFill() }
 
-    # radio space
+    method radio( Ihdle $child -->Ihdle) { IupRadio($child) }
+
+    # space
 
     method vboxv(*@child -->Ihdle) {
         my $n = @child.elems;
@@ -849,7 +855,11 @@ say 'Pair Pair …';
 
     method multiline(Str $action = '' -->Ihdle) { p6IupMultiLine($action) }
 
-    # Toggle Timer Clipboard ProgressBar Val FlatVal FlatTree
+    method toggle(Str $title, Str $action = Str -->Ihdle) {
+        IupToggle( $title, $action)
+    }
+
+    # Timer Clipboard ProgressBar Val FlatVal FlatTree
     # Tabs Tabsv FlatTabs FlatTabsv Tree Link AnimatedLabel
     # DatePick Calendar Colorbar Gauge
 

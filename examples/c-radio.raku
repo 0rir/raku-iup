@@ -9,23 +9,17 @@ use IUP;
 
 sub MAIN() {
     my $iup = IUP.new;
-say 'A';
     $iup.open;
-say 'A';
     my $ih = IUP::Handle.new;
-say 'A';
+
     my $male   = $iup.toggle( "Male" );
-say 'A';
     my $female = $iup.toggle( "Female");
-say 'A';
-    my $exclusive = $iup.radio(
-        $iup.vbox( $male, $female,)
-    );
-    $male.set-handle( "male");
+    my $exclusive = $iup.radio( $iup.vbox( $male, $female,));
+    $male.set-handle(   "male");
     $female.set-handle( "female");
     $exclusive.set-attr(  "VALUE", "female");
-    $male.set-attr(   "TIP", "Two state button - Exclusive - RADIO");
-    $female.set-attr( "TIP", "Two state button - Exclusive - RADIO");
+    $male.set-attr(   :copy, "TIP", "Two state button - Exclusive - RADIO");
+    $female.set-attr( :copy, "TIP", "Two state button - Exclusive - RADIO");
 
     my $frame = $iup.frame( $exclusive);
     $frame.set-attr( :copy, "TITLE", "Gender");
