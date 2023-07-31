@@ -14,7 +14,7 @@ code.
 These just include iup.h and so are the first to be addressed.
 
     backgroundbox dialog1 dialog2 expander
-    fill frame getattribute getfile getparam idle item
+    fill getattribute getparam idle item
     mdi menu multiline1 parambox progressdlg radio
     separator split submenu tabs
     textformat -- depends on iup/src/iup_key.c for iupKeyCodeToName

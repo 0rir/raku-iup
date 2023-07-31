@@ -695,7 +695,7 @@ say 'Pair Pair …';
 
     method vbox(*@child -->Ihdle) { self.vboxv(@child) }
 
-    method zboxv(Ptr *@children -->Ihdle) {
+    method zboxv(*@children -->Ihdle) {
         given @children.elems {
             when 1 { p6IupZbox: @children[0] }
             default {
@@ -712,7 +712,7 @@ say 'Pair Pair …';
         }
     }
 
-    method zbox(Ptr *@child -->Ihdle) { self.zbox(@child) }
+    method zbox(*@child -->Ihdle) { self.zbox(@child) }
 
     method hboxv(*@child -->Ihdle) {
         my $n = @child.elems;
