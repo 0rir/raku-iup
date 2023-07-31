@@ -20,10 +20,11 @@ code.
 
 These just include iup.h and so are the first to be addressed:
 
-    dialog1 dialog2 expander
+    backgroundbox dialog1 dialog2 expander
     fill getattribute getparam idle item
-    mdi multiline1 parambox progressdlg
-    split tabs
+    mdi menu multiline1 parambox progressdlg radio
+    separator split submenu tabs
+    textformat -- depends on iup/src/iup_key.c for iupKeyCodeToName
     timer treednd val
     textformat -- depends on iup/src/iup_key.c for iupKeyCodeToName
 
