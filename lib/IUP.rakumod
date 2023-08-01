@@ -476,7 +476,7 @@ say "Preformatted Str";
         IupSetAttributes(self, $pre-kv-str);
     }
     multi method set-attr(
-        Str:D $k, Str:D $v, Bool :$copy where $copy -->Ihdle) {
+        Str:D $k, Str:D $v, Bool :$copy! where $copy -->Ihdle) {
 say "Str,Str,:copy";
         IupStoreAttribute( self, $k, $v);
         self
@@ -784,7 +784,9 @@ say 'Pair Pair …';
 
     method expander( $child -->Ihdle){  IupExpander( $child) }
 
-    # detachbox, backgroundbox
+    # detachbox
+
+    method backgroundbox(Ihdle $child -->Ihdle) { IupBackgroundBox $child }
 
     method frame($child -->Ihdle) { IupFrame($child); }
 
