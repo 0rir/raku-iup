@@ -11,28 +11,35 @@ working is not yet requiring correct memory management).  Note that some files
 exercise widgets/controls/elements that are expected to be displaced by Raku
 code.
 
+These seem easy but the given example file proves otherwize.
+    zbox.c -- this example uses the list element which wants C callbacks.
+            Make an example w/o .list.
+    list.c -- Find a way to call to Raku callbacks.  !RSN
+
 These just include iup.h and so are the first to be addressed.
 
-    backgroundbox dialog1 dialog2 expander
+    dialog1 dialog2 expander
     fill getattribute getparam idle item
-    mdi menu multiline1 parambox progressdlg radio
-    separator split submenu tabs
+    mdi multiline1 parambox progressdlg
+    split tabs
     textformat -- depends on iup/src/iup_key.c for iupKeyCodeToName
     timer treednd val
 
 These require the ability to build a good image.  Something I have not
 sorted out yet.
 
-    button image label list1 list  list3
+    button image label 
     sample -- depends on iup/src/iup_key.c for iupKeyCodeToName
     
 
 These also include a secondary header, iupcontrols.h, which I have
 not installed. 
     cbox colorbrowser detachbox dialogtaskbar
-    gauge getcolor getxy_showxy mask progressbar
+    gauge getcolor getxy_showxy progressbar
     sbox2 scrollbar tree
 
+Difficult C examples for a here unnamed reason.
+    list1, list2, list3, zbox,
 
 This TODO contains all IUP functions that are listed in the sidebar on
 https://www.tecgraf.puc-rio.br/iup/ .  There are many other IUP functions
@@ -148,7 +155,7 @@ IupFrame     ................ | n | m | e |   |   |   |
 IupFlatFrame  ............... |   |   |   |NI |   |   |
 IupTabs     ................. |   |   |   |   |   |   |
 IupFlatTabs  ................ |   |   |   |NI |   |   |
-IupBackgroundBox  ........... |   |   |   |   |   |   |
+IupBackgroundBox  ........... | n | m | e |   |    NEEDs Draw API to be useful.
 IupScrollBox      ........... |   |   |   |   |   |   |
 IupFlatScrollBox  ........... |   |   |   |NI |   |   |
 IupDetachBox     ............ |   |   |   |   |   |   |
@@ -183,7 +190,7 @@ IupToggle         ........... | n | m | e |   |   |   |
 IupFlatToggle     ........... |   |   |   |NI |   |   |
 IupTree           ........... |   |   |   |   |   |   |
 IupFlatTree       ........... |   |   |   |NI |   |   |
-IupVal            ........... |   |   |   |   |   |   |
+IupVal            ........... | n | m |   |   |   |   |
 IupFlatVal        ........... |   |   |   |NI |   |   |
    Additional controls requiring CD lib are ignored.
               Controls/Management
@@ -221,7 +228,7 @@ IupSetFocus        ........ | n | m |   |   |   |   |
               Resources/Menus
 IupItem        ............ | n*| m | e |   |   |   |
 IupMenu        ............ | n | m | e |   |   |   |
-IupSeparator   ............ | n | m | e |   |   |   |
+IupSeparator   ............ | n | m | e |   |   |   | very thin & faint
 IupSubmenu     ............ | n | m | e |   |   |   |
               Resources/Handle Names
 IupSetHandle   ............ | n | m |   |   |   |   |
