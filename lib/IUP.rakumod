@@ -474,7 +474,6 @@ class IUP::Handle is repr('CPointer') {
 say "Preformatted Str";
         die ':pre flag should not be set False' if not $pre;
         IupSetAttributes(self, $pre-kv-str);
-        self
     }
     multi method set-attr(
         Str:D $k, Str:D $v, Bool :$copy where $copy -->Ihdle) {
@@ -494,14 +493,15 @@ say "Str,Str,…";
         for @kv -> $kk, $vv { $str ~= ",$kk=\"$vv\""; }
         IupSetAttributes(self, $str);
     }
-    multi method set-attr( Pair $kv, Bool :$copy where $copy -->Ihdle) {
-say 'Pair :copy';
-        IupStoreAttribute( self, $kv.key, $kv.value);
-        self
-    }
-    multi method set-attr( Pair $kv -->Ihdle) {
+    multi method set-attr( Pair $kv, Bool:U :$copy -->Ihdle) {
 say 'Pair';
          IupSetAttribute( self, $kv.key, $kv.value);
+         self
+    }
+    multi method set-attr( Pair $kv, Bool :$copy! where $copy -->Ihdle) {
+say 'Pair :copy X';
+        IupStoreAttribute( self, $kv.key, $kv.value);
+        self
     }
     multi method set-attr( Pair $kv, Pair $kw, *@etc -->Ihdle) { #XXX 2 pair??
 say 'Pair Pair …';
@@ -513,19 +513,21 @@ say 'Pair Pair …';
         IupSetAttributes self, $str;
     }
 
-    multi method set_attributes(*%attrs) {
+    multi method set_attributes(*%attrs --> Ihdle) {
         DEPRECATED('set-attr see docs','0.0.2','0.0.3', :what( &?ROUTINE.name));
         .set-attrs( %attrs);
     }
 
     # http://www.tecgraf.puc-rio.br/iup/en/func/iupsetattribute.html
-    method set_attribute(Str $name, Str $value -->Mu) {
+    method set_attribute(Str $name, Str $value -->Ihdle) {
         DEPRECATED('set-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetStrAttribute(self, $name, $value);
+        self
     }
-    method set_attr(Str $name, Str $value -->Mu) {
+    method set_attr(Str $name, Str $value -->Ihdle) {
         DEPRECATED('set-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
         IupSetStrAttribute(self, $name, $value);
+        self
     }
 
     ###
@@ -617,7 +619,7 @@ say 'Pair Pair …';
         given @params.elems {
             when 0 { return p6IupSetCallback_void(  self, $name.fmt, $func) }
             when 1 { return p6IupSetCallback_handle(self, $name.fmt, $func) }
-            default { say "Error... no callback"  }
+            default { warn "Error... no callback"  }
         }
     }
     method set_callback(Str $name, $func -->IUP::Callback) {
@@ -712,7 +714,7 @@ say 'Pair Pair …';
         }
     }
 
-    method zbox(*@child -->Ihdle) { self.zbox(@child) }
+    method zbox(*@child -->Ihdle) { self.zboxv(@child) }
 
     method hboxv(*@child -->Ihdle) {
         my $n = @child.elems;
@@ -804,7 +806,9 @@ say 'Pair Pair …';
 
     ###
 
-    method item(Str $title, Str $action -->Ihdle) { p6IupItem($title, $action)}
+    method item(Str $title, Str $action = '' -->Ihdle) {
+        p6IupItem($title, $action)
+    }
     method submenu(Str $title, $child -->Ihdle) { IupSubmenu($title, $child) }
 
     method separator(-->Ihdle) { IupSeparator }
@@ -825,6 +829,7 @@ say 'Pair Pair …';
         if $n == 1 {
             return p6IupMenu(@child[0]);
         }
+        Ihdle;
     }
 
     method menu(*@child -->Ihdle) { self.menuv(@child) }
