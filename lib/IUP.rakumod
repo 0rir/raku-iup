@@ -286,7 +286,11 @@ class IUP::Handle is repr('CPointer') {
     sub IupToggle(Str $title, Str $action -->Ihdle) is native(IUP_l) {*}
 
     # IupTimer
-    # IupClipboard IupProgressBar IupVal IupFlatVal IupFlatTree
+    # IupClipboard IupProgressBar
+
+    sub IupVal(Str $type -->Ihdle) is native(IUP_l) {*} 
+
+    # IupFlatVal IupFlatTree
     # IupTabs IupTabsv IupFlatTabs IupFlatTabsv
     # IupTree IupLink IupAnimatedLabel
     # IupDatePick IupCalendar IupColorbar IupGauge
@@ -866,7 +870,12 @@ say 'Pair Pair …';
         IupToggle( $title, $action)
     }
 
-    # Timer Clipboard ProgressBar Val FlatVal FlatTree
+    # Timer Clipboard ProgressBar
+
+    # Make a slider to select a value in a limited range. AKA scale.
+    method val(Str $type --> Ihdle) { IupVal($type) }
+
+    # FlatVal FlatTree
     # Tabs Tabsv FlatTabs FlatTabsv Tree Link AnimatedLabel
     # DatePick Calendar Colorbar Gauge
 
