@@ -1,29 +1,38 @@
 Raku-iup TODOs
 
-    WONK
+PRIORITIES:
+
 IupListDialog stuff returns [] for both 'Cancel' and nothing selected. XXX
 Upstream these situations are distinguishable.
 
-    Short Road map
+Fix callbacks for examples: zbox list3 list1 list2 textformat button and
+others.  IUP::Handle.set-callback forwards its work to other custom code by
+arity of the callback being set-up.  This is fine but only arities 0
+and 1 are handled.  Enhance this mechanism.
+
+
+Short Road map
 
 This is mostly about getting the upstream ~/examples/C/ files working (here
-working is not yet requiring correct memory management).  Note that some files
+working is just getting visually correct widgets).  Note that some files
 exercise widgets/controls/elements that are expected to be displaced by Raku
 code.
 
-These seem easy but the given example file proves otherwize.
-    zbox.c -- this example uses the list element which wants C callbacks.
-            Make an example w/o .list.
-    list.c -- Find a way to call to Raku callbacks.  !RSN
-
-These just include iup.h and so are the first to be addressed.
+These just include iup.h and so are the first to be addressed:
 
     dialog1 dialog2 expander
     fill getattribute getparam idle item
     mdi multiline1 parambox progressdlg
     split tabs
-    textformat -- depends on iup/src/iup_key.c for iupKeyCodeToName
     timer treednd val
+    textformat -- depends on iup/src/iup_key.c for iupKeyCodeToName
+
+
+These require .set-callback to handle more varied signatures:
+
+    button colorbar detachbox list1 list2 matrix plot
+    sample scrollbar tree val webbrowser zbox
+
 
 These require the ability to build a good image.  Something I have not
 sorted out yet.
@@ -37,9 +46,6 @@ not installed.
     cbox colorbrowser detachbox dialogtaskbar
     gauge getcolor getxy_showxy progressbar
     sbox2 scrollbar tree
-
-Difficult C examples for a here unnamed reason.
-    list1, list2, list3, zbox,
 
 This TODO contains all IUP functions that are listed in the sidebar on
 https://www.tecgraf.puc-rio.br/iup/ .  There are many other IUP functions
