@@ -161,6 +161,9 @@ class IUP::Handle is repr('CPointer') {
     sub p6IupSetCallback_handle(Ihdle, Str, &cb (Ihdle -->int32)
             -->IUP::Callback) is native(IUP_l) {*};
 
+    # hii,hiiii, hhii, hs, hiis, hsii, hhii, hsi, hsiii, hucucuc
+    # hi, hiii, hff hiff, his, hiis, iis, fiis, hsvi, hsviii hfiis hiiis
+
     # Attach a callback to an event, returns any displaced cb.
     sub IupSetCallback(Ihdle, Str, IUP::Callback -->IUP::Callback)
             is native(IUP_l) {*};
@@ -470,13 +473,10 @@ class IUP::Handle is repr('CPointer') {
 
     # These multis cover setting one or more attributes by reference.
     # :copy indicates that the data should be copied instead of using a ref.
-    # :pre is only to support the preformatted string arg used by
-    # IupSetAttributes in C-code.
+    # :pre is only to support the preformatted string arg used in C code.
     # All the set-attrs return the self element.
-    # XXX ??? Hole to globals by calling type-object ??? XXX
     multi method set-attr( Str:D $pre-kv-str, Bool :$pre where $pre -->Ihdle) {
 say "Preformatted Str";
-        die ':pre flag should not be set False' if not $pre;
         IupSetAttributes(self, $pre-kv-str);
     }
     multi method set-attr(
