@@ -1,17 +1,28 @@
 {
-	"raku" : "6.*",
-	"name" : "IUP",
-	"version" : "0.0.2",
-	"description" : "Raku interface to the IUP toolkit for building GUI's",
-	"license" : "Artistic-2.0",
-	"provides": {
-		"IUP": "lib/IUP.rakumod",
-		"IUP::Colors": "lib/IUP/Colors.rakumod"
-	},
-	"resources": [ "lib/IUP.so"],
-	"author" : "Henrique Dias",
-	"blame" : "Robert Ransbottom",
-	"depends" : [ "LibraryMake" ],
-	"source-type" : "git",
-	"source-url" : "git://github.com/0rir/raku-iup.git"
+    "name": "IUP",
+    "version": "0.0.7",
+    "description": "Raku wrapper of IUP, which is C wrapper of GTK3",
+    "license": "Artistic-2.0",
+    "auth": "zef:rir",
+    "perl": "6.c",
+    "authors": [
+        "Henrique Dias",
+        "Tobias Leich",
+        "David Warring",
+        "Zoffix Znet",
+        "Naoum Hankache",
+        "Robert Ransbottom"
+    ],
+    "depends": [],
+    "test-depends": [
+    "Test"
+  ],
+  "provides": {
+    "IUP": "lib/IUP.rakumod"
+  },
+  "resources": [],
+  "support":  {}
+  "tags": [ "gui", "gtk" ],
+  "source-url": "git://github.com/0rir/raku-iup.git",
+  "repo-type": "git"
 }
