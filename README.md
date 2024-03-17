@@ -42,7 +42,7 @@ The interface is not final and may change in the future.
 Some of these methods also have longer names or names with underscores
 instead of hyphens.
 
-| Method          | Description                                                            |
+| Method          | Description                                               |
 | --------------------------------------------------------------------------- |
 | destroy         | Destroy self.                                             |
 | detach          | NYI                                                       |
