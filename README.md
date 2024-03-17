@@ -44,84 +44,84 @@ instead of hyphens.
 
 | Method          | Description                                               |
 | --------------- | --------------------------------------------------------- |
-| destroy         | Destroy self.                                             |
+| destroy         | Destroy self                                              |
 | detach          | NYI                                                       |
 | append          | Append control to child-list                              |
 | insert          | Insert control after child                                |
-| get-child       | Get child by position in list.                            |
+| get-child       | Get child by position in list                             |
 | get-child-pos   | NYI                                                       |
 | get-child-count | NYI                                                       |
-| get-next-child  | Get next child from list.                                 |
+| get-next-child  | Get next child from list                                  |
 | get-brother     | NYI                                                       |
-| get-parent      | Get parent of self.                                       |
-| get-dialog      | Get the dialog (top-level) of self.                       |
-| get-dialog-child | I don't remember this one.                               |
+| get-parent      | Get parent of self                                        |
+| get-dialog      | Get the dialog (top-level) of self                        |
+| get-dialog-child | I don't remember this one                                |
 | reparent        | NYI                                                       |
-| popup           | Popup self at x,y.                                        |
-| show            | Show widget, optionally at x,y.                           |
-| hide            | Hide self.                                                |
-| map             | Map self into the display layout.                         |
-| unmap           | NYI  Unmap self out of the display layout.                |
-| set-attr        | Workhorse to set attribute(s) by ref or by :copy and etc. |
-| get-attr        | Get attribute by name.                                    |
-| get-attrs       | Get attributes of self.                                   |
-| get-int         | Get integer attribute by name.                            |
-| set-global      | Set global by key (name) and value.                       |
-| set-str-global  | Set string global by key (name) and value.                |
+| popup           | Popup self at x,y                                         |
+| show            | Show widget, optionally at x,y                            |
+| hide            | Hide self                                                 |
+| map             | Map self into the display layout                          |
+| unmap           | NYI  Unmap self out of the display layout                 |
+| set-attr        | Workhorse to set attribute(s) by ref or by :copy and etc  |
+| get-attr        | Get attribute by name                                     |
+| get-attrs       | Get attributes of self                                    |
+| get-int         | Get integer attribute by name                             |
+| set-global      | Set global by key (name) and value                        |
+| set-str-global  | Set string global by key (name) and value                 |
 | get-global      | Get named global's value                                  |
-| set-focus       | Set focus on self.                                        |
-| get-focus       | Get widget that has focus.                                |
-| set-callback    | Set a callback for a widget.                              |
-| set-callbacks   | Set callbacks with key value pairs.                       |
-| get-handle      | Get named widget by name.                                 |
-| set-handle      | Set a name for self.                                      |
-| set-attr-handle | Name a referenced widget.                                 |
-| fill            | Fill space in layout.                                     |
-| radio           | Create a radio button widget.                             |
-| vbox            | Create a vertical box with 1..N child widgets.            |
-| zbox            |  Create a zbox with 1..N child widgets.                   |
+| set-focus       | Set focus on self                                         |
+| get-focus       | Get widget that has focus                                 |
+| set-callback    | Set a callback for a widget                               |
+| set-callbacks   | Set callbacks with key value pairs                        |
+| get-handle      | Get named widget by name                                  |
+| set-handle      | Set a name for self                                       |
+| set-attr-handle | Name a referenced widget                                  |
+| fill            | Fill space in layout                                      |
+| radio           | Create a radio button widget                              |
+| vbox            | Create a vertical box with 1..N child widgets             |
+| zbox            | Create a zbox with 1..N child widgets.                    |
 | hbox            | Create a horizontal box with 1..N child widgets.          |
-| sbox            | Crate a sbox (split box)                                  |
-| gridbox         | create a grid box                                         |
-| multibox        | Create a multibox.                                        |
-| expander        | Create an expander.                                       |
-| backgroundbox   | Create a backgroundbox.                                   |
-| frame           | Create a frame.                                           |
-| image           | Create an image by dimensions and pixel list.             |
-| item            | Create an item.                                           |
-| submenu         | Create a titled submenu.                                  |
-| separator       | Create a separator in a menu.                             |
-| menu            | Create a menu with 0..N members.                          |
-| button          | Create a button with label and action.                    |
-| canvas          | Create a canvas.  Not working.                            |
-| dialog          | Create a dialog.  Perhaps the top-level or a nodal.       |
-| user            | Create a user widget.                                     |
-| label           | Create a label.                                           |
-| list            | Create a list with a string.                              |
-| text            | Create a text widget.                                     |
-| multiline       | Create a multiline widget. Text & multiline are same.     |
-| toggle          | Create a toggle switch.                                   |
-| val             | Create a Val (aka slider or scale) for choosing a value.  |
-| dial            | Create a dail widget.                                     |
-| file-dlg        | File choice dialog.                                       |
-| message-dlg     | Message displaying dialog.                                |
-| color-dlg       |   Color choice dialog.                                    |
-| font-dlg        |   Font choice dialog.                                     |
-| progress-dlg    | Progress displaying dialog.                               |
-| get-file        | Get file by name.                                         |
-| message         | Display message with title.                               |
-| alarm           | Display message and title with three user choices.        |
-| list-dialog     | List choices for one or more selection, opt. w/ defaults. |
+| sbox            | Create a sbox (split box)                                 |
+| gridbox         | Create a grid box                                         |
+| multibox        | Create a multibox                                         |
+| expander        | Create an expander                                        |
+| backgroundbox   | Create a backgroundbox                                    |
+| frame           | Create a frame                                            |
+| image           | Create an image by dimensions and pixel list              |
+| item            | Create an item                                            |
+| submenu         | Create a titled submenu                                   |
+| separator       | Create a separator in a menu                              |
+| menu            | Create a menu with 0..N members                           |
+| button          | Create a button with label and action                     |
+| canvas          | Create a canvas  NOT WORKING                              |
+| dialog          | Create a dialog  Perhaps the top-level or a nodal         |
+| user            | Create a user widget                                      |
+| label           | Create a label                                            |
+| list            | Create a list with a string                               |
+| text            | Create a text widget                                      |
+| multiline       | Create a multiline widget  Text & multiline are same      |
+| toggle          | Create a toggle switch                                    |
+| val             | Create a Val (aka slider or scale) for choosing a value   |
+| dial            | Create a dial widget                                      |
+| file-dlg        | File choice dialog                                        |
+| message-dlg     | Message displaying dialog                                 |
+| color-dlg       | Color choice dialog                                       |
+| font-dlg        | Font choice dialog                                        |
+| progress-dlg    | Progress displaying dialog                                |
+| get-file        | Get file by name                                          |
+| message         | Display message with title                                |
+| alarm           | Display message and title with three user choices         |
+| list-dialog     | List choices for one or more selection, opt w/ defaults   |
 | open            | create the IUP system                                     |
 | close           | shutdown the IUP system                                   |
 | image-lib-open  | open the widget library                                   |
 | main-loop       | start an event loop on user inputs                        |
-| set-language        | Set the language to English, Portugese or Spanish.    |
-| get-language        | Get the language.                                     |
-| version             | Get the IUP library version.                          |
-| get-version         | Get the IUP library version.                          |
-| get-version-date    | Return version's date.                                |
-|  get-version-number | Get version number.                                   |
+| set-language    | Set the language to English, Portuguese or Spanish         |
+| get-language    | Get the language                                          |
+| version         | Get the IUP library version                               |
+| get-version     | Get the IUP library version                               |
+| get-version-date   | Return version's date                                  |
+| get-version-number | Get version number                                     |
 
 
 Sample GUI:
@@ -183,12 +183,12 @@ sub exit-callback( --> Int) {
 ```
 Authors and Contributors
 ------
-Henrique Dias <mrhdias@gmail.com>
-Naoum Hankache <naoum88@gmail.com>
-Tobias Leich <email@froggs.de>
-Zoffix Znet <cpan@zoffix.com>
-David Warring <david.warring@gmail.com>
-Robert Ransbottom <rirans@comcast.net>
+* Henrique Dias <mrhdias@gmail.com>
+* Naoum Hankache <naoum88@gmail.com>
+* Tobias Leich <email@froggs.de>
+* Zoffix Znet <cpan@zoffix.com>
+* David Warring <david.warring@gmail.com>
+* Robert Ransbottom <rirans@comcast.net>
 
 Blame
 ------
