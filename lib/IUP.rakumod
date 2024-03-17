@@ -161,6 +161,9 @@ class IUP::Handle is repr('CPointer') {
     sub p6IupSetCallback_handle(Ihdle, Str, &cb (Ihdle -->int32)
             -->IUP::Callback) is native(IUP_l) {*};
 
+    # These are abbrevs for callback signature contents: i -> Int,
+    # h -> Ihdle, s -> Str, u -> unsigned, c -> char, f -> float,
+    # v -> voidptr, 
     # hii,hiiii, hhii, hs, hiis, hsii, hhii, hsi, hsiii, hucucuc
     # hi, hiii, hff hiff, his, hiis, iis, fiis, hsvi, hsviii hfiis hiiis
 
