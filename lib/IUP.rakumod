@@ -430,11 +430,16 @@ class IUP::Handle is repr('CPointer') {
         IupInsert(self, $ref_child, $child)
     }
 
-    method get_child($position -->Ihdle) { IupGetChild(self, $position) }
+    method get-child($position -->Ihdle) { IupGetChild(self, $position) }
+    method get_child($position -->Ihdle) {
+        DEPRECATED('get-child','0.5.0','1.0.0', :what( &?ROUTINE.name));
+        IupGetChild(self, $position) }
 
     # getchildpos getchildcount
 
+    method get-next-child(Ihdle $child -->Ihdle) {
     method get_next_child(Ihdle $child -->Ihdle) {
+        DEPRECATED('get-next-child','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetNextChild(self, $child)
     }
 
@@ -442,19 +447,19 @@ class IUP::Handle is repr('CPointer') {
 
     method get-parent(-->Ihdle) { IupGetParent(self) }
     method get_parent(-->Ihdle) {
-        DEPRECATED('get-parent','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-parent','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetParent(self)
     }
 
     method get-dialog(-->Ihdle) { IupGetDialog(self) }
     method get_dialog(-->Ihdle) {
-        DEPRECATED('get-dialog','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-dialog','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetDialog(self)
     }
 
     method get-dialog-child($name -->Ihdle) { IupGetDialogChild(self, $name ) }
     method get_dialog_child($name -->Ihdle) {
-        DEPRECATED('get-dialog-child','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-dialog-child','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetDialogChild(self, $name )
     }
 
@@ -521,18 +526,18 @@ say 'Pair Pair …';
     }
 
     multi method set_attributes(*%attrs --> Ihdle) {
-        DEPRECATED('set-attr see docs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-attr see docs','0.5.0','1.0.0', :what( &?ROUTINE.name));
         .set-attrs( %attrs);
     }
 
     # http://www.tecgraf.puc-rio.br/iup/en/func/iupsetattribute.html
     method set_attribute(Str $name, Str $value -->Ihdle) {
-        DEPRECATED('set-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-attr','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupSetStrAttribute(self, $name, $value);
         self
     }
     method set_attr(Str $name, Str $value -->Ihdle) {
-        DEPRECATED('set-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-attr','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupSetStrAttribute(self, $name, $value);
         self
     }
@@ -543,14 +548,14 @@ say 'Pair Pair …';
     method get-attr(Str $name -->Str) {      IupGetAttribute(self, $name) }
     method get-attribute(Str $name -->Str) { IupGetAttribute(self, $name) }
     method get_attribute(Str $name -->Str) {
-        DEPRECATED('get-attr','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-attr','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetAttribute(self, $name)
     }
 
     method get-attrs( -->Str) {      IupGetAttributes(self) }
     method get-attributes( -->Str) { IupGetAttributes(self) }
     method get_attributes( -->Str) {
-        DEPRECATED('get-attrs','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-attrs','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetAttributes(self)
     }
 
@@ -567,7 +572,7 @@ say 'Pair Pair …';
 
     method get-int(Str $name -->Int) { IupGetInt(self, $name) }
     method get_int(Str $name -->Int) {
-        DEPRECATED('get-int','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-int','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetInt(self, $name)
     }
 
@@ -586,34 +591,34 @@ say 'Pair Pair …';
     }
 
     method set_global( Str $k, Str $v -->Mu) {
-        DEPRECATED('set-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-global','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupSetStrGlobal($k,$v)
     }
 
     method set-str-global( Str $k, Str $v -->Mu) {
-        DEPRECATED('set-global :copy','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-global :copy','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupSetStrGlobal($k,$v) }
     method set_str_global( Str $k, Str $v -->Mu) {
-        DEPRECATED('set-str-global :copy','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-str-global :copy','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupSetStrGlobal($k,$v)
     }
 
     
     method get-global( $attr -->Str) { IupGetGlobal( $attr) }
     method get_global( $attr -->Str) {
-        DEPRECATED('get-global','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-global','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetGlobal( $attr)
     }
 
     method set-focus( -->Ihdle) { IupSetFocus( self) }
     method set_focus( -->Ihdle) {
-        DEPRECATED('set_focus','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set_focus','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupSetFocus( self)
     }
 
     method get-focus(-->Ihdle) { IupGetFocus }
     method get_focus(-->Ihdle) {
-        DEPRECATED('get_focus','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get_focus','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetFocus
     }
 
@@ -630,11 +635,18 @@ say 'Pair Pair …';
         }
     }
     method set_callback(Str $name, $func -->IUP::Callback) {
-        DEPRECATED('set-callback','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-callback','0.5.0','1.0.0', :what( &?ROUTINE.name));
         self.set-callback( $name, $func)
     }
 
+    method set-callbacks(*%callbacks -->Ihdle) {
+        for %callbacks.kv -> $name, $function {
+            self.set_callback($name, $function);
+        }
+        return self;
+    }
     method set_callbacks(*%callbacks -->Ihdle) {
+        DEPRECATED('set-callbacks','0.5.0','1.0.0', :what( &?ROUTINE.name));
         for %callbacks.kv -> $name, $function {
             self.set_callback($name, $function);
         }
@@ -646,13 +658,13 @@ say 'Pair Pair …';
     ###
     method get-handle(Str $name -->Ihdle) { IupGetHandle($name) }
     method get_handle(Str $name -->Ihdle) {
-        DEPRECATED('get-handle','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-handle','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetHandle($name )
     }
 
     method set-handle(Str $name -->Ihdle) { IupSetHandle($name, self) }
     method set_handle(Str $name -->Ihdle) {
-        DEPRECATED('set-handle','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-handle','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupSetHandle($name, self)
     }
 
@@ -662,12 +674,12 @@ say 'Pair Pair …';
         IupSetAttributeHandle(self, $name, $ih_named);
     }
     method set-attribute-handle(Str $name, Ihdle $ih_named -->Mu) {
-        DEPRECATED('set-attr-handle','0.0.2','0.0.3',
+        DEPRECATED('set-attr-handle','0.5.0','1.0.0',
                 :what( &?ROUTINE.name));
         IupSetAttributeHandle(self, $name, $ih_named);
     }
     method set_attribute_handle(Str $name, Ihdle $ih_named -->Mu) {
-        DEPRECATED('set-attr-handle','0.0.2','0.0.3',
+        DEPRECATED('set-attr-handle','0.5.0','1.0.0',
                 :what( &?ROUTINE.name));
         IupSetAttributeHandle(self, $name, $ih_named);
     }
@@ -1010,13 +1022,13 @@ class IUP is IUP::Handle {
 
     method image-lib-open(-->Mu) { IupImageLibOpen }
     method image_lib_open(-->Mu) {
-        DEPRECATED('image-lib-open','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('image-lib-open','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupImageLibOpen
     }
 
     method main-loop(-->int32) { IupMainLoop }
     method main_loop(-->int32) {
-        DEPRECATED('main-loop','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('main-loop','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupMainLoop
     }
 
@@ -1032,34 +1044,34 @@ class IUP is IUP::Handle {
 
     method set-language(Str $language) { IupSetLanguage($language) }
     method set_language(Str $language) {
-        DEPRECATED('set-language','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('set-language','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupSetLanguage($language)
     }
 
     method get-language( -->Str) { IupGetLanguage }
     method get_language( -->Str) {
-        DEPRECATED('get-language','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-language','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetLanguage
     }
 
     method version(-->Str) { IupVersion }
     method get-version(-->Str) { IupVersion }
     method get_version(-->Str) {
-        DEPRECATED('get-version','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-version','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupVersion
     }
 
     # Return version's date.
     method get-version-date(-->Str) { IupVersionDate }
     method get_version_date(-->Str) {
-        DEPRECATED('get-version-date','0.0.2','0.0.3', :what( &?ROUTINE.name));
+        DEPRECATED('get-version-date','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupVersionDate
     }
 
     # Return version number.
     method get-version-number(-->int32) { IupVersionNumber }
     method get_version_number(-->int32) {
-        DEPRECATED('get-version-number','0.0.2','0.0.3',
+        DEPRECATED('get-version-number','0.5.0','1.0.0',
                 :what( &?ROUTINE.name));
         IupVersionNumber
     }
