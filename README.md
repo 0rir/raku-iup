@@ -43,7 +43,7 @@ Some of these methods also have longer names or names with underscores
 instead of hyphens.
 
 | Method          | Description                                               |
-| --------------------------------------------------------------------------- |
+| --------------- | --------------------------------------------------------- |
 | destroy         | Destroy self.                                             |
 | detach          | NYI                                                       |
 | append          | Append control to child-list                              |
