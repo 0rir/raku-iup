@@ -192,10 +192,7 @@ Authors and Contributors
 
 Blame
 ------
-Robert Ransbottom, as I am changing the name of the distribution, the
-style of the code, and extending the Raku coverage of the Tecgraf-Puc-rio
-C library.
-
+Robert Ransbottom, as I have messed with most of the code.
 
 See Also
 --------
