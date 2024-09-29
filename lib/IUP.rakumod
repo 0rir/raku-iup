@@ -438,6 +438,8 @@ class IUP::Handle is repr('CPointer') {
     # getchildpos getchildcount
 
     method get-next-child(Ihdle $child -->Ihdle) {
+        IupGetNextChild(self, $child)
+    }
     method get_next_child(Ihdle $child -->Ihdle) {
         DEPRECATED('get-next-child','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetNextChild(self, $child)
@@ -479,10 +481,10 @@ class IUP::Handle is repr('CPointer') {
 
     # unmap
 
-    # These multis cover setting one or more attributes by reference.
+    # set-attr: These multis cover setting one or more attributes by reference.
     # :copy indicates that the data should be copied instead of using a ref.
     # :pre is only to support the preformatted string arg used in C code.
-    # All the set-attrs return the self element.
+    # All the 'set-attr's return the self element.
     multi method set-attr( Str:D $pre-kv-str, Bool :$pre where $pre -->Ihdle) {
 say "Preformatted Str";
         IupSetAttributes(self, $pre-kv-str);
