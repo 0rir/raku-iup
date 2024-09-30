@@ -486,39 +486,32 @@ class IUP::Handle is repr('CPointer') {
     # :pre is only to support the preformatted string arg used in C code.
     # All the 'set-attr's return the self element.
     multi method set-attr( Str:D $pre-kv-str, Bool :$pre where $pre -->Ihdle) {
-say "Preformatted Str";
         IupSetAttributes(self, $pre-kv-str);
     }
     multi method set-attr(
         Str:D $k, Str:D $v, Bool :$copy! where $copy -->Ihdle) {
-say "Str,Str,:copy";
         IupStoreAttribute( self, $k, $v);
         self
     }
     multi method set-attr( Str:D $k, Str:D $v -->Ihdle) {
-say "Str,Str,  $k, $v";
         IupSetAttribute( self, $k, $v);
         self
     }
     multi method set-attr(Str:D $k, Str:D $v, *@kv -->Ihdle) {
-say "Str,Str,…";
         die "Expected even number of args." unless @kv.elems %% 2;
         my $str = "$k=\"$v\"";
         for @kv -> $kk, $vv { $str ~= ",$kk=\"$vv\""; }
         IupSetAttributes(self, $str);
     }
     multi method set-attr( Pair $kv, Bool:U :$copy -->Ihdle) {
-say 'Pair';
          IupSetAttribute( self, $kv.key, $kv.value);
          self
     }
     multi method set-attr( Pair $kv, Bool :$copy! where $copy -->Ihdle) {
-say 'Pair :copy X';
         IupStoreAttribute( self, $kv.key, $kv.value);
         self
     }
     multi method set-attr( Pair $kv, Pair $kw, *@etc -->Ihdle) { #XXX 2 pair??
-say 'Pair Pair …';
         my $str = "$kv.key()=\"$kv.value()\",$kw.key()=\"$kw.value()\"";
         for @etc -> $p {
             die "Expected a Pair object" unless $p ~~ Pair;
