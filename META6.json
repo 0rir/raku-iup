@@ -21,7 +21,7 @@
     "IUP": "lib/IUP.rakumod"
   },
   "resources": [],
-  "support":  {}
+  "support":  {},
   "tags": [ "gui", "gtk" ],
   "source-url": "git://github.com/0rir/raku-iup.git",
   "repo-type": "git"
