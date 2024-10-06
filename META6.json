@@ -1,6 +1,6 @@
 {
     "name": "IUP",
-    "version": "v0.5.1",
+    "version": "v0.5.2",
     "description": "Raku wrapper of IUP, which is C wrapper of GTK3",
     "license": "Artistic-2.0",
     "auth": "zef:rir",

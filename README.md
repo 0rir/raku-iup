@@ -18,7 +18,7 @@ systems without any modification.  Its main advantages are:
 
 Installation
 ------------
-Get this IUP library, or later, and install it:
+Get the below IUP library, or later, and install it:
 
 	mkdir libiup
 	cd libiup
