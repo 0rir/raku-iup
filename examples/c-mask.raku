@@ -1,4 +1,4 @@
-#  IupText MASK: Example in Raku from C 
+#  IupText MASK: Example in Raku from C
 #  Creates an IupText that accepts only numbers.
 
 use IUP;

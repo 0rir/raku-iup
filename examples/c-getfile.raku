@@ -1,5 +1,5 @@
 #!/usr/bin/env raku
-#  IupGetFile: example in Raku from the C 
+#  IupGetFile: example in Raku from the C
 #    Shows a typical file-selection dialog.
 
 use IUP;

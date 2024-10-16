@@ -1,5 +1,5 @@
 #!/usr/bin/env raku
-# Iup Alarm: Raku example converted from  C 
+# Iup Alarm: Raku example converted from  C
 #   Shows a dialog similar to the one shown when you exit
 # a program without saving.
 
@@ -29,7 +29,7 @@ sub MAIN() {
             $ih.message( "Save file", "Operation canceled");
         }
   }
-  
+
   # Finishes IUP
   $iup.close;
 }

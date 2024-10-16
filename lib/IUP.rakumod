@@ -163,7 +163,7 @@ class IUP::Handle is repr('CPointer') {
 
     # These are abbrevs for callback signature contents: i -> Int,
     # h -> Ihdle, s -> Str, u -> unsigned, c -> char, f -> float,
-    # v -> voidptr, 
+    # v -> voidptr,
     # hii,hiiii, hhii, hs, hiis, hsii, hhii, hsi, hsiii, hucucuc
     # hi, hiii, hff hiff, his, hiis, iis, fiis, hsvi, hsviii hfiis hiiis
 
@@ -294,7 +294,7 @@ class IUP::Handle is repr('CPointer') {
     # IupTimer
     # IupClipboard IupProgressBar
 
-    sub IupVal(Str $type -->Ihdle) is native(IUP_l) {*} 
+    sub IupVal(Str $type -->Ihdle) is native(IUP_l) {*}
 
     # IupFlatVal IupFlatTree
     # IupTabs IupTabsv IupFlatTabs IupFlatTabsv
@@ -598,7 +598,7 @@ class IUP::Handle is repr('CPointer') {
         IupSetStrGlobal($k,$v)
     }
 
-    
+
     method get-global( $attr -->Str) { IupGetGlobal( $attr) }
     method get_global( $attr -->Str) {
         DEPRECATED('get-global','0.5.0','1.0.0', :what( &?ROUTINE.name));
@@ -664,7 +664,7 @@ class IUP::Handle is repr('CPointer') {
     }
 
     ###
-    # getallnames getalldialogs getname 
+    # getallnames getalldialogs getname
     method set-attr-handle(Str $name, Ihdle $ih_named -->Mu) {
         IupSetAttributeHandle(self, $name, $ih_named);
     }
@@ -681,7 +681,7 @@ class IUP::Handle is repr('CPointer') {
 
     ###
     # getattributehandle
-    # setattributehandleid getattributehandleid setattributehandleid2 
+    # setattributehandleid getattributehandleid setattributehandleid2
     # getattributehandleid2 getclassname getclasstype getallclasses
     # getclassattributes getclasscallbacks saveclassattributes
     # setclassdefaultattribute classmatch create createp createv
@@ -804,7 +804,7 @@ class IUP::Handle is repr('CPointer') {
 
     method frame($child -->Ihdle) { IupFrame($child); }
 
-    # FlatFrame 
+    # FlatFrame
     ###
 
     method image(
@@ -856,7 +856,7 @@ class IUP::Handle is repr('CPointer') {
         p6IupButton($title, $action);
     }
 
-    # FlatButton FlatToggle DropButton FlatLabel FlatSeparator 
+    # FlatButton FlatToggle DropButton FlatLabel FlatSeparator
 
     method canvas(Str $action -->Ihdle) { IupCanvas($action) }
 
@@ -897,7 +897,7 @@ class IUP::Handle is repr('CPointer') {
     ###
     # StoreAttribute SetfAttribute StoreAttributeId SetfAttributeId
     # StoreAttributeId2 SetfAttributeId2 TreeSetUserId TreeGetUserId
-    # TreeGetId TreeSetAttributeHandle 
+    # TreeGetId TreeSetAttributeHandle
 
     method file-dlg(-->Ihdle)    { IupFileDlg      }
 

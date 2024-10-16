@@ -1,5 +1,5 @@
 #!/usr/bin/env raku
-# IupMenu: Example in Raku from th C 
+# IupMenu: Example in Raku from th C
 #   Creates a dialog with a menu with two submenus.
 
 use IUP;
@@ -27,8 +27,8 @@ sub MAIN() {
     $item_exit.set-attr(  "KEY", "x");
     $item_exit.set-callback(  "ACTION", &exit_cb);
 
-    my $file_menu = $item_open.menu(  
-                      $item_save, 
+    my $file_menu = $item_open.menu(
+                      $item_save,
                       $iup.separator,
                       $item_undo,
                       $item_exit,
@@ -37,7 +37,7 @@ sub MAIN() {
 
     my $sub1_menu = $iup.submenu( "File", $file_menu);
 
-    my $menu = $ih.menu( $sub1_menu );  
+    my $menu = $ih.menu( $sub1_menu );
     $menu.set-handle( "mymenu", );
     my $dlg = $iup.dialog($iup.canvas(""));
     $dlg.set-attr( :copy, "MENU", "mymenu");

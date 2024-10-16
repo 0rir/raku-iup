@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 # :vim ft=raku sw=4 expandtab
-use v6;  
+use v6;
 use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
@@ -18,7 +18,7 @@ sub MAIN() {
   $bt.set_attr( "EXPAND", "YES");
 
   $box = $ih.sbox( $bt);
-  $box.set_attr( "DIRECTION", "SOUTH");  # place at the button's bottom 
+  $box.set_attr( "DIRECTION", "SOUTH");  # place at the button's bottom
   $box.set_attr( "COLOR", "0 255 0");
 
   $ml = $ih.multiline('');

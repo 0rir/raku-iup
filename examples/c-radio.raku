@@ -1,9 +1,9 @@
 #!/usr/bin/env raku
-# IupRadio Example in Raku from the C 
+# IupRadio Example in Raku from the C
 #
-# Creates a dialog for the user to select his/her gender. 
+# Creates a dialog for the user to select his/her gender.
 # In this case, the radio element is essential to prevent the user
-# from selecting both options. 
+# from selecting both options.
 
 use IUP;
 

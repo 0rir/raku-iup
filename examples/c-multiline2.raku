@@ -6,7 +6,7 @@ my $iup;
 my $ih;
 
 =begin comment
-    IupMultiline Advanced Example in C 
+    IupMultiline Advanced Example in C
 Shows a dialog with a multiline, a text, a list and some buttons. You can
 test the multiline attributes by clicking on the buttons. Each button is
 related to an attribute. Select if you want to set or get an attribute
@@ -19,7 +19,7 @@ when a button is pressed.
 #  Parameters received: * attribute - attribute to be set
 #  Value returned: IUP_DEFAULT
 sub set_attribute (Str $attribute -->Int) {
-    my $string_message; # [50]; 
+    my $string_message; # [50];
 
     my $mltline = $iup.get-handle("mltline");
     my $text    = $iup.get-handle("text");
@@ -37,7 +37,7 @@ sub set_attribute (Str $attribute -->Int) {
 # Description: Get an attribute of the multiline and shows it in the text
 # Parameters received:
 sub get_attribute (Str $attribute -->int32) {
-    my $string_message;  # [50]; 
+    my $string_message;  # [50];
     my $mltline;
     my $text;
 
@@ -69,7 +69,7 @@ sub btn_append_cb (-->int32) {
 }
 
 
-# Function: Insert button 
+# Function: Insert button
 # Description: Inserts text in the multiline. Value: text to be inserted
 # Value returned: IUP_DEFAULT
 sub btn_insert_cb (-->int32) {
@@ -95,7 +95,7 @@ sub btn_border_cb (-->int32)
    my $list = $ih.get-handle("list");
 
   if $list.get-int( "VALUE") == 1 {
-      $list.set_attr("BORDER"); 
+      $list.set_attr("BORDER");
   }else{
       $list.get-attr("BORDER");
   }
@@ -119,7 +119,7 @@ sub btn_caret_cb (-->int32) {
   return IUP_DEFAULT;
 }
 
-#  Function: Read-only button callback 
+#  Function: Read-only button callback
 #  Description: Readonly attribute. Value: "YES" or "NO"
 # Value returned: IUP_DEFAULT
 
@@ -157,7 +157,7 @@ sub btn_selectedtext_cb (-->int32){
   my $list = $ih.get-handle("list");
 
   if $list.get-int( "VALUE") == 1 {
-      $list.set_attr("SELECTEDTEXT"); 
+      $list.set_attr("SELECTEDTEXT");
   }else{
       $list.get-attr("SELECTEDTEXT");
   }
@@ -214,9 +214,9 @@ sub MAIN(-->Int) {
 
   # Program begin
   # Creates a multiline, a text and a list
-  $mltline = $iup.multiline;  
+  $mltline = $iup.multiline;
   $text = $iup.text;
-  $list = IupList(''); 
+  $list = IupList('');
 
   # Turns on multiline expand and text horizontal expand
   $mltline.set_attr( "EXPAND", "YES");
@@ -255,11 +255,11 @@ sub MAIN(-->Int) {
   # Creates dialog
     $dlg = $iup.dialog(
         $iup.vbox(
-            $mltline, 
+            $mltline,
             $iup.hbox($text, $list),
             $iup.hbox($btn_append, $btn_insert, $btn_border, $btn_caret,
                     $btn_readonly, $btn_selection),
-            $iup.hbox($btn_selectedtext, $btn_nc, $btn_value), 
+            $iup.hbox($btn_selectedtext, $btn_nc, $btn_value),
         )
     );
 

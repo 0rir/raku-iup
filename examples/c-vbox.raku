@@ -1,19 +1,19 @@
 #!/usr/bin/env raku
-# IupVbox Example in Raku from C 
-# Creates a dialog with buttons placed one above the other, 
-# showing the organization possibilities of the elements inside a vbox. 
+# IupVbox Example in Raku from C
+# Creates a dialog with buttons placed one above the other,
+# showing the organization possibilities of the elements inside a vbox.
 # The "ALIGNMENT" attribute is explored in all its possibilities to obtain
-# the effects. The attributes "GAP", "MARGIN" and "SIZE" are also tested. 
+# the effects. The attributes "GAP", "MARGIN" and "SIZE" are also tested.
 
 use IUP;
 
-# Main program 
+# Main program
 sub MAIN() {
     my $iup = IUP.new;
     $iup.open;
     my $ih = IUP::Handle.new;
 
-    # Creates frame 1 
+    # Creates frame 1
     my $frm_1 = $ih.frame(
         $ih.hbox(
             $ih.fill,
@@ -26,7 +26,7 @@ sub MAIN() {
         )
     ).set-attr( :copy, "TITLE", "ALIGNMENT = ALEFT, GAP = 10");
 
-    # Creates frame 2 
+    # Creates frame 2
     my $frm_2 = $iup.frame(
         $ih.hbox(
             $ih.fill,
@@ -39,7 +39,7 @@ sub MAIN() {
         )
     ).set-attr( :copy, "TITLE", "ALIGNMENT = ACENTER, MARGIN = 15");
 
-    # Creates frame 3 
+    # Creates frame 3
     my $frm_3 = $iup.frame(
         $ih.hbox(
             $ih.fill,
@@ -59,9 +59,9 @@ sub MAIN() {
         )
     ).set-attr( :pre,  "TITLE = \"IupVbox Example\", SIZE = QUARTER");
 
-    # Shows dialog in the center of the screen 
+    # Shows dialog in the center of the screen
     $dlg.show(  IUP_CENTER, IUP_CENTER);
 
     $iup.main-loop;
-    $iup.close;  
+    $iup.close;
 }

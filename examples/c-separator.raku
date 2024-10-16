@@ -1,5 +1,5 @@
 #!/usr/bin/env raku
-# IupSeparator: Example in Raku from C 
+# IupSeparator: Example in Raku from C
 #   Creates a dialog with a menu and some items. A IupSeparator is used
 #   to separate the menu items.
 
@@ -38,21 +38,21 @@ sub item_exit_cb( -->Int) { IUP_CLOSE }
 
 sub MAIN() {
 
-    # Initializes IUP 
+    # Initializes IUP
     $iup = IUP.new;
     $iup.open;
     $ih = IUP::Handle.new;
 
-    # Program begin 
+    # Program begin
 
-    # Creates a text 
+    # Creates a text
     my $text = $iup.text;
 
-    # Sets value of the text and turns on expand  
+    # Sets value of the text and turns on expand
     $text.set-attr( "VALUE", "This text is here only to compose");
     $text.set-attr( "EXPAND" => "HORIZONTAL");
 
-    # Creates six items 
+    # Creates six items
     my $item_new        = $iup.item( "New");
     my $item_open       = $iup.item( "Open");
     my $item_close      = $iup.item( "Close");
@@ -60,7 +60,7 @@ sub MAIN() {
     my $item_print      = $iup.item( "Page Setup Again");
     my $item_exit       = $iup.item( "Exit");
 
-    # Registers callbacks 
+    # Registers callbacks
     $item_new.set-callback(       "ACTION", &item_new_cb);
     $item_open.set-callback(      "ACTION", &item_open_cb);
     $item_close.set-callback(     "ACTION", &item_close_cb);
@@ -75,25 +75,25 @@ sub MAIN() {
             $iup.separator,
             $item_exit);
 
-    # Creates file submenu 
+    # Creates file submenu
     my $submenu_file = $ih.submenu( "File", $menu_file );
-  
-    # Creates main menu with file menu 
+
+    # Creates main menu with file menu
     my $menu = $ih.menu( $submenu_file);
- 
-    # Associates handle "menu" with menu 
+
+    # Associates handle "menu" with menu
     $menu.set-handle( "menu");
 
-    # Creates dialog with a text 
+    # Creates dialog with a text
     my $dlg = $iup.dialog($text);
 
-    # Sets title and size of the dialog and associates a menu to it 
+    # Sets title and size of the dialog and associates a menu to it
     $dlg.set-attr( :copy, "TITLE" => "IupSeparator Example");
     $dlg.set-attr( "SIZE" => "QUARTERxEIGHTH", "MENU" => "menu");
 
-    # Shows dialog in the center of the screen 
+    # Shows dialog in the center of the screen
     $dlg.show( IUP_CENTER, IUP_CENTER);
 
     $iup.main-loop;
-    $iup.close;  
+    $iup.close;
 }

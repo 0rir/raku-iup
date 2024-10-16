@@ -28,17 +28,17 @@ sub multiline2text( $ih, Str $attribute -->Nil) {
 }
 
 sub btn_append_cb( $ih -->Int) {
-    text2multiline( $ih, "APPEND"); 
+    text2multiline( $ih, "APPEND");
     IUP_DEFAULT;
 }
 
 sub btn_insert_cb( $ih -->Int) {
-    text2multiline($ih, "INSERT"); 
+    text2multiline($ih, "INSERT");
     IUP_DEFAULT;
 }
 
 sub btn_clip_cb( $ih -->Int) {
-    text2multiline($ih, "CLIPBOARD"); 
+    text2multiline($ih, "CLIPBOARD");
     IUP_DEFAULT;
 }
 
@@ -53,7 +53,7 @@ sub btn_key_cb( $ih -->Int) {
 sub btn_caret_cb( $ih -->Int) {
     my $opt = $iup.get-handle("text2multi");
     if $opt.get-int("VALUE") {
-        text2multiline($ih, "CARET"); 
+        text2multiline($ih, "CARET");
     } else {
         multiline2text($ih, "CARET");
     }
@@ -63,7 +63,7 @@ sub btn_caret_cb( $ih -->Int) {
 sub btn_readonly_cb( $ih -->Int) {
     my $opt = $iup.get-handle("text2multi");
     if $opt.get-int( $opt, "VALUE") {
-        text2multiline( $ih, "READONLY"); 
+        text2multiline( $ih, "READONLY");
     } else {
         multiline2text($ih, "READONLY");
     }
@@ -73,7 +73,7 @@ sub btn_readonly_cb( $ih -->Int) {
 sub btn_selection_cb( $ih -->Int) {
     my $opt = $iup.get-handle("text2multi");
     if $iup.get-int($opt, "VALUE") {
-        text2multiline($ih, "SELECTION"); 
+        text2multiline($ih, "SELECTION");
     }else{
         multiline2text($ih, "SELECTION");
     }
@@ -82,8 +82,8 @@ sub btn_selection_cb( $ih -->Int) {
 
 sub btn_selectedtext_cb( $ih -->Int) {
     my $opt = $iup.get-handle("text2multi");
-    if $opt.get-int( "VALUE") { 
-        text2multiline( $ih, "SELECTEDTEXT"); 
+    if $opt.get-int( "VALUE") {
+        text2multiline( $ih, "SELECTEDTEXT");
     } else {
         multiline2text( $ih, "SELECTEDTEXT");
     }
@@ -93,7 +93,7 @@ sub btn_selectedtext_cb( $ih -->Int) {
 sub btn_overwrite_cb( $ih -->Int) {
     my $opt = $iup.get-handle("text2multi");
     if $opt.get-int( "VALUE") {
-        text2multiline( $ih, "OVERWRITE"); 
+        text2multiline( $ih, "OVERWRITE");
     } else {
         multiline2text( $ih, "OVERWRITE");
     }
@@ -102,7 +102,7 @@ sub btn_overwrite_cb( $ih -->Int) {
 sub btn_active_cb( $ih -->Int) {
     my $opt = $iup.get-handle("text2multi");
     if $opt.get-int( "VALUE") {
-        text2multiline( $ih, "ACTIVE"); 
+        text2multiline( $ih, "ACTIVE");
     } else {
         multiline2text( $ih, "ACTIVE");
     }
@@ -110,14 +110,14 @@ sub btn_active_cb( $ih -->Int) {
 }
 
 sub btn_remformat_cb( $ih -->Int) {
-  text2multiline($ih, "REMOVEFORMATTING"); 
+  text2multiline($ih, "REMOVEFORMATTING");
   IUP_DEFAULT;
 }
 
 sub btn_nc_cb( $ih -->Int) {
     my $opt = $iup.get-handle("text2multi");
     if $opt.get-int( "VALUE") {
-        text2multiline( $ih, "NC"); 
+        text2multiline( $ih, "NC");
     } else {
         multiline2text( $ih, "NC");
     }
@@ -127,7 +127,7 @@ sub btn_nc_cb( $ih -->Int) {
 sub btn_value_cb( $ih -->Int) {
     my $opt = $iup.get-handle("text2multi");
     if $opt.getint( "VALUE") {
-        text2multiline($ih, "VALUE"); 
+        text2multiline($ih, "VALUE");
     }else {
         multiline2text($ih, "VALUE");
     }
@@ -137,7 +137,7 @@ sub btn_value_cb( $ih -->Int) {
 sub btn_tabsize_cb( $ih -->Int) {
     my $opt = $iup.get-handle("text2multi");
     if $opt.get.int( "VALUE") {
-        text2multiline($ih, "TABSIZE"); 
+        text2multiline($ih, "TABSIZE");
     } else {
         multiline2text($ih, "TABSIZE");
     }
@@ -276,8 +276,8 @@ sub TextTest( -->Nil) {
     $opt.set-attr( "VALUE", "ON");
     $iup.set-function( "text2multi", $opt);
 
-    $mltline = $iup.multiline();  
-#   $mltline = $iup.text(NULL);  
+    $mltline = $iup.multiline();
+#   $mltline = $iup.text(NULL);
 #   $mltline.set-attr( "MULTILINE", "YES");
     $mltline.set-attr( "NAME", "mltline");
 
@@ -285,7 +285,7 @@ sub TextTest( -->Nil) {
     $mltline.set-callback( "BUTTON_CB",    (Icallback)button_cb);
 #   $mltline.set-callback( "MOTION_CB",    (Icallback)motion_cb);
     $mltline.set-callback( "HELP_CB",      (Icallback)help_cb);
-    $mltline.set-callback( "GETFOCUS_CB",  (Icallback)getfocus_cb); 
+    $mltline.set-callback( "GETFOCUS_CB",  (Icallback)getfocus_cb);
     $mltline.set-callback( "KILLFOCUS_CB", (Icallback)killfocus_cb);
     $mltline.set-callback( "ENTERWINDOW_CB", (Icallback)enterwindow_cb);
     $mltline.set-callback( "LEAVEWINDOW_CB", (Icallback)leavewindow_cb);
@@ -375,18 +375,18 @@ sub TextTest( -->Nil) {
     $lbl = IupLabel("&Multiline:");
     $lbi.set-attr( "PADDING", "2x2")
 
-        # Creates dlg 
+        # Creates dlg
     $dlg = $iup.dialog(
         $iup.vbox(
             $lbl,
-            $mltline, 
+            $mltline,
             $iup.hbox( $text, $opt),
             $iup.hbox(  $btn_append, $btn_insert, $btn_caret,
                         $btn_readonly, $btn_selection),
             $iup.hbox(  $btn_selectedtext, $btn_nc, $btn_value,
-                        $btn_tabsize, $btn_clip, $btn_key), 
+                        $btn_tabsize, $btn_clip, $btn_key),
             $iup.hbox(  $btn_def_enter, $btn_def_esc, $btn_active,
-                        $btn_remformat, $btn_overwrite), 
+                        $btn_remformat, $btn_overwrite),
         )
     );
     $dlg.set-callback(  "K_cO", (Icallback)file_open);

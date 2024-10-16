@@ -17,7 +17,7 @@ sub MAIN ( ) {
 
     $dlg.show( IUP_CENTER, IUP_CENTER);
     $iup.main_loop();
-    $iup.close; 
+    $iup.close;
 }
 
 sub exit_callback() returns Int { return IUP_CLOSE; }

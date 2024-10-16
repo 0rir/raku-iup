@@ -9,9 +9,9 @@ DEBUG=0
 
 ifeq ($(DEBUG), 1)
 $(info Building with debug option)
-	CFLAGS=-DDEBUG
+    CFLAGS=-DDEBUG
 else
-	CFLAGS=-DNDEBUG
+    CFLAGS=-DNDEBUG
 endif
 
 CC = cc

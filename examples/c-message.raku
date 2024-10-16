@@ -7,7 +7,7 @@ sub MAIN() {
   my $iup = IUP.new;
   $iup.open;
   my $ih = IUP::Handle.new;
- 
+
   $iup.message("IupMessage Example", "Press the button");
 
   $iup.close;

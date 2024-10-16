@@ -14,13 +14,13 @@ sub MAIN() {
     my $iup = IUP.new;
 
     my @argv;
-    
+
     # Initializes IUP
     $iup.open;
 
     my $ih = IUP::Handle.new;
 
-    
+
     # Creates frame with three top aligned buttons */
     my $hbox;
     my $frame1 = $ih.frame(

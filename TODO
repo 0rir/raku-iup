@@ -38,12 +38,12 @@ These require .set-callback to handle more varied signatures:
 These require the ability to build a good image.  Something I have not
 sorted out yet.
 
-    button image label 
+    button image label
     sample -- depends on iup/src/iup_key.c for iupKeyCodeToName
-    
+
 
 These also include a secondary header, iupcontrols.h, which I have
-not installed. 
+not installed.
     cbox colorbrowser detachbox dialogtaskbar
     gauge getcolor getxy_showxy progressbar
     sbox2 scrollbar tree

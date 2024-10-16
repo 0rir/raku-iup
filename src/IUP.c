@@ -1,9 +1,9 @@
 /*
- * 
+ *
  * cc -o IUP.o -fPIC -c IUP.c
  * cc -liup -shared -s -o IUP.so IUP.o
  * rm IUP.o
- * 
+ *
  */
 #include <stdio.h>
 #include <stdlib.h>

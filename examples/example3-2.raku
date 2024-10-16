@@ -26,7 +26,7 @@ multi MAIN ( ) {
         $item_exit,
     );
 
-    $sub1_menu = $iup.submenu("File", $file_menu); 
+    $sub1_menu = $iup.submenu("File", $file_menu);
     $menu = $iup.menu( $sub1_menu);
 
     my $vbox = $iup.vbox( $multitext,);

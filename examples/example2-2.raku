@@ -15,5 +15,5 @@ sub MAIN ( ) {
 
     $dlg.show( IUP_CENTER, IUP_CENTER);
     $iup.main_loop();
-    $iup.close; 
+    $iup.close;
 }

@@ -8,12 +8,12 @@ sub MAIN(-->Any) {
     $iup.open;
     my $ih = IUP::Handle.new;
 
-    # Creates a backgroundbox 
+    # Creates a backgroundbox
     my $btn = $ih.backgroundbox(
        $ih.frame(
             $ih.vbox(
-                $ih.button("This button does nothing", ""), 
-                $ih.text(""), 
+                $ih.button("This button does nothing", ""),
+                $ih.text(""),
             ).set-attr( "MARGIN" => "0x0")
         )
     );
@@ -21,7 +21,7 @@ say $btn.WHICH;
     $btn.set-attr(  "BGCOLOR", "0 128 0");
     $btn.set-attr(  "BORDER", "Yes");
 
-    # Creates dialog 
+    # Creates dialog
     my $dlg = $ih.dialog(
         $ih.vbox(
             $btn,
