@@ -20,21 +20,25 @@ Installation
 ------------
 Get the below IUP library, or later, and install it:
 
-	mkdir libiup
-	cd libiup
-	curl -L https://sourceforge.net/projects/iup/files/3.25/Linux%20Libraries/iup-3.25_Linux44_64_lib.tar.gz > libiup.tar.gz
-	tar xvzf libiup.tar.gz
-	sudo bash install
-	sudo bash install_dev
-	cd ..
+    mkdir libiup
+    cd libiup
+    curl -L https://sourceforge.net/projects/iup/files/3.25/Linux%20Libraries/iup-3.25_Linux44_64_lib.tar.gz > libiup.tar.gz
+    tar xvzf libiup.tar.gz
+    sudo bash install
+    sudo bash install_dev
+    cd ..
 
 Install the Raku module with Zef:
 
-	zef update
-	zef install IUP
+    zef update
+    zef install IUP
 
 Synopsis
 --------
+For convenience a IUP/Colors.rakumod file exists with 140 common colors
+named by their standard English names .  Which standard is _the_ standard
+is a standard problem.
+
 WARNING:
 This module is in its early stages and should be considered a Work in Progress.
 The interface is not final and may change in the future.
@@ -42,86 +46,86 @@ The interface is not final and may change in the future.
 Some of these methods also have longer names or names with underscores
 instead of hyphens.
 
-| Method          | Description                                               |
-| --------------- | --------------------------------------------------------- |
-| destroy         | Destroy self                                              |
-| detach          | NYI                                                       |
-| append          | Append control to child-list                              |
-| insert          | Insert control after child                                |
-| get-child       | Get child by position in list                             |
-| get-child-pos   | NYI                                                       |
-| get-child-count | NYI                                                       |
-| get-next-child  | Get next child from list                                  |
-| get-brother     | NYI                                                       |
-| get-parent      | Get parent of self                                        |
-| get-dialog      | Get the dialog (top-level) of self                        |
-| get-dialog-child | I don't remember this one                                |
-| reparent        | NYI                                                       |
-| popup           | Popup self at x,y                                         |
-| show            | Show widget, optionally at x,y                            |
-| hide            | Hide self                                                 |
-| map             | Map self into the display layout                          |
-| unmap           | NYI  Unmap self out of the display layout                 |
-| set-attr        | Workhorse to set attribute(s) by ref or by :copy and etc  |
-| get-attr        | Get attribute by name                                     |
-| get-attrs       | Get attributes of self                                    |
-| get-int         | Get integer attribute by name                             |
-| set-global      | Set global by key (name) and value                        |
-| set-str-global  | Set string global by key (name) and value                 |
-| get-global      | Get named global's value                                  |
-| set-focus       | Set focus on self                                         |
-| get-focus       | Get widget that has focus                                 |
-| set-callback    | Set a callback for a widget                               |
-| set-callbacks   | Set callbacks with key value pairs                        |
-| get-handle      | Get named widget by name                                  |
-| set-handle      | Set a name for self                                       |
-| set-attr-handle | Name a referenced widget                                  |
-| fill            | Fill space in layout                                      |
-| radio           | Create a radio button widget                              |
-| vbox            | Create a vertical box with 1..N child widgets             |
-| zbox            | Create a zbox with 1..N child widgets.                    |
-| hbox            | Create a horizontal box with 1..N child widgets.          |
-| sbox            | Create a sbox (split box)                                 |
-| gridbox         | Create a grid box                                         |
-| multibox        | Create a multibox                                         |
-| expander        | Create an expander                                        |
-| backgroundbox   | Create a backgroundbox                                    |
-| frame           | Create a frame                                            |
-| image           | Create an image by dimensions and pixel list              |
-| item            | Create an item                                            |
-| submenu         | Create a titled submenu                                   |
-| separator       | Create a separator in a menu                              |
-| menu            | Create a menu with 0..N members                           |
-| button          | Create a button with label and action                     |
-| canvas          | Create a canvas  NOT WORKING                              |
-| dialog          | Create a dialog  Perhaps the top-level or a nodal         |
-| user            | Create a user widget                                      |
-| label           | Create a label                                            |
-| list            | Create a list with a string                               |
-| text            | Create a text widget                                      |
-| multiline       | Create a multiline widget  Text & multiline are same      |
-| toggle          | Create a toggle switch                                    |
-| val             | Create a Val (aka slider or scale) for choosing a value   |
-| dial            | Create a dial widget                                      |
-| file-dlg        | File choice dialog                                        |
-| message-dlg     | Message displaying dialog                                 |
-| color-dlg       | Color choice dialog                                       |
-| font-dlg        | Font choice dialog                                        |
-| progress-dlg    | Progress displaying dialog                                |
-| get-file        | Get file by name                                          |
-| message         | Display message with title                                |
-| alarm           | Display message and title with three user choices         |
-| list-dialog     | List choices for one or more selection, opt w/ defaults   |
-| open            | create the IUP system                                     |
-| close           | shutdown the IUP system                                   |
-| image-lib-open  | open the widget library                                   |
-| main-loop       | start an event loop on user inputs                        |
-| set-language    | Set the language to English, Portuguese or Spanish         |
-| get-language    | Get the language                                          |
-| version         | Get the IUP library version                               |
-| get-version     | Get the IUP library version                               |
-| get-version-date   | Return version's date                                  |
-| get-version-number | Get version number                                     |
+| Method             | Description                                               |
+| ------------------ | --------------------------------------------------------- |
+| destroy            | Destroy self                                              |
+| detach             | NYI                                                       |
+| append             | Append control to child-list                              |
+| insert             | Insert control after child                                |
+| get-child          | Get child by position in list                             |
+| get-child-pos      | NYI                                                       |
+| get-child-count    | NYI                                                       |
+| get-next-child     | Get next child from list                                  |
+| get-brother        | NYI                                                       |
+| get-parent         | Get parent of self                                        |
+| get-dialog         | Get the dialog (top-level) of self                        |
+| get-dialog-child   | I don't remember this one                                |
+| reparent           | NYI                                                       |
+| popup              | Popup self at x,y                                         |
+| show               | Show widget, optionally at x,y                            |
+| hide               | Hide self                                                 |
+| map                | Map self into the display layout                          |
+| unmap              | NYI  Unmap self out of the display layout                 |
+| set-attr           | Workhorse to set attribute(s) by ref or by :copy and etc  |
+| get-attr           | Get attribute by name                                     |
+| get-attrs          | Get attributes of self                                    |
+| get-int            | Get integer attribute by name                             |
+| set-global         | Set global by key (name) and value                        |
+| set-str-global     | Set string global by key (name) and value                 |
+| get-global         | Get named global's value                                  |
+| set-focus          | Set focus on self                                         |
+| get-focus          | Get widget that has focus                                 |
+| set-callback       | Set a callback for a widget                               |
+| set-callbacks      | Set callbacks with key value pairs                        |
+| get-handle         | Get named widget by name                                  |
+| set-handle         | Set a name for self                                       |
+| set-attr-handle    | Name a referenced widget                                  |
+| fill               | Fill space in layout                                      |
+| radio              | Create a radio button widget                              |
+| vbox               | Create a vertical box with 1..N child widgets             |
+| zbox               | Create a zbox with 1..N child widgets.                    |
+| hbox               | Create a horizontal box with 1..N child widgets.          |
+| sbox               | Create a sbox (split box)                                 |
+| gridbox            | Create a grid box                                         |
+| multibox           | Create a multibox                                         |
+| expander           | Create an expander                                        |
+| backgroundbox      | Create a backgroundbox                                    |
+| frame              | Create a frame                                            |
+| image              | Create an image by dimensions and pixel list              |
+| item               | Create an item                                            |
+| submenu            | Create a titled submenu                                   |
+| separator          | Create a separator in a menu                              |
+| menu               | Create a menu with 0..N members                           |
+| button             | Create a button with label and action                     |
+| canvas             | Create a canvas  NOT WORKING                              |
+| dialog             | Create a dialog  Perhaps the top-level or a nodal         |
+| user               | Create a user widget                                      |
+| label              | Create a label                                            |
+| list               | Create a list with a string                               |
+| text               | Create a text widget                                      |
+| multiline          | Create a multiline widget  Text & multiline are same      |
+| toggle             | Create a toggle switch                                    |
+| val                | Create a Val (aka slider or scale) for choosing a value   |
+| dial               | Create a dial widget                                      |
+| file-dlg           | File choice dialog                                        |
+| message-dlg        | Message displaying dialog                                 |
+| color-dlg          | Color choice dialog                                       |
+| font-dlg           | Font choice dialog                                        |
+| progress-dlg       | Progress displaying dialog                                |
+| get-file           | Get file by name                                          |
+| message            | Display message with title                                |
+| alarm              | Display message and title with three user choices         |
+| list-dialog        | List choices for one or more selection, opt w/ defaults   |
+| open               | Create the IUP system                                     |
+| close              | Shutdown the IUP system                                   |
+| image-lib-open     | Open the widget library                                   |
+| main-loop          | Start an event loop on user inputs                        |
+| set-language       | Set the language to English, Portuguese or Spanish        |
+| get-language       | Get the language                                          |
+| version            | Get the IUP library version                               |
+| get-version        | Get the IUP library version                               |
+| get-version-date   | Return version's date                                     |
+| get-version-number | Get version number                                        |
 
 
 Sample GUI:
@@ -203,7 +207,8 @@ See Also
 License
 -------
 
-This library is free software; you can redistribute it and/or modify it under the same terms as Raku itself.
+This library is free software; you can redistribute it and/or modify it under
+the same terms as Raku itself.
 
 [1]: lib/IUP.rakudoc "Raku IUP Module Documentation"
 [2]: http://www.tecgraf.puc-rio.br/iup/ "IUP - Portable User Interface"
