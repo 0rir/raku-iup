@@ -35,9 +35,6 @@ Install the Raku module with Zef:
 
 Synopsis
 --------
-For convenience a IUP/Colors.rakumod file exists with 140 common colors
-named by their standard English names .  Which standard is _the_ standard
-is a standard problem.
 
 WARNING:
 This module is in its early stages and should be considered a Work in Progress.
@@ -127,6 +124,9 @@ instead of hyphens.
 | get-version-date   | Return version's date                                     |
 | get-version-number | Get version number                                        |
 
+For convenience a IUP/Colors.rakumod file exists with 140 common colors
+named by their standard English names .  Which standard is _the_ standard
+is a standard problem.
 
 Sample GUI:
 
@@ -163,7 +163,7 @@ $vb.set-attr("GAP", "10");
 $vb.set-attribute("ALIGNMENT", "ACENTER");
 
 my $dlg = $iup.dialog($vb);
-$dlg.set_attribute("TITLE", "Hello");
+$dlg.set-attribute("TITLE", "Hello");
 
 # Map widgets and show dialog
 
@@ -193,6 +193,7 @@ Authors and Contributors
 * Zoffix Znet <cpan@zoffix.com>
 * David Warring <david.warring@gmail.com>
 * Robert Ransbottom <rirans@comcast.net>
+* Günter Milder
 
 Blame
 ------
