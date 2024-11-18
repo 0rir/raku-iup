@@ -65,6 +65,8 @@ class IUP::Handle is repr('CPointer') {
 
     # IupDetach
 
+    sub IupRefresh(IUP::Handle) is native(IUP_LIB) {*}
+
     # Append a child to a widget's child list.
     sub IupAppend(Ihdle $ih, Ihdle $child -->Ihdle) is native(IUP_LIB) {*};
 
@@ -435,6 +437,7 @@ class IUP::Handle is repr('CPointer') {
                 i32ro($max_col), i32ro($max_lin), $markN)
             ?? []
             !! $listN[ $markN.grep( ?*, :k)].Array
+        }
     }
 
     # IupGetText IupGetColor IupGetParam IupGetParamv
@@ -965,9 +968,6 @@ class IUP is IUP::Handle {
     # IupFlush IupExitLoop
     # IupPostMessage  IupRecordInput  IupPlayInput   IupUpdate
     # IupUpdateChildren IupRedraw IupRefreshChildren
-
-    sub IupRefresh(IUP::Handle) is native(IUP_LIB) {*}
-
     # IupExecute IupExecuteWait IupHelp IupLog
     # IupLoad    IupLoadBuffer
 
