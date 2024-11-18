@@ -1,6 +1,7 @@
 #!/usr/bin/env raku
 # :vim ft=raku sw=4 expandtab  # 🦋 ∅∪∩∋∈∉ ≡ ≢ «␤ » ∴
 use v6.d;
+use lib 'lib';
 use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
@@ -14,7 +15,7 @@ my $iup = IUP.new;
 $iup.open;
 my $ih = IUP::Handle.new;
 
-my $hbox = $ih.hbox( $ih.label('hello'));
+my $hbox = $ih.hbox( $ih.label("Setting a handle worked."));
 
 say '$hbox.raku: ', $hbox;
 

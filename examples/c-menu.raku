@@ -2,6 +2,8 @@
 # IupMenu: Example in Raku from th C
 #   Creates a dialog with a menu with two submenus.
 
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 sub exit_cb(-->Int) { IUP_CLOSE }

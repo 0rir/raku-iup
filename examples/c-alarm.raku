@@ -2,7 +2,8 @@
 # Iup Alarm: Raku example converted from  C
 #   Shows a dialog similar to the one shown when you exit
 # a program without saving.
-
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add('lib');
 use IUP;
 
 # Main program

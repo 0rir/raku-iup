@@ -4,7 +4,8 @@
 # Creates a dialog for the user to select his/her gender.
 # In this case, the radio element is essential to prevent the user
 # from selecting both options.
-
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 sub MAIN() {

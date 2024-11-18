@@ -1,6 +1,7 @@
-#!/usr/bin env raku
+#!/usr/bin/env raku
 # IupMessage Raku Example from the C
-
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 sub MAIN() {

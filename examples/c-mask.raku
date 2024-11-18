@@ -1,6 +1,7 @@
 #  IupText MASK: Example in Raku from C
 #  Creates an IupText that accepts only numbers.
-
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 sub MAIN(-->Mu){

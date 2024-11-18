@@ -5,6 +5,8 @@
 # The "ALIGNMENT" attribute is explored in all its possibilities to obtain
 # the effects. The attributes "GAP", "MARGIN" and "SIZE" are also tested.
 
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 # Main program

@@ -1,7 +1,9 @@
 #!/usr/bin/env raku
 # IupListDialog: Example in C
-# Shows a color-selection dialog.
+# Shows a dialog for selection from list.
 
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 sub MAIN() {

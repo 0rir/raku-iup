@@ -1,3 +1,8 @@
+#!/usr/bin/env raku
+use v6.c;
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
+
 # IupBackgroundBox Example in Raku from C
 
 use IUP;

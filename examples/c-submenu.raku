@@ -1,9 +1,11 @@
-#!/usr/bin/raku
+#!/usr/bin/env raku
 # IupSubmenu: Example in Raku from the C
 #  Creates a dialog with a menu with three submenus.
 #  One of the submenus has a submenu, which has another submenu.
-
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
+use lib 'lib';
 use IUP;
+
 my $iup;
 my $ih;
 

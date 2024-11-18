@@ -2,6 +2,7 @@
 # IupFileDlg Raku Example from the C
 # Shows a typical file-saving dialog.
 
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 sub MAIN() {

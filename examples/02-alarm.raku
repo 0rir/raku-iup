@@ -1,6 +1,7 @@
 #!/usr/bin/env raku
 # :vim ft=raku sw=4 expandtab
 use v6.d;
+use lib 'lib';
 use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
@@ -12,7 +13,7 @@ sub MAIN() {
 
     my $iup = IUP.new();
     $iup.open(@);
-    $iup.set_str_global( 'DEFAULTFONTSIZE', '24' );
+    $iup.set-global( 'DEFAULTFONTSIZE', '24', :copy );
 
     my $pressed = IupAlarm( 'Title', 'Press one?', 'one', 'two', "three" );
     say $pressed.WHAT;

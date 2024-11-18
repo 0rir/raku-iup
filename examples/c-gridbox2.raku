@@ -1,5 +1,7 @@
 #!/usr/bin/env raku
 use v6;
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 sub fnSrcFile(-->Int) { IUP_DEFAULT }

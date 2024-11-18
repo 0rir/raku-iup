@@ -1,7 +1,8 @@
 #!/usr/bin/env raku
 #  IupGetFile: example in Raku from the C
 #    Shows a typical file-selection dialog.
-
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 sub MAIN() {

@@ -1,5 +1,7 @@
 # Raku program to exemplify the IupVal element.
 
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 my ( $lbl_h, $lbl_v);

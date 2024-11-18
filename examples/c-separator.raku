@@ -2,7 +2,8 @@
 # IupSeparator: Example in Raku from C
 #   Creates a dialog with a menu and some items. A IupSeparator is used
 #   to separate the menu items.
-
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 use IUP::Colors;
 

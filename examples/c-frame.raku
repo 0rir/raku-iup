@@ -33,7 +33,7 @@ sub MAIN() {
 
     # Creates dialog
     my $dlg = $ih.dialog($frame);
-    $dlg.set_attr("TITLE", "IupFrame");
+    $dlg.set-attr("TITLE", "IupFrame");
 
     # Shows dialog in the center of the screen
     $dlg.show;

@@ -1,7 +1,9 @@
 #!/usr/bin/env raku
 # :vim ft=raku sw=4 expandtab  # 🦋 ∅ ≡ ∩ ≢ ∈ «␤»
 use v6.d;
+use lib 'lib';
 use lib $?FILE.IO.parent(2).add("lib");
+
 use IUP;
 
 multi MAIN ( ) {

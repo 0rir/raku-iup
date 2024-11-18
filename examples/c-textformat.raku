@@ -1,5 +1,6 @@
 #!/usr/bin/env raku
-
+use lib 'lib';
+use lib $?FILE.IO.cleanup.parent(2).add("lib");
 use IUP;
 
 my $iup = IUP.new;
