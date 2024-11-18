@@ -2,7 +2,10 @@
 use NativeCall;
 
 # Abbreviations
-sub IUP_LIB() { %?RESOURCES<lib/IUP.so>}
+sub IUP_LIB() { 'iup' }
+sub CD_LIB() { 'cd' }
+sub IUPCONTROLS_LIB() { 'iupcontrols' }
+sub IM_LIB() { 'im' }
 
 #
 # Callback Return Values
@@ -53,12 +56,9 @@ class IUP::Handle is repr('CPointer') {
     constant Ihdle = IUP::Handle;
     constant Ptr = Pointer;
 
-    sub p6IupNewChildrenList(int32 -->Ptr) is native(IUP_LIB) {*};
-
-    sub p6IupAddChildToList(Ptr, Ihdle, int32, int32) is native(IUP_LIB) {*};
 
     # Free memory.
-    sub p6IupFree(Ptr) is native(IUP_LIB) {*};
+    #sub p6IupFree(Ptr) is native(IUP_LIB) {*};
 
     # Destroy an widget.
     sub IupDestroy(Ihdle) is native(IUP_LIB) {*};
@@ -86,7 +86,7 @@ class IUP::Handle is repr('CPointer') {
     sub IupGetParent(Ihdle -->Ihdle) is native(IUP_LIB) {*};
 
     # Return the dialog that contains the interface element.
-    sub IupGetDialog(Ihdle -->int32) is native(IUP_LIB) {*};
+    sub IupGetDialog(Ihdle -->Ihdle) is native(IUP_LIB) {*};
 
     sub IupGetDialogChild(Ihdle $ih, Str $name -->Ihdle)is native(IUP_LIB) {*}
 
@@ -155,12 +155,6 @@ class IUP::Handle is repr('CPointer') {
 
     ### Callbacks
 
-    sub p6IupSetCallback_void(Ihdle, Str, &cb (--> int32) -->IUP::Callback)
-            is native(IUP_LIB) {*};
-
-    sub p6IupSetCallback_handle(Ihdle, Str, &cb (Ihdle -->int32)
-            -->IUP::Callback) is native(IUP_LIB) {*};
-
     # These are abbrevs for callback signature contents: i -> Int,
     # h -> Ihdle, s -> Str, u -> unsigned, c -> char, f -> float,
     # v -> voidptr,
@@ -168,9 +162,39 @@ class IUP::Handle is repr('CPointer') {
     # hi, hiii, hff hiff, his, hiis, iis, fiis, hsvi, hsviii hfiis hiiis
 
     # Attach a callback to an event, returns any displaced cb.
-    sub IupSetCallback(Ihdle, Str, IUP::Callback -->IUP::Callback)
-            is native(IUP_LIB) {*};
+    sub IupSetCallbackv(IUP::Handle, Str, &cb (--> int32) -->IUP::Callback)
+               is native(IUP_LIB)
+               is symbol('IupSetCallback') { * }; # void
 
+    sub IupSetCallbackh(IUP::Handle, Str, &cb (IUP::Handle --> int32)
+        -->IUP::Callback)
+        is native(IUP_LIB) 
+        is symbol('IupSetCallback') { * }; # h
+
+    sub IupSetCallbackhi(IUP::Handle, Str, &cb (IUP::Handle, int32 --> int32)
+        -->IUP::Callback)
+        is native(IUP_LIB) 
+        is symbol('IupSetCallback') { * }; #hi
+
+    sub IupSetCallbackhsi(
+        IUP::Handle, Str, &cb (IUP::Handle, Str, int32 -->int32)
+        -->IUP::Callback) 
+        is native(IUP_LIB) is symbol('IupSetCallback') { * }; #hsi
+
+    sub IupSetCallbackhsii(
+        IUP::Handle, Str, &cb (IUP::Handle, Str, int32, int32 --> int32)
+        -->IUP::Callback)
+        is native(IUP_LIB) is symbol('IupSetCallback') { * }; #hsii
+
+    sub IupSetCallbackhiis(
+        IUP::Handle, Str, &cb (IUP::Handle, int32, int32, Str --> int32)
+        -->IUP::Callback) 
+        is native(IUP_LIB) is symbol('IupSetCallback') { * }; #hiis
+
+    sub IupSetCallbackhiiii(IUP::Handle, Str, 
+        &cb (IUP::Handle, int32, int32, int32, int32 --> int32)
+        -->IUP::Callback) 
+        is native(IUP_LIB) is symbol('IupSetCallback') { * }; #hiiii
 
     # IupSetCallbacks IupGetFunction IupSetFunction
 
@@ -187,10 +211,15 @@ class IUP::Handle is repr('CPointer') {
 
     # IupGetAttributeHandle IupSetAttributeHandleId IupGetAttributeHandleId
     # IupSetAttributeHandleId2 IupGetAttributeHandleId2
-    # IupGetClassName
+
+    sub IupGetClassName(IUP::Handle --> Str) is native(IUP_LIB) {*}
+
     # IupGetClassType IupGetAllClasses IupGetClassAttributes
     # IupGetClassCallbacks IupSaveClassAttributes IupCopyClassAttributes
-    # IupSetClassDefaultAttribute IupClassMatch
+
+    sub IupClassMatch(Ihdle, Str --> int32) is native(IUP_LIB) {*}
+
+    # IupSetClassDefaultAttribute
     # IupCreate IupCreatev IupCreatep
 
     sub IupFill( -->Ihdle) is native(IUP_LIB) {*};
@@ -199,17 +228,11 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupRadio(Ihdle $child -->Ihdle) is native(IUP_LIB) {*}
 
-    sub p6IupVbox(Ihdle -->Ihdle) is native(IUP_LIB) {*};
-
-    sub IupVboxv(Ptr -->Ihdle) is native(IUP_LIB) {*};
-
-    sub p6IupZbox(Ihdle -->Ihdle) is native(IUP_LIB) {*}
+    sub IupVboxv(CArray[Pointer] is rw -->Ihdle) is native(IUP_LIB) {*};
 
     sub IupZboxv(Ptr -->Ihdle) is native(IUP_LIB) {*}
 
-    sub p6IupHbox(Ihdle -->Ihdle) is native(IUP_LIB) {*};
-
-    sub IupHboxv(Ptr -->Ihdle) is native(IUP_LIB) {*};
+    sub IupHboxv(CArray[Pointer] is rw -->Ihdle) is native(IUP_LIB) {*}
 
     # IupNormalizer IupNormalizerv
 
@@ -227,13 +250,15 @@ class IUP::Handle is repr('CPointer') {
 
     # IupFlatScrollBox
 
-    sub p6IupGridBox(Ihdle -->Ihdle) is native(IUP_LIB) {*};
+    #sub p6IupGridBox(Ihdle -->Ihdle) is native(IUP_LIB) {*};
+    sub IupGridBoxv(CArray[Ptr] is rw -->Ihdle)
+        is native(IUP_LIB) is export {*}
 
-    sub IupGridBoxv(Ptr -->Ihdle) is native(IUP_LIB) is export {*};
 
-    sub p6IupMultiBox(Ihdle -->Ihdle) is native(IUP_LIB) is export {*}
-
-    sub IupMultiBoxv(Ihdle -->Ihdle) is native(IUP_LIB) is export {*}
+#   sub p6IupMultiBox(Ihdle -->Ihdle) is native(IUP_LIB) is export {*}
+    #TODO check alle CArray[Ptr] is rw !!!!!!!!
+    sub IupMultiBoxv(CArray[Pointer] is rw -->Ihdle)
+            is native(IUP_LIB) is export {*}
 
     sub IupExpander(Ihdle $child -->Ihdle) is native(IUP_LIB) is export {*}
 
@@ -253,19 +278,17 @@ class IUP::Handle is repr('CPointer') {
 
     ###
 
-    sub p6IupItem(Str, Str -->Ihdle) is native(IUP_LIB) {*};
+    sub IupItem(Str, Str -->Ihdle) is native(IUP_LIB) {*}
 
     sub IupSubmenu(Str, Ihdle -->Ihdle) is native(IUP_LIB) {*};
 
     sub IupSeparator( -->Ihdle) is native(IUP_LIB) {*};
 
-    sub p6IupMenu(Ihdle -->Ihdle) is native(IUP_LIB) {*};
-
-    sub IupMenuv(Ptr -->Ihdle) is native(IUP_LIB) {*};
+    sub IupMenuv(CArray[Ptr] -->Ihdle) is native(IUP_LIB) {*}
 
     ###
 
-    sub p6IupButton(Str $title, Str $action -->Ihdle) is native(IUP_LIB) {*};
+    sub IupButton(Str $title, Str $action -->Ihdle) is native(IUP_LIB) {*}
 
     # IupFlatButton IupFlatToggle IupDropButton IupFlatLabel IupFlatSeparator
 
@@ -283,11 +306,15 @@ class IUP::Handle is repr('CPointer') {
     # Make a dropdown or visible displayed list, may have editbox. AKA combobox.
     sub IupList( Str -->Ihdle) is native(IUP_LIB) is export {*};
 
+    sub IupMatrix(Str $action_cb = '' --> Ihdle)
+            is native(IUPCONTROLS_LIB) {*}
+    sub IupMatrixList(--> IUP::Handle) is native(IUPCONTROLS_LIB) {*}
+
     # IupFlatList
 
-    sub p6IupText(Str $action -->Ihdle) is native(IUP_LIB) {*}
+    sub IupText(Str $action = '' -->Ihdle) is native(IUP_LIB) {*}
 
-    sub p6IupMultiLine(Str $action -->Ihdle) is native(IUP_LIB) {*}
+    sub IupMultiLine(Str $action = '' -->Ihdle) is native(IUP_LIB) {*}
 
     sub IupToggle(Str $title, Str $action -->Ihdle) is native(IUP_LIB) {*}
 
@@ -373,6 +400,7 @@ class IUP::Handle is repr('CPointer') {
     multi sub IupListDialog( Str $title, Array[Str] $list, Int $presel is copy,
             Int $max_col, Int $max_lin, -->Array) is export {
 
+               say "in IupListDialog single $presel" if $*DEBUG;
         my int32 $sizeN = $list.elems;
         my $listN = CArray[Str].new;
         my $markN = CArray[int32].new;
@@ -394,6 +422,7 @@ class IUP::Handle is repr('CPointer') {
     multi sub IupListDialog( Str $title, Array[Str] $list, @presel,
             Int $max_col, Int $max_lin -->Array) {
 
+               say "in IupListDialog multi ", @presel if $*DEBUG;
         my int32 $size = $list.elems;      # number of choices available
         my $listN = CArray[Str].new;       # list of choices
         my $markN = CArray[int32].new;     # selections made
@@ -401,8 +430,7 @@ class IUP::Handle is repr('CPointer') {
             $listN[$_] = $list[$_];
             $markN[$_] = 0;
         }
-        for @presel -> $i { if $i ~~ 1..$list.elems { $markN[$i] = 1 } }
-
+        for @presel -> $i { if $i ~~ ^$list { $markN[$i] = 1 }
         -1 == IupListDialog( i32ro(2), $title, $size, $listN, i32ro(0),
                 i32ro($max_col), i32ro($max_lin), $markN)
             ?? []
@@ -423,6 +451,8 @@ class IUP::Handle is repr('CPointer') {
     method destroy( -->Mu) { IupDestroy(self) }
 
     # detach
+
+    method refresh { IupRefresh(self) }
 
     method append(Ihdle $child -->Ihdle) { IupAppend(self, $child) }
 
@@ -459,8 +489,11 @@ class IUP::Handle is repr('CPointer') {
         IupGetDialog(self)
     }
 
-    method get-dialog-child($name -->Ihdle) { IupGetDialogChild(self, $name ) }
-    method get_dialog_child($name -->Ihdle) {
+    method get-dialog-child(Str $name -->Ihdle) {
+        IupGetDialogChild(self, $name )
+    }
+
+    method get_dialog_child(Str $name -->Ihdle) {
         DEPRECATED('get-dialog-child','0.5.0','1.0.0', :what( &?ROUTINE.name));
         IupGetDialogChild(self, $name )
     }
@@ -486,32 +519,41 @@ class IUP::Handle is repr('CPointer') {
     # :pre is only to support the preformatted string arg used in C code.
     # All the 'set-attr's return the self element.
     multi method set-attr( Str:D $pre-kv-str, Bool :$pre where $pre -->Ihdle) {
+               say "set Attr 1: $pre-kv-str, pre: $pre" if $*DEBUG;
         IupSetAttributes(self, $pre-kv-str);
     }
     multi method set-attr(
-        Str:D $k, Str:D $v, Bool :$copy! where $copy -->Ihdle) {
-        IupStoreAttribute( self, $k, $v);
+            Str:D $k, Str:D $v, Bool :$copy! where $copy -->Ihdle) {
+                say "set Attr 2 $copy: $k =>  {$v ?? $v !! 'NULL'}" if $*DEBUG;
+         IupSetStrAttribute( self, $k, $v);
         self
     }
+
+    # TODO needs :copy flag
     multi method set-attr( Str:D $k, Str:D $v -->Ihdle) {
-        IupSetAttribute( self, $k, $v);
-        self
+                say "set Str Attr 3: $k => $v" if $*DEBUG;
+        IupSetStrAttribute( self, $k, $v);
+        self;
     }
     multi method set-attr(Str:D $k, Str:D $v, *@kv -->Ihdle) {
         die "Expected even number of args." unless @kv.elems %% 2;
+               say "set Str Attr 4: $k => $v" if $*DEBUG;
         my $str = "$k=\"$v\"";
         for @kv -> $kk, $vv { $str ~= ",$kk=\"$vv\""; }
         IupSetAttributes(self, $str);
     }
     multi method set-attr( Pair $kv, Bool:U :$copy -->Ihdle) {
+               say "set Attr 5 $copy: $kv" if $*DEBUG;
          IupSetAttribute( self, $kv.key, $kv.value);
          self
     }
     multi method set-attr( Pair $kv, Bool :$copy! where $copy -->Ihdle) {
-        IupStoreAttribute( self, $kv.key, $kv.value);
+                say "set Attr 6 $copy: $kv" if $*DEBUG;
+        IupSetStrAttribute( self, $kv.key, $kv.value);
         self
     }
     multi method set-attr( Pair $kv, Pair $kw, *@etc -->Ihdle) { #XXX 2 pair??
+               say "set Attr 7 kv: $kv, kw: $kw, @etc" if $*DEBUG;
         my $str = "$kv.key()=\"$kv.value()\",$kw.key()=\"$kw.value()\"";
         for @etc -> $p {
             die "Expected a Pair object" unless $p ~~ Pair;
@@ -519,6 +561,22 @@ class IUP::Handle is repr('CPointer') {
         }
         IupSetAttributes self, $str;
     }
+
+    multi method set-attr(*%attributes) {
+        my Str @tmp = ();
+        for %attributes.kv -> Str $name, $value {
+            if $value ~~ Str|Int|Rat|Num {
+                say "set Str multi Attr8: $name => $value" if $*DEBUG;
+                IupSetStrAttribute(self, $name, $value.Str);
+            } else {
+                say "set non Str multi Attr8: $name =>  {$value ?? $value !!
+                               'NULL'}" if $*DEBUG;
+                 IupSetAttribute(self, $name, $value);
+             }
+        }
+        self;
+    }
+
 
     multi method set_attributes(*%attrs --> Ihdle) {
         DEPRECATED('set-attr see docs','0.5.0','1.0.0', :what( &?ROUTINE.name));
@@ -598,7 +656,6 @@ class IUP::Handle is repr('CPointer') {
         IupSetStrGlobal($k,$v)
     }
 
-
     method get-global( $attr -->Str) { IupGetGlobal( $attr) }
     method get_global( $attr -->Str) {
         DEPRECATED('get-global','0.5.0','1.0.0', :what( &?ROUTINE.name));
@@ -624,11 +681,25 @@ class IUP::Handle is repr('CPointer') {
     method set-callback(Str $name, $func -->IUP::Callback) {
         my @params = $func.signature.params;
         given @params.elems {
-            when 0 { return p6IupSetCallback_void(  self, $name.fmt, $func) }
-            when 1 { return p6IupSetCallback_handle(self, $name.fmt, $func) }
-            default { warn "Error... no callback"  }
+#           when 0 { return p6IupSetCallback_void(  self, $name.fmt, $func) }
+#           when 1 { return p6IupSetCallback_handle(self, $name.fmt, $func) }
+            when 0 { return IupSetCallbackv(self, $name.fmt, $func) }
+            when 1 { return IupSetCallbackh(self, $name.fmt, $func) }
+            when 2 { return IupSetCallbackhi(self, $name.fmt, $func) }
+            when 4 {
+                if @params[1].type ~~ Int {
+                    return IupSetCallbackhiis(self, $name.fmt, $func); 
+                } elsif @params[1].type ~~ Str {
+                    return IupSetCallbackhsii(self, $name.fmt, $func); 
+                }
+            }
+            when 5 {
+                return IupSetCallbackhiiii(self, $name.fmt, $func); 
+            }
+            default { warn "Error... no callback"  }        # TODO ??? die
         }
     }
+
     method set_callback(Str $name, $func -->IUP::Callback) {
         DEPRECATED('set-callback','0.5.0','1.0.0', :what( &?ROUTINE.name));
         self.set-callback( $name, $func)
@@ -636,7 +707,7 @@ class IUP::Handle is repr('CPointer') {
 
     method set-callbacks(*%callbacks -->Ihdle) {
         for %callbacks.kv -> $name, $function {
-            self.set_callback($name, $function);
+            self.set-callback($name, $function);
         }
         return self;
     }
@@ -691,110 +762,34 @@ class IUP::Handle is repr('CPointer') {
 
     # space
 
-    method vboxv(*@child -->Ihdle) {
-        my $n = @child.elems;
-        if $n > 1 {
-            my $list = p6IupNewChildrenList($n);
-            my $pos = 0;
-            for @child -> $c {
-                p6IupAddChildToList($list, $c, $pos, $n);
-                $pos++;
-            }
-            my $result = IupVboxv($list);
-            p6IupFree($list);
-            return $result;
-        }
-        if $n == 1 {
-            return p6IupVbox(@child[0]);
-        }
+    method !allocator(@child -->CArray[Pointer]) {
+        our $pts = CArray[Pointer].allocate(@child.elems + 1);
+         my $i = 0;
+         for @child -> $elem {
+            $pts[$i++] = $elem;
+         }
+         $pts;
     }
 
-    method vbox(*@child -->Ihdle) { self.vboxv(@child) }
-
-    method zboxv(*@children -->Ihdle) {
-        given @children.elems {
-            when 1 { p6IupZbox: @children[0] }
-            default {
-                my $list = p6IupNewChildrenList($_);
-                my $pos = 0;
-                for @children -> $c {
-                    p6IupAddChildToList($list, $c, $pos, $_);
-                    $pos++;
-                }
-                my $ret = IupZboxv($list);
-                p6IupFree($list);
-                return $ret;
-            }
-        }
+    method vbox(*@child -->Ihdle) {
+        IupVboxv(self!allocator(@child));
     }
 
-    method zbox(*@child -->Ihdle) { self.zboxv(@child) }
-
-    method hboxv(*@child -->Ihdle) {
-        my $n = @child.elems;
-        if $n > 1 {
-            my $list = p6IupNewChildrenList($n);
-            my $pos = 0;
-            for @child -> $c {
-                p6IupAddChildToList($list, $c, $pos, $n);
-                $pos++;
-            }
-            my $result = IupHboxv($list);
-            p6IupFree($list);
-            return $result;
-        }
-        if $n == 1 {
-            return p6IupHbox(@child[0]);
-        }
+    method zbox(*@child -->Ihdle) {
+        IupZboxv(self!allocator(@child));
     }
 
-    method hbox(*@child -->Ihdle) { self.hboxv(@child) }
+    method hbox(*@child -->Ihdle) { IupHboxv(self!allocator(@child)) }
 
     # normalizer, cbox,
 
-    method sbox( $child -->Ihdle) { IupSbox($child) }
+    method sbox( Ihdle $child -->Ihdle) { IupSbox($child) }
 
     # split,scrollbox, flatscrollbox
 
-    method gridboxv(*@child -->Ihdle) {
-        my $n = @child.elems;
-        if $n > 1 {
-            my $list = p6IupNewChildrenList($n);
-            my $pos = 0;
-            for @child -> $c {
-                p6IupAddChildToList($list, $c, $pos, $n);
-                $pos++;
-            }
-            my $result = IupGridBoxv($list);
-            p6IupFree($list);
-            return $result;
-        }
-        if $n == 1 {
-            return p6IupGridBox(@child[0]);
-        }
-    }
+    method gridbox(*@child --> Ihdle) { IupGridBoxv(self!allocator(@child)) }
 
-    method gridbox(*@child -->Ihdle) { self.gridboxv(@child); }
-
-    method multiboxv(*@child -->Ihdle) {
-        my $n = @child.elems;
-        if $n > 1 {
-            my $list = p6IupNewChildrenList($n);
-            my $pos = 0;
-            for @child -> $c {
-                p6IupAddChildToList($list, $c, $pos, $n);
-                $pos++;
-            }
-            my $result = IupMultiBoxv($list);
-            p6IupFree($list);
-            return $result;
-        }
-        if $n == 1 {
-            return p6IupMultiBox(@child[0]);
-        }
-    }
-
-    method multibox(*@child -->Ihdle) { self.multiboxv(@child); }
+    method multibox(*@child -->Ihdle) { IupMultiBoxv(self!allocator(@child)) }
 
     method expander( $child -->Ihdle){  IupExpander( $child) }
 
@@ -823,37 +818,18 @@ class IUP::Handle is repr('CPointer') {
     ###
 
     method item(Str $title, Str $action = '' -->Ihdle) {
-        p6IupItem($title, $action)
+        IupItem($title, $action)
     }
     method submenu(Str $title, $child -->Ihdle) { IupSubmenu($title, $child) }
 
     method separator(-->Ihdle) { IupSeparator }
 
-    method menuv(*@child -->Ihdle) {
-        my $n = @child.elems;
-        if $n > 1 {
-            my $list = p6IupNewChildrenList($n);
-            my $pos = 0;
-            for @child -> $c {
-                p6IupAddChildToList($list, $c, $pos, $n);
-                $pos++;
-            }
-            my $result = IupMenuv($list);
-            p6IupFree($list);
-            return $result;
-        }
-        if $n == 1 {
-            return p6IupMenu(@child[0]);
-        }
-        Ihdle;
-    }
-
-    method menu(*@child -->Ihdle) { self.menuv(@child) }
+    method menu(*@child -->Ihdle) { IupMenuv(self!allocator(@child)) }
 
     ###
 
     method button(Str $title, Str $action = "" -->Ihdle) {
-        p6IupButton($title, $action);
+        IupButton($title, $action);
     }
 
     # FlatButton FlatToggle DropButton FlatLabel FlatSeparator
@@ -870,11 +846,15 @@ class IUP::Handle is repr('CPointer') {
 
     method list(Str $action = Str -->Ihdle) { IupList( $action) }
 
+    method matrix(Str $action = '' --> Ihdle) { IupMatrix($action) }
+
+     method matrixlist(--> Ihdle) {IupMatrixList()}
+
     # flatlist
 
-    method text(Str $action = '' -->Ihdle) { p6IupText($action) }
+    method text(Str $action = '' -->Ihdle) { IupText($action) }
 
-    method multiline(Str $action = '' -->Ihdle) { p6IupMultiLine($action) }
+    method multiline(Str $action = '' -->Ihdle) { IupMultiLine($action) }
 
     method toggle(Str $title, Str $action = Str -->Ihdle) {
         IupToggle( $title, $action)
@@ -938,13 +918,22 @@ class IUP::Handle is repr('CPointer') {
 
     multi method list-dialog( Str:D $title, Array[Str] $list, Int $presel,
             Int:D $max_col, Int:D $max_lin -->Array) {
+               say "in list-dialog single" if $*DEBUG;                
         IupListDialog $title, $list, $presel, $max_col, $max_lin;
     }
 
-    multi method list-dialog( Str:D $title, Array[Str] $list, @presel,
+    multi method list-dialog( Str:D $title, Array[Str] $list, Int @presel,
             Int:D $max_col, Int:D $max_lin -->Array) {
+                say "in list-dialog multi" if $*DEBUG;
         IupListDialog $title, $list, @presel, $max_col, $max_lin;
     }
+
+    method classmatch(Str $classname --> Bool) {
+        return IupClassMatch(self, $classname) ?? True !! False;
+    }
+ 
+    method get-classname(--> Str) { return IupGetClassName(self); }
+
 
     # GetText GetColor GetParam GetParamv Param ParamBox ParamBoxv LayoutDialog
     # ElementPropertiesDialog GlobalsDialog ClassInfoDialog
@@ -956,10 +945,13 @@ class IUP is IUP::Handle {
     constant Ptr = Pointer;
 
     # Must be called before any other IUP function.
-    sub p6IupOpen(int32, CArray[Str] -->int32) is native(IUP_LIB) {*};
+    sub IupOpen(int32 is rw, Pointer[CArray[Str]] is rw -->int32)
+            is native(IUP_LIB) {*};
 
     # Ends IUP usage releasing memory. It destroys all named dialogs & elems.
     sub IupClose() is native(IUP_LIB) {*};
+
+    sub IupControlsOpen() is native(IUPCONTROLS_LIB) {*}
 
     # IupIsOpened
 
@@ -972,7 +964,10 @@ class IUP is IUP::Handle {
     # IupLoopStep IupLoopStepWait IupMainLoopLevel
     # IupFlush IupExitLoop
     # IupPostMessage  IupRecordInput  IupPlayInput   IupUpdate
-    # IupUpdateChildren IupRedraw IupRefresh IupRefreshChildren
+    # IupUpdateChildren IupRedraw IupRefreshChildren
+
+    sub IupRefresh(IUP::Handle) is native(IUP_LIB) {*}
+
     # IupExecute IupExecuteWait IupHelp IupLog
     # IupLoad    IupLoadBuffer
 
@@ -1001,17 +996,21 @@ class IUP is IUP::Handle {
 
     ### METHODS ###
 
-    method open(@argv = [,] -->int32) {
-        my $argc = @argv.elems;
-        my $arglist := CArray[Str].new();
-
-        my $i = 0;
+    method open(@argv = [,] --> int32) {
+        my int32 $argc = @argv.elems;
+        my CArray[Str] $arglist = CArray[Str].new();
+        my Pointer $ptr;
+        my UInt $i = 0;
+ 
         for @argv -> $a {
-            $arglist[$i] = $a;
+            $arglist[$i] = $a.Str;
             $i++;
         }
-        return p6IupOpen($argc, $arglist);
+        $ptr = nativecast(Pointer[CArray[Str]], $arglist);
+        IupOpen($argc, $ptr);
     }
+
+    method controls-open(-->Mu) { IupControlsOpen(); }
 
     method close(-->Mu) { IupClose }
 
