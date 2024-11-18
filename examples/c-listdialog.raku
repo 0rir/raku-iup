@@ -17,7 +17,7 @@ sub MAIN() {
     my $title ="Color Selection";
     my Str @option = [ "Blue",  "Red", "Green", "Yellow", "Black", "White",
             "Gray", "Brown" ];
-    my Int @preselect = [ 0 ];
+    my Int @preselect = [];
     my ( $col, $line) = 16, 5;
 
     # multiple selection is indicated by @preselect being an Array
