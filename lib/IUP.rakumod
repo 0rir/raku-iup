@@ -1,6 +1,8 @@
 # :vim ft=raku sw=4 expandtab
 use NativeCall;
 
+my $*DEBUG = True if %*ENV<DEBUG>;
+
 # Abbreviations
 sub IUP_LIB() { 'iup' }
 sub CD_LIB() { 'cd' }
