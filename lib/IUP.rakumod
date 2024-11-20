@@ -170,17 +170,17 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupSetCallbackh(IUP::Handle, Str, &cb (IUP::Handle --> int32)
         -->IUP::Callback)
-        is native(IUP_LIB) 
+        is native(IUP_LIB)
         is symbol('IupSetCallback') { * }; # h
 
     sub IupSetCallbackhi(IUP::Handle, Str, &cb (IUP::Handle, int32 --> int32)
         -->IUP::Callback)
-        is native(IUP_LIB) 
+        is native(IUP_LIB)
         is symbol('IupSetCallback') { * }; #hi
 
     sub IupSetCallbackhsi(
         IUP::Handle, Str, &cb (IUP::Handle, Str, int32 -->int32)
-        -->IUP::Callback) 
+        -->IUP::Callback)
         is native(IUP_LIB) is symbol('IupSetCallback') { * }; #hsi
 
     sub IupSetCallbackhsii(
@@ -190,12 +190,12 @@ class IUP::Handle is repr('CPointer') {
 
     sub IupSetCallbackhiis(
         IUP::Handle, Str, &cb (IUP::Handle, int32, int32, Str --> int32)
-        -->IUP::Callback) 
+        -->IUP::Callback)
         is native(IUP_LIB) is symbol('IupSetCallback') { * }; #hiis
 
-    sub IupSetCallbackhiiii(IUP::Handle, Str, 
+    sub IupSetCallbackhiiii(IUP::Handle, Str,
         &cb (IUP::Handle, int32, int32, int32, int32 --> int32)
-        -->IUP::Callback) 
+        -->IUP::Callback)
         is native(IUP_LIB) is symbol('IupSetCallback') { * }; #hiiii
 
     # IupSetCallbacks IupGetFunction IupSetFunction
@@ -432,12 +432,11 @@ class IUP::Handle is repr('CPointer') {
             $listN[$_] = $list[$_];
             $markN[$_] = 0;
         }
-        for @presel -> $i { if $i ~~ ^$list { $markN[$i] = 1 }
+        for @presel -> $i { if $i ~~ 1..$list.elems { $markN[$i] = 1 } }
         -1 == IupListDialog( i32ro(2), $title, $size, $listN, i32ro(0),
                 i32ro($max_col), i32ro($max_lin), $markN)
             ?? []
             !! $listN[ $markN.grep( ?*, :k)].Array
-        }
     }
 
     # IupGetText IupGetColor IupGetParam IupGetParamv
@@ -691,13 +690,13 @@ class IUP::Handle is repr('CPointer') {
             when 2 { return IupSetCallbackhi(self, $name.fmt, $func) }
             when 4 {
                 if @params[1].type ~~ Int {
-                    return IupSetCallbackhiis(self, $name.fmt, $func); 
+                    return IupSetCallbackhiis(self, $name.fmt, $func);
                 } elsif @params[1].type ~~ Str {
-                    return IupSetCallbackhsii(self, $name.fmt, $func); 
+                    return IupSetCallbackhsii(self, $name.fmt, $func);
                 }
             }
             when 5 {
-                return IupSetCallbackhiiii(self, $name.fmt, $func); 
+                return IupSetCallbackhiiii(self, $name.fmt, $func);
             }
             default { warn "Error... no callback"  }        # TODO ??? die
         }
@@ -921,7 +920,7 @@ class IUP::Handle is repr('CPointer') {
 
     multi method list-dialog( Str:D $title, Array[Str] $list, Int $presel,
             Int:D $max_col, Int:D $max_lin -->Array) {
-               say "in list-dialog single" if $*DEBUG;                
+               say "in list-dialog single" if $*DEBUG;
         IupListDialog $title, $list, $presel, $max_col, $max_lin;
     }
 
@@ -934,7 +933,7 @@ class IUP::Handle is repr('CPointer') {
     method classmatch(Str $classname --> Bool) {
         return IupClassMatch(self, $classname) ?? True !! False;
     }
- 
+
     method get-classname(--> Str) { return IupGetClassName(self); }
 
 
@@ -1001,7 +1000,7 @@ class IUP is IUP::Handle {
         my CArray[Str] $arglist = CArray[Str].new();
         my Pointer $ptr;
         my UInt $i = 0;
- 
+
         for @argv -> $a {
             $arglist[$i] = $a.Str;
             $i++;
