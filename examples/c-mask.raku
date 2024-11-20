@@ -1,3 +1,4 @@
+#!/usr/bin/env raku
 #  IupText MASK: Example in Raku from C
 #  Creates an IupText that accepts only numbers.
 use lib 'lib';

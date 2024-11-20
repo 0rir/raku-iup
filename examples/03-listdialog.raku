@@ -31,7 +31,7 @@ sub MAIN() {
 
     # multiple selection
     $title = 'Choose Multiple from List';
-    my @pre-sel =[1,3,5];
+    my Int @pre-sel =[1,3,5];
 
     @sel = $iup.list-dialog: $title, @list, @pre-sel, $cols, $lines;
     say 'Multiple selection: ', @sel.raku;
