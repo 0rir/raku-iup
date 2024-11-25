@@ -8,6 +8,7 @@ sub IUP_LIB() { 'iup' }
 sub CD_LIB() { 'cd' }
 sub IUPCONTROLS_LIB() { 'iupcontrols' }
 sub IM_LIB() { 'im' }
+sub IUPIMG_LIB() { 'iupimglib' }
 
 #
 # Callback Return Values
@@ -959,7 +960,7 @@ class IUP is IUP::Handle {
 
     # IupIsOpened
 
-    sub IupImageLibOpen() is native(IUP_LIB) {*};
+    sub IupImageLibOpen() is native(IUPIMG_LIB) {*};
 
     # Starts loop on interaction that stops when a callback returns IUP_CLOSE,
     # IupExitLoop is called, or all dialogs are hidden.
