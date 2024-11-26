@@ -34,29 +34,29 @@ sub MultiBoxTest() {
                     ),
             );
 
-    $mbox.set_attr("SIZECOL", "2");
-    $mbox.set_attr("SIZELIN", "3");
-    #  $mbox.set_attr("HOMOGENEOUSLIN", "Yes");
-    #  $mbox.set_attr("HOMOGENEOUSCOL", "Yes");
-    #  $mbox.set_attr("EXPANDCHILDREN", "HORIZONTAL");
-    #  $mbox.set_attr("NORMALIZESIZE", "BOTH");
-    #  $mbox.set_attr("NORMALIZESIZE", "HORIZONTAL");
+    $mbox.set-attr("SIZECOL", "2");
+    $mbox.set-attr("SIZELIN", "3");
+    #  $mbox.set-attr("HOMOGENEOUSLIN", "Yes");
+    #  $mbox.set-attr("HOMOGENEOUSCOL", "Yes");
+    #  $mbox.set-attr("EXPANDCHILDREN", "HORIZONTAL");
+    #  $mbox.set-attr("NORMALIZESIZE", "BOTH");
+    #  $mbox.set-attr("NORMALIZESIZE", "HORIZONTAL");
 
-    $mbox.set_attr("NUMDIV", "3");
-    #  $mbox.set_attr("ORIENTATION", "VERTICAL");
-    #  $mbox.set_attr("NUMDIV", "2");
-    #  $mbox.set_attr("NUMDIV", "AUTO");
+    $mbox.set-attr("NUMDIV", "3");
+    #  $mbox.set-attr("ORIENTATION", "VERTICAL");
+    #  $mbox.set-attr("NUMDIV", "2");
+    #  $mbox.set-attr("NUMDIV", "AUTO");
 
-    $mbox.set_attr("ALIGNMENTLIN", "ACENTER");
-    $mbox.set_attr("MARGIN", "10x10");
-    $mbox.set_attr("GAPLIN", "5");
-    $mbox.set_attr("GAPCOL", "5");
+    $mbox.set-attr("ALIGNMENTLIN", "ACENTER");
+    $mbox.set-attr("MARGIN", "10x10");
+    $mbox.set-attr("GAPLIN", "5");
+    $mbox.set-attr("GAPCOL", "5");
 
     my $dlg = $ih.dialog($ih.hbox($fr1));
 
-    $dlg.set_attr("TITLE", "IupMultiBox Test", :copy);
-    $dlg.set_attr("MARGIN", "10x10");
-    $fr1.set_attr("MARGIN", "0x0");
+    $dlg.set-attr("TITLE", "IupMultiBox Test", :copy);
+    $dlg.set-attr("MARGIN", "10x10");
+    $fr1.set-attr("MARGIN", "0x0");
     #  avoid attribute propagation   XXX ???
 
     # Shows dlg in the center of the screen

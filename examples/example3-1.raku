@@ -22,7 +22,7 @@ multi MAIN ( ) {
     $dlg.show( IUP_CENTER, IUP_CENTER);
     $dlg.set-attr( "USERSIZE", '');
 
-    $iup.main_loop();
+    $iup.main-loop();
     $iup.close();
 }
 

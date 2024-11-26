@@ -18,7 +18,7 @@ multi MAIN ( ) {
     $item_open = $iup.item( "Open", '');
     $item_saveas = $iup.item( "Save As", '');
     $item_exit = $iup.item( "Exit", '');
-    $item_exit.set_callback( "ACTION", &exit_callback);
+    $item_exit.set-callback( "ACTION", &exit_callback);
 
     $file_menu = $iup.menu(
         $item_open,
@@ -36,14 +36,14 @@ multi MAIN ( ) {
             $multitext.set-attr( "EXPAND", "YES");
 
     my $dlg = $iup.dialog($vbox);
-    $dlg.set_attribute_handle( "MENU", $menu);
+    $dlg.set-attr-handle( "MENU", $menu);
     $dlg.set-attr( "TITLE", "Simple Notepad", :copy);
     $dlg.set-attr( "SIZE", "QUARTERxQUARTER");
 
     $dlg.show( IUP_CENTER, IUP_CENTER);
     $dlg.set-attr( "USERSIZE", '');
 
-    $iup.main_loop();
+    $iup.main-loop();
     $iup.close();
 }
 

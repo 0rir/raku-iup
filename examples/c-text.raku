@@ -25,7 +25,7 @@ sub MAIN() {
     $dlg.set-attr("TITLE", "IupText", :copy);
     $dlg.show(IUP_CENTER, IUP_CENTER);
 
-    $iup.main_loop;
+    $iup.main-loop;
 say "\$text -> $text.get-attr( 'VALUE').Str() \t\$pwd -> $pwd.get-attr( 'VALUE').Str()";
     $iup.close;
 

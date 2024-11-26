@@ -11,7 +11,7 @@ sub MAIN ( ) {
 
     my $label = $iup.label( "Hello world from IUP.");
     my $button  = $iup.button( '&OK', '' );
-    $button.set_callback("ACTION", &exit_callback);
+    $button.set-callback("ACTION", &exit_callback);
     my $vbox  = $iup.vbox( $label, $button );
     $vbox.set-attr( 'ALIGNMENT', 'ACENTER');
     $vbox.set-attr( 'GAP', '30');
@@ -20,7 +20,7 @@ sub MAIN ( ) {
     $dlg.set-attr( "TITLE", "Hello World 5", :copy);
 
     $dlg.show( IUP_CENTER, IUP_CENTER);
-    $iup.main_loop();
+    $iup.main-loop();
     $iup.close;
 }
 

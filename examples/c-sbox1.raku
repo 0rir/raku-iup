@@ -14,25 +14,25 @@ sub MAIN() {
   my ( $dlg, $bt, $box, $lbl, $ml, $vbox);
 
   $bt = $ih.button("Button");
-  #$bt.set_attr("EXPAND", "VERTICAL"); #  This is the only necessary EXPAND
-  $bt.set_attr( "EXPAND", "YES");
+  #$bt.set-attr("EXPAND", "VERTICAL"); #  This is the only necessary EXPAND
+  $bt.set-attr( "EXPAND", "YES");
 
   $box = $ih.sbox( $bt);
-  $box.set_attr( "DIRECTION", "SOUTH");  # place at the button's bottom
-  $box.set_attr( "COLOR", "0 255 0");
+  $box.set-attr( "DIRECTION", "SOUTH");  # place at the button's bottom
+  $box.set-attr( "COLOR", "0 255 0");
 
   $ml = $ih.multiline('');
-  $ml.set_attr( "EXPAND", "YES");
-  $ml.set_attr( "VISIBLELINES", "5");
+  $ml.set-attr( "EXPAND", "YES");
+  $ml.set-attr( "VISIBLELINES", "5");
   $vbox = $ih.vbox( $box, $ml);
 
   $lbl = $iup.label("Label");
-  $lbl.set_attr( "EXPAND", "VERTICAL");
+  $lbl.set-attr( "EXPAND", "VERTICAL");
 
   $dlg = $iup.dialog( $iup.hbox($vbox, $lbl) );
-  $dlg.set_attr( "TITLE", "IupSbox Example");
-  $dlg.set_attr( "MARGIN", "10x10");
-  $dlg.set_attr( "GAP", "10");
+  $dlg.set-attr( "TITLE", "IupSbox Example");
+  $dlg.set-attr( "MARGIN", "10x10");
+  $dlg.set-attr( "GAP", "10");
 
   $dlg.show;
 

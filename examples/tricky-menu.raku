@@ -66,7 +66,7 @@ sub menu-test {
 
     # Edit Menu
     my $menu-edit = $ih.menu(
-        $ih.item("Active Next", "").set_attribute('IMAGE', "IUP_ArrowRight"),
+        $ih.item("Active Next", "").set-attr('IMAGE', "IUP_ArrowRight"),
         $ih.item("Rename Next", ""),
         $ih.item("Set Next Image", ""),
         $ih.item("Item && Acc\tCtrl+A", ""),
@@ -93,7 +93,7 @@ sub menu-test {
 
     my $canvas = $ih.canvas("");
     my $dlg = $ih.dialog($canvas);
-    $dlg.set_attribute_handle("MENU", $menu);
+    $dlg.set-attr-handle("MENU", $menu);
     $dlg.set-attr( :copy,
         "TITLE" => "IupMenu Test",
         "SIZE"  => "QUARTERxQUARTER");

@@ -16,7 +16,7 @@ sub MAIN() {
     $iup.open;
     my $ih = IUP::Handle.new;
 
-    $iup.set-str-global( 'DEFAULTFONTSIZE', '24' );
+    $iup.set-global( 'DEFAULTFONTSIZE', '24' );
 
     my Str $title = 'Choose One from List';
     my Str @list = < Red White Blue Green Yellow Black Orange Gold >;

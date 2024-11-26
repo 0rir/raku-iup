@@ -73,7 +73,7 @@ sub MAIN() {
             $frame3
         )
     );
-    $dialog.set_attribute( "TITLE", "IupHbox");
+    $dialog.set-attr( "TITLE", "IupHbox");
     # Sets dialog's title
 
     $dialog.show(IUP_CENTER, IUP_CENTER);

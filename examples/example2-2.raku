@@ -15,6 +15,6 @@ sub MAIN ( ) {
     $dlg.set-attr( "TITLE", "Hello World 2", :copy );
 
     $dlg.show( IUP_CENTER, IUP_CENTER);
-    $iup.main_loop();
+    $iup.main-loop();
     $iup.close;
 }

@@ -68,7 +68,7 @@ instead of hyphens.
 | get-attrs          | Get attributes of self                                    |
 | get-int            | Get integer attribute by name                             |
 | set-global         | Set global by key (name) and value                        |
-| set-str-global     | Set string global by key (name) and value                 |
+| set-str-global     | Deprecated, use  set-global( :copy, $name)                |
 | get-global         | Get named global's value                                  |
 | set-focus          | Set focus on self                                         |
 | get-focus          | Get widget that has focus                                 |

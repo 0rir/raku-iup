@@ -998,7 +998,7 @@ class IUP is IUP::Handle {
 
     ### METHODS ###
 
-    method open(@argv = [,] --> int32) {
+    method open(@argv = [] --> int32) {
         my int32 $argc = @argv.elems;
         my CArray[Str] $arglist = CArray[Str].new();
         my Pointer $ptr;
