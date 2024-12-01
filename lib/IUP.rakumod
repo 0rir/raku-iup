@@ -521,14 +521,14 @@ class IUP::Handle is repr('CPointer') {
 
     # set-attr: These multis cover setting one or more attributes by reference.
     # :copy indicates that the data should be copied instead of using a ref.
-    # :pre is only to support the preformatted string arg used in C code.
+    # :pre is only to support the preformatted string arg as used in C code.
     # All the 'set-attr's return the self element.
     multi method set-attr( Str:D $pre-kv-str, Bool :$pre where $pre -->Ihdle) {
                say "set Attr 1: $pre-kv-str, pre: $pre" if $*DEBUG;
         IupSetAttributes(self, $pre-kv-str);
     }
     multi method set-attr(
-            Str:D $k, Str:D $v, Bool :$copy! where $copy -->Ihdle) {
+            Str:D $k, Str:D $v, Bool :$copy! where * -->Ihdle) {
                 say "set Attr 2 $copy: $k =>  {$v ?? $v !! 'NULL'}" if $*DEBUG;
          IupSetStrAttribute( self, $k, $v);
         self
@@ -641,7 +641,7 @@ class IUP::Handle is repr('CPointer') {
     # setintid2 setfloatid2 setdoubleid2 setRGBid2 getattributeid2 getintid2
     # getfloatid2 getdoubleid2 getRGBid2
 
-    multi method set-global( Str $k, Str $v, Bool :$copy where ?$copy -->Mu) {
+    multi method set-global( Str $k, Str $v, Bool :$copy where * -->Mu) {
         IupSetStrGlobal($k,$v)
     }
     multi method set-global( Str $k, Str $v -->Mu) {
@@ -650,7 +650,7 @@ class IUP::Handle is repr('CPointer') {
 
     method set_global( Str $k, Str $v -->Mu) {
         DEPRECATED('set-global','0.5.0','1.0.0', :what( &?ROUTINE.name));
-        IupSetStrGlobal($k,$v)
+        IupSetGlobal($k,$v)
     }
 
     method set-str-global( Str $k, Str $v -->Mu) {
