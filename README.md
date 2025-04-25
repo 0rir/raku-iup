@@ -124,8 +124,8 @@ instead of hyphens.
 | get-version-date   | Return version's date                                     |
 | get-version-number | Get version number                                        |
 
-For convenience a IUP/Colors.rakumod file exists with 140 common colors
-named by their standard English names .  Which standard is _the_ standard
+For convenience a IUP::Colors module exists with 140 common colors
+named by their standard English names.  Which standard is _the_ standard
 is a standard problem.
 
 Sample GUI:
@@ -149,7 +149,7 @@ $iup.open;
 
 my $btn = $iup.button("&Ok", "");
 
-$btn.set-callback("ACTION", &exit_callback);
+$btn.set-callback("ACTION", &exit-callback);
 
 $btn.set-attr("IMAGE", "IUP_ActionOk");
 $btn.set-attr("EXPAND", "YES");
