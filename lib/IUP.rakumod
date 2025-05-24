@@ -944,7 +944,7 @@ class IUP::Handle is repr('CPointer') {
     # ElementPropertiesDialog GlobalsDialog ClassInfoDialog
 }
 
-class IUP:ver<0.5.5> is IUP::Handle {
+class IUP:ver<0.5.6> is IUP::Handle {
 
     constant Ihdle = IUP::Handle;
     constant Ptr = Pointer;
