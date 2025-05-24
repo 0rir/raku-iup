@@ -10,6 +10,9 @@ others.  IUP::Handle.set-callback forwards its work to other custom code by
 arity of the callback being set-up.  This is fine but only arities 0
 and 1 are handled.  Enhance this mechanism.
 
+There is a table below indicating coverage of IUP functionality.  Task
+below are going to be real late in coming.  Requests might help, help
+will help more.
 
 Short Road map
 
@@ -17,6 +20,10 @@ This is mostly about getting the upstream ~/examples/C/ files working (here
 working is just getting visually correct widgets).  Note that some files
 exercise widgets/controls/elements that are expected to be displaced by Raku
 code.
+
+These lists of example files should be reduced to the NYI calls categorized
+by their native library.  Then the table below can show that info concisely.
+
 
 These just include iup.h and so are the first to be addressed:
 
@@ -48,11 +55,12 @@ not installed.
     gauge getcolor getxy_showxy progressbar
     sbox2 scrollbar tree
 
-This TODO contains all IUP functions that are listed in the sidebar on
+This table contains all IUP functions that are listed in the sidebar on
 https://www.tecgraf.puc-rio.br/iup/ .  There are many other IUP functions
 in C; some are variations on the "main" functions, some are later additions,
 and a few have no specific toolkit-iness about them, e.g. IupVersion just
 grabs a string.  Such functions are listed if they are used.
+
 
 Legend:
     u  - Not in ToC of upstream doc's. AKA utility function.
